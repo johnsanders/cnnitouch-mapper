@@ -1,0 +1,211 @@
+#filtersDefs{
+	position:absolute;
+	left:-10000px;
+}
+#app {
+	height:100vh;
+}
+body {
+	padding: 0;
+	margin: 0;
+}
+.leaflet-tile img{
+	width:259.6px !important;
+	height:259.6px !important;
+}
+.leaflet-overlay-pane {
+	filter:url(#dropshadow);
+}
+#googleCourtesy{
+	font-family: CNN;
+	font-weight: 400;
+	position: absolute;
+	right: 35px;
+	top: 35px;
+	font-size: 2em;
+	z-index: 100;
+	background-color: black;
+	padding: 2px 8px;
+	border-right: solid #c00 0.2em;
+	color: white;
+	z-index:1000;
+}
+.displayMap .leaflet-control-container .leaflet-top.leaflet-left {
+	display: none;
+}
+.leaflet-control-container .leaflet-bottom.leaflet-left {
+	display: none;
+}
+.leaflet-control-container .leaflet-bottom.leaflet-right {
+	display: none;
+}
+/*
+table.table tr td {
+	vertical-align: middle;
+}
+
+.leaflet-control-attribution {
+	display:none;
+}
+div.leaflet-marker-icon {
+	margin:0 !important;
+}
+#labels {
+	position:absolute;
+	pointer-events:none;
+	z-index:100;
+  box-shadow: 0 0 400px rgba(0,0,0,0.6) inset;
+}
+.label {
+	pointer-events:all;
+	cursor:default;
+}
+.areaLabel {
+	pointer-events:all;
+	cursor:default;
+}
+.suggestionItem {
+  padding: 4px;
+  text-align: left;
+}
+.suggestionItem i {
+	color: red;
+	margin: 5px;
+}
+.suggestionItem strong {
+	margin: 5px;
+}
+.searchFooter {
+  display: flex;
+  justify-content: flex-end;
+  padding: 4px;
+	background-color:gray;
+}
+.searchFooter img {
+  display: inline-block;
+  width: 150px;
+}
+.spinner {
+	margin: 0 10px;
+}
+#mapContainer {
+	margin:20px 0;
+	width:100%;
+	display:flex;
+	align-items:flex-start;
+	justify-content:center;
+}
+#mapEditor {
+	position:relative;
+	top:40px;
+}
+.nav-link {
+	cursor:pointer;
+}
+.nav-item {
+	margin-left:auto;
+	margin-right:auto;
+}
+#zoom {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	top:20px;
+	left: -505px;
+}
+#zoom button {
+	margin:0 10px 10px 0;
+}
+#zoom button span {
+	pointer-events:none;
+}
+.leaflet-interactive {
+	cursor: inherit !important;
+}
+.hidden {
+	display:none;
+}
+#loader {
+	height:100vh;
+	display:flex;
+	align-items:center;
+	justify-content:center;
+}
+.gm-style-cc {
+	display: none;
+}
+#map a {
+	display:none !important;
+}
+#mapMask {
+	position:absolute;
+}
+@keyframes fa-spin {
+  0% { transform: rotate(0deg); }
+  100% {transform: rotate(360deg); }
+}
+#mapLoader svg {
+	color:#D0D0D0;
+	font-size:5rem;
+	position: relative;
+	top: 175px;
+	animation: fa-spin 1s infinite steps(8);
+}
+.rc-steps-item-process .rc-steps-item-icon{
+	background-color:#007bff !important;
+}
+#googleCourtesy{
+	font-family: CNN;
+	font-weight: 400;
+	position: absolute;
+	right: 35px;
+	top: 35px;
+	font-size: 20px;
+	line-height:22px;
+	z-index: 100;
+	background-color: black;
+	padding: 2px 8px;
+	border-right: solid #c00 2.5px;
+	color: white;
+}
+#bannerOverlay{
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 100;
+	width: 960px;
+	height: 540px;
+	pointer-events:none;
+}
+#titleHeadline{
+	position:absolute;
+	top:2.5vh;
+	left:4vw;
+	z-index:101;
+	font-family: "CNN Condensed";
+	font-weight: 700;
+	font-size:3vh;
+	line-height:2.5vh;
+	padding:0.475vh 0.6vw 0.2vh 0.6vw;
+	background: linear-gradient(180deg,#fff 0,#e8e8e8);
+	color:black;
+}
+#titleHeadline::before{
+	content: "";
+	background: linear-gradient(180deg,#fff 0,#e8e8e8);
+	width: 0.6vw;
+	height: 3.15vh;
+	top: 0;
+	position: absolute;
+	left: -0.9vw;
+}
+.btnIcon {
+	margin-right:0.25rem;
+}
+.actions button {
+	margin-right:0.5rem;
+}
+ul.list-group {
+	cursor:move;
+}
+*/
