@@ -11,7 +11,7 @@ import googleApiKey from '../config/googleApiKey_disableGit.json';
 interface Props {
 	initialCenter?: L.LatLngExpression;
 	dims: [number, number];
-	type: 'display' | 'edit';
+	mode: 'render' | 'edit';
 	initialZoom?: number;
 }
 
@@ -19,15 +19,15 @@ const MapContainer: React.ForwardRefRenderFunction<Map, Props> = (props, ref) =>
 	return (
 		<div style={{ height: props.dims[1], position: 'absolute', width: props.dims[0] }}>
 			<SvgFiltersDefs />
-			{props.type === 'display' ? <div id="googleCourtesy">Google Earth</div> : null}
+			{props.mode === 'render' ? <div id="googleCourtesy">Google Earth</div> : null}
 			<LeafletContainer
 				center={props.initialCenter || [0, 0]}
-				className={`${props.type}Map`}
-				fadeAnimation={false}
+				fadeAnimation={props.mode === 'edit'}
 				maxBounds={[
-					[-90, -180],
-					[90, 180],
+					[-90, -270],
+					[90, 270],
 				]}
+				maxZoom={18}
 				minZoom={2}
 				ref={ref}
 				scrollWheelZoom={true}
@@ -37,7 +37,8 @@ const MapContainer: React.ForwardRefRenderFunction<Map, Props> = (props, ref) =>
 					width: '100%',
 				}}
 				zoom={props.initialZoom || 2}
-				zoomAnimation={false}
+				zoomAnimation={props.mode === 'edit'}
+				zoomControl={props.mode === 'edit'}
 				zoomSnap={0}
 			>
 				<ReactLeafletGoogleLayer apiKey={googleApiKey.key} type={'satellite'} />

@@ -30,9 +30,6 @@ body {
 	color: white;
 	z-index:1000;
 }
-.displayMap .leaflet-control-container .leaflet-top.leaflet-left {
-	display: none;
-}
 .leaflet-control-container .leaflet-bottom.leaflet-left {
 	display: none;
 }
