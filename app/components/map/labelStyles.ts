@@ -1,31 +1,31 @@
-interface PathStyle {
+export interface PathStyle {
 	fill: string;
 	stroke: string;
 	strokeWidth: string;
 }
-interface TextStyle {
+export interface TextStyle {
 	fill: string;
 	fontFamily: string;
 	upperCase: boolean;
 }
-interface LabelElementStyle {
+export interface LabelElementStyle {
 	path: PathStyle;
 	text: TextStyle;
 }
-interface LabelStyles {
+export interface LabelStyles {
 	[labelType: string]: LabelElementStyle;
 }
 const labelStyles: LabelStyles = {
-	country: {
+	capital: {
 		path: {
-			fill: 'white',
+			fill: 'black',
 			stroke: 'white',
-			strokeWidth: '0',
+			strokeWidth: '2',
 		},
 		text: {
-			fill: 'black',
+			fill: 'white',
 			fontFamily: 'CNN',
-			upperCase: true,
+			upperCase: false,
 		},
 	},
 	city: {
@@ -40,16 +40,16 @@ const labelStyles: LabelStyles = {
 			upperCase: false,
 		},
 	},
-	capital: {
+	country: {
 		path: {
-			fill: 'black',
+			fill: 'white',
 			stroke: 'white',
-			strokeWidth: '2',
+			strokeWidth: '0',
 		},
 		text: {
-			fill: 'white',
+			fill: 'black',
 			fontFamily: 'CNN',
-			upperCase: false,
+			upperCase: true,
 		},
 	},
 };

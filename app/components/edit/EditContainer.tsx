@@ -7,6 +7,7 @@ const initialState: EditState = {
 	activeTab: 'bounds',
 	bounds: [new LatLng(1, 1), new LatLng(1, 1)],
 	hilites: [],
+	labels: [],
 	mapDims: [1280, 720],
 };
 const reducer = (state: EditState, action: EditAction) => {

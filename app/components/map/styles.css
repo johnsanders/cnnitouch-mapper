@@ -8,6 +8,6 @@
 .leaflet-control-container .leaflet-bottom.leaflet-left {
 	display: none;
 }
-.leaflet-control-container .leaflet-bottom.leaflet-right {
-	display: none;
+.leaflet-control-attribution {
+	display:none;
 }

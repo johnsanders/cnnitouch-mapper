@@ -1,12 +1,15 @@
 import { Box, Button, Grid } from '@mui/material';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
-import PlaceSearch from './LabelsChooser';
+import { Label } from '../map/types';
+import LabelsChooser from './LabelsChooser';
 import React from 'react';
 import { faArrowRight } from '@fortawesome/pro-solid-svg-icons';
 
 interface Props {
 	active: boolean;
+	labels: Label[];
 	onNext: () => void;
+	setLabels: (labels: Label[]) => void;
 }
 
 const EditTabLabels: React.FC<Props> = (props: Props) =>
@@ -16,7 +19,7 @@ const EditTabLabels: React.FC<Props> = (props: Props) =>
 				Search for and select places you want to label. When the label appears on the map, drag it
 				to the best position.
 			</Box>
-			<PlaceSearch />
+			<LabelsChooser labels={props.labels} setLabels={props.setLabels} />
 			<Box mt={2} textAlign="center">
 				<Button
 					color="secondary"

@@ -1,5 +1,5 @@
 import { Box, Button, Grid } from '@mui/material';
-import { Hilite } from '../../types';
+import { Hilite } from '../map/types';
 import HiliteChooser from './HilitesChooser';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import React from 'react';

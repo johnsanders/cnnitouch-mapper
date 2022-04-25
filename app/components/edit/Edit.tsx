@@ -1,4 +1,4 @@
-import { Bounds, Hilite } from '../../types';
+import { Bounds, Hilite, Label } from '../map/types';
 import { Container, CssBaseline, Grid, Tab, Tabs } from '@mui/material';
 import { EditAction, EditState } from './types';
 import EditTabBounds from './EditTabBounds';
@@ -53,7 +53,9 @@ const Edit: React.FC<Props> = (props) => {
 					/>
 					<EditTabLabels
 						active={props.state.activeTab === 'labels'}
+						labels={props.state.labels}
 						onNext={() => props.dispatch({ key: 'activeTab', value: 'render' })}
+						setLabels={(labels: Label[]) => props.dispatch({ key: 'labels', value: labels })}
 					/>
 					<EditTabRender active={props.state.activeTab === 'render'} />
 				</Grid>

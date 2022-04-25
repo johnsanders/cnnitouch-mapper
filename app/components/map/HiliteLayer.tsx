@@ -1,5 +1,5 @@
 import { GeoJSON } from 'react-leaflet';
-import { Hilite } from '../../types';
+import { Hilite } from './types';
 import React from 'react';
 import { hiliteStyle } from './overlayStyles';
 import hilitesData from '../..//data/ne_10m_admin_0_countries.topo.json';
