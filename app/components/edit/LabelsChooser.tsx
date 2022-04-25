@@ -41,6 +41,7 @@ const PlaceSearch: React.FC<Props> = (props) => {
 				type: 'point',
 			};
 			setLabels([...labels, label]);
+			if (inputRef.current) inputRef.current.value = '';
 		});
 	}, [labels, setLabels]);
 	const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {

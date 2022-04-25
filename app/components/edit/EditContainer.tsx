@@ -4,7 +4,7 @@ import { LatLng } from 'leaflet';
 import React from 'react';
 
 const initialState: EditState = {
-	activeTab: 'bounds',
+	activeTab: 'labels',
 	bounds: [new LatLng(1, 1), new LatLng(1, 1)],
 	hilites: [],
 	labels: [],

@@ -1,9 +1,10 @@
 import './styles.css';
+import { Bounds, Label } from './types';
 import BordersLayer from './BordersLayer';
-import { Bounds } from '../../types';
 import { Box } from '@mui/material';
-import { Hilite } from '../../types';
+import { Hilite } from './types';
 import HiliteLayer from './HiliteLayer';
+import LabelsLayer from './LabelsLayer';
 import { MapContainer as LeafletContainer } from 'react-leaflet';
 import MapEventHandlers from './MapEventHandlers';
 import React from 'react';
@@ -16,10 +17,11 @@ const initialHeight = initialWidth * 0.5625;
 
 interface Props {
 	hilites: Hilite[];
-	setBounds?: (bounds: Bounds) => void;
+	labels: Label[];
 	initialCenter?: L.LatLngExpression;
-	mode: 'render' | 'edit';
 	initialZoom?: number;
+	mode: 'render' | 'edit';
+	setBounds?: (bounds: Bounds) => void;
 }
 
 const Map: React.FC<Props> = (props) => {
@@ -51,6 +53,7 @@ const Map: React.FC<Props> = (props) => {
 				<ReactLeafletGoogleLayer type={'satellite'} />
 				<BordersLayer />
 				<HiliteLayer hilites={props.hilites} />
+				<LabelsLayer labels={props.labels} />
 				<MapEventHandlers setBounds={props.setBounds} setDims={setDims} />
 			</LeafletContainer>
 		</Box>

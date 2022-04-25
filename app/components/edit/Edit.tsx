@@ -20,13 +20,12 @@ const Edit: React.FC<Props> = (props) => {
 			<Container>
 				<Grid container={true} justifyContent="center">
 					<Grid item={true} xs={12}>
-						{/*}
 						<Map
 							hilites={props.state.hilites}
+							labels={props.state.labels}
 							mode="edit"
 							setBounds={(bounds: Bounds) => props.dispatch({ key: 'bounds', value: bounds })}
 						/>
-						*/}
 					</Grid>
 					<Grid item={true} xs={12}>
 						<Tabs
