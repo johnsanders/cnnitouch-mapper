@@ -6,15 +6,8 @@
 	height:100vh;
 }
 body {
-	padding: 0;
 	margin: 0;
-}
-.leaflet-tile img{
-	width:259.6px !important;
-	height:259.6px !important;
-}
-.leaflet-overlay-pane {
-	filter:url(#dropshadow);
+	padding: 0;
 }
 #googleCourtesy{
 	font-family: CNN;
@@ -29,12 +22,6 @@ body {
 	border-right: solid #c00 0.2em;
 	color: white;
 	z-index:1000;
-}
-.leaflet-control-container .leaflet-bottom.leaflet-left {
-	display: none;
-}
-.leaflet-control-container .leaflet-bottom.leaflet-right {
-	display: none;
 }
 /*
 table.table tr td {

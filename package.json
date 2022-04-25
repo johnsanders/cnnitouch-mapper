@@ -25,7 +25,6 @@
 		"d3": "^7.4.4",
 		"geojson": "^0.5.0",
 		"leaflet": "^1.8.0",
-		"leaflet.gridlayer.googlemutant": "^0.13.5",
 		"rc-steps": "^4.1.4",
 		"react": "^18.0.0",
 		"react-dom": "^18.0.0",
@@ -34,7 +33,7 @@
 		"react-leaflet-google-layer": "^2.0.5",
 		"react-router": "^6.3.0",
 		"react-router-dom": "^6.3.0",
-		"topojson": "^3.0.2"
+		"topojson-client": "^3.1.0"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.17.9",
@@ -60,7 +59,7 @@
 		"clean-webpack-plugin": "^4.0.0",
 		"copy-webpack-plugin": "^10.2.4",
 		"css-loader": "^6.7.1",
-		"eslint": "^8.13.0",
+		"eslint": "^8.14.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-prettier": "^4.0.0",
 		"eslint-plugin-react": "^7.29.4",

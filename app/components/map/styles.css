@@ -1,0 +1,13 @@
+.leaflet-tile img{
+	width:259.6px !important;
+	height:259.6px !important;
+}
+.leaflet-overlay-pane {
+	filter:url(#dropshadow);
+}
+.leaflet-control-container .leaflet-bottom.leaflet-left {
+	display: none;
+}
+.leaflet-control-container .leaflet-bottom.leaflet-right {
+	display: none;
+}
