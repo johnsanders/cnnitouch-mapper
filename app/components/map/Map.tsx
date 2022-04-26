@@ -1,11 +1,13 @@
 import './styles.css';
 import { Bounds, Label } from './types';
+import { LatLngBoundsExpression, LatLngExpression } from 'leaflet';
 import BordersLayer from './BordersLayer';
 import { Box } from '@mui/material';
 import { Hilite } from './types';
 import HiliteLayer from './HiliteLayer';
 import LabelsLayer from './LabelsLayer';
 import { MapContainer as LeafletContainer } from 'react-leaflet';
+import MapAnimator from './MapAnimator';
 import MapEventHandlers from './MapEventHandlers';
 import React from 'react';
 import ReactLeafletGoogleLayer from 'react-leaflet-google-layer';
@@ -16,12 +18,14 @@ const initialWidth = window.innerWidth * mapWidthPct;
 const initialHeight = initialWidth * 0.5625;
 
 interface Props {
+	center?: LatLngExpression;
+	endBounds?: LatLngBoundsExpression;
 	hilites: Hilite[];
 	labels: Label[];
-	initialCenter?: L.LatLngExpression;
-	initialZoom?: number;
 	mode: 'render' | 'edit';
 	setBounds?: (bounds: Bounds) => void;
+	startBounds?: LatLngBoundsExpression;
+	zoom?: number;
 }
 
 const Map: React.FC<Props> = (props) => {
@@ -31,7 +35,7 @@ const Map: React.FC<Props> = (props) => {
 			<SvgFiltersDefs />
 			{props.mode === 'render' ? <div id="googleCourtesy">Google Earth</div> : null}
 			<LeafletContainer
-				center={props.initialCenter || [0, 0]}
+				center={props.center || [0, 0]}
 				fadeAnimation={props.mode === 'edit'}
 				maxBounds={[
 					[-90, -270],
@@ -45,7 +49,7 @@ const Map: React.FC<Props> = (props) => {
 					height: '100%',
 					width: '100%',
 				}}
-				zoom={props.initialZoom || 2}
+				zoom={props.zoom || 2}
 				zoomAnimation={props.mode === 'edit'}
 				zoomControl={props.mode === 'edit'}
 				zoomSnap={0}
@@ -55,6 +59,9 @@ const Map: React.FC<Props> = (props) => {
 				<HiliteLayer hilites={props.hilites} />
 				<LabelsLayer labels={props.labels} />
 				<MapEventHandlers setBounds={props.setBounds} setDims={setDims} />
+				{props.mode !== 'render' ? null : (
+					<MapAnimator endBounds={props.endBounds} startBounds={props.startBounds} />
+				)}
 			</LeafletContainer>
 		</Box>
 	);

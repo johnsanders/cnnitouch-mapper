@@ -22,7 +22,6 @@
 		"@fortawesome/react-fontawesome": "^0.1.18",
 		"@johnsand/aspect-container": "^2.0.1",
 		"@mui/material": "^5.6.2",
-		"d3": "^7.4.4",
 		"geojson": "^0.5.0",
 		"leaflet": "^1.8.0",
 		"rc-steps": "^4.1.4",
@@ -33,6 +32,7 @@
 		"react-leaflet-google-layer": "^2.0.5",
 		"react-router": "^6.3.0",
 		"react-router-dom": "^6.3.0",
+		"remotion": "^3.0.0",
 		"topojson-client": "^3.1.0",
 		"uuid": "^8.3.2"
 	},
