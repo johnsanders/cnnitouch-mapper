@@ -1,5 +1,5 @@
 import { useMap, useMapEvents } from 'react-leaflet';
-import { Bounds } from '../../types';
+import { Bounds } from './types';
 import React from 'react';
 import { debounce } from 'lodash-es';
 import { mapWidthPct } from './Map';

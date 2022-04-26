@@ -27,16 +27,6 @@ body {
 div.leaflet-marker-icon {
 	margin:0 !important;
 }
-#labels {
-	position:absolute;
-	pointer-events:none;
-	z-index:100;
-  box-shadow: 0 0 400px rgba(0,0,0,0.6) inset;
-}
-.label {
-	pointer-events:all;
-	cursor:default;
-}
 .areaLabel {
 	pointer-events:all;
 	cursor:default;
