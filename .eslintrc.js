@@ -2,11 +2,7 @@ module.exports = {
 	env: {
 		browser: true,
 	},
-	extends: [
-		'plugin:@typescript-eslint/recommended',
-		'plugin:react/recommended',
-		'plugin:prettier/recommended',
-	],
+	extends: ['plugin:react/recommended', 'plugin:prettier/recommended'],
 	parser: '@typescript-eslint/parser',
 	parserOptions: {
 		ecmaFeatures: {
@@ -17,8 +13,6 @@ module.exports = {
 	},
 	plugins: ['react-hooks'],
 	rules: {
-		'@typescript-eslint/no-explicit-any': 0,
-		'@typescript-eslint/no-unused-vars': 0, // TS handles this
 		'no-invalid-this': 'error',
 		'prettier/prettier': 'warn',
 		'react-hooks/exhaustive-deps': 'warn',
