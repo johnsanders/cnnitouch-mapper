@@ -2,7 +2,11 @@ module.exports = {
 	env: {
 		browser: true,
 	},
-	extends: ['plugin:react/recommended', 'plugin:prettier/recommended'],
+	extends: [
+		'plugin:@typescript-eslint/recommended',
+		'plugin:react/recommended',
+		'plugin:prettier/recommended',
+	],
 	parser: '@typescript-eslint/parser',
 	parserOptions: {
 		ecmaFeatures: {
