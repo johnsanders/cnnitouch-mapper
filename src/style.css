@@ -2,26 +2,9 @@
 	position:absolute;
 	left:-10000px;
 }
-#app {
-	height:100vh;
-}
 body {
 	margin: 0;
 	padding: 0;
-}
-#googleCourtesy{
-	font-family: CNN;
-	font-weight: 400;
-	position: absolute;
-	right: 35px;
-	top: 35px;
-	font-size: 2em;
-	z-index: 100;
-	background-color: black;
-	padding: 2px 8px;
-	border-right: solid #c00 0.2em;
-	color: white;
-	z-index:1000;
 }
 /*
 div.leaflet-marker-icon {

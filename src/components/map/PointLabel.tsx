@@ -1,11 +1,12 @@
 import { Label } from './types';
 import React from 'react';
 import { useMap } from 'react-leaflet';
+import { useVideoConfig } from 'remotion';
 
-const paddingX = 5;
+const paddingX = 8;
 const paddingY = -3;
 const pointerSize = 15;
-const fontSize = 25;
+const fontSize = 40;
 
 const getPositionAtAngle = (angle: number, distance: number) => ({
 	x: distance * Math.cos(angle),
@@ -17,14 +18,15 @@ interface Props {
 }
 
 const PointLabel: React.FC<Props> = (props: Props) => {
+	const { height: compHeight } = useVideoConfig();
+	const scale = compHeight / 1080;
 	const textRef = React.useRef<SVGTextElement>(null);
-	const [angle, setAngle] = React.useState(Math.PI * 0.25);
+	const [angle, setAngle] = React.useState(Math.PI * 0.3);
 	const [path, setPath] = React.useState('');
 	const position = useMap().latLngToContainerPoint([props.label.lat, props.label.lng]);
 	const offset = getPositionAtAngle(angle, fontSize + 20);
-	const { name } = props.label;
 	React.useEffect(() => {
-		if (!textRef.current) throw new Error(`Cannot get text for label ${name}`);
+		if (!textRef.current) throw new Error('Cannot get text for label');
 		const { height, width, x, y } = textRef.current.getBBox();
 		setPath(`
 			M 0,0
@@ -35,20 +37,22 @@ const PointLabel: React.FC<Props> = (props: Props) => {
 			L ${x - paddingX},${y - paddingY + pointerSize}
 			Z
 		`);
-	}, [name]);
+	}, []);
 	return (
 		<g className="label" transform={`translate(${position.x}, ${position.y})`}>
-			<path d={path} fill="black" stroke="white" strokeWidth="1px" />
-			<text
-				{...offset}
-				fill="white"
-				fontFamily="CNN"
-				fontSize="25px"
-				fontWeight="500"
-				ref={textRef}
-			>
-				{props.label.name}
-			</text>
+			<g transform={`scale(${scale})`}>
+				<path d={path} fill="black" stroke="white" strokeWidth="1px" />
+				<text
+					{...offset}
+					fill="white"
+					fontFamily="CNN"
+					fontSize={fontSize}
+					fontWeight="500"
+					ref={textRef}
+				>
+					{props.label.name}
+				</text>
+			</g>
 		</g>
 	);
 };
