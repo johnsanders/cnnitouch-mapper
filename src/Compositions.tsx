@@ -1,6 +1,7 @@
 import { Composition, getInputProps } from 'remotion';
-import MapRenderContainer from './components/map/MapRenderContainer';
+import Map from './components/map/Map';
 import React from 'react';
+import { registerRoot } from 'remotion';
 
 const Compositions: React.FC = () => {
 	const props = getInputProps();
@@ -8,8 +9,8 @@ const Compositions: React.FC = () => {
 		<>
 			<link href="https://ix.cnn.io/static/fonts/fonts.css" rel="stylesheet" />
 			<Composition
-				component={MapRenderContainer}
-				defaultProps={props}
+				component={Map}
+				defaultProps={{ ...props, mode: 'render' }}
 				durationInFrames={300}
 				fps={30}
 				height={1080}
@@ -20,4 +21,4 @@ const Compositions: React.FC = () => {
 	);
 };
 
-export default Compositions;
+registerRoot(Compositions);

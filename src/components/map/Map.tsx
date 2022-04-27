@@ -9,10 +9,11 @@ import { LatLngBoundsExpression } from 'leaflet';
 import { MapContainer as LeafletContainer } from 'react-leaflet';
 import MapAnimator from './MapAnimator';
 import MapEventHandlers from './MapEventHandlers';
-import { MapSettings } from '../edit/types';
+import { MapSettings } from './types';
 import React from 'react';
 import ReactLeafletGoogleLayer from 'react-leaflet-google-layer';
 import SvgFiltersDefs from '../../img/SvgFiltersDefs';
+import googleApiKey from '../../config/googleApiKey_disableGit';
 
 interface Props {
 	compHeight: number;
@@ -23,12 +24,13 @@ interface Props {
 
 const Map: React.FC<Props> = (props) => {
 	const scale = props.compHeight / 1080;
+	console.log(props.mode);
 	return (
 		<Box height="100%" position="relative" width="100%">
 			<SvgFiltersDefs />
 			<GoogleFont scale={scale} />
 			<LeafletContainer
-				fadeAnimation={props.mode === 'edit'}
+				fadeAnimation={true}
 				maxBounds={[
 					[-90, -270],
 					[90, 270],
@@ -41,11 +43,14 @@ const Map: React.FC<Props> = (props) => {
 					height: '100%',
 					width: '100%',
 				}}
-				zoomAnimation={props.mode === 'edit'}
+				zoomAnimation={true}
 				zoomControl={props.mode === 'edit'}
 				zoomSnap={0}
 			>
-				<ReactLeafletGoogleLayer type={'satellite'} />
+				<ReactLeafletGoogleLayer
+					apiKey={props.mode === 'render' ? googleApiKey : undefined}
+					type="satellite"
+				/>
 				<BordersLayer />
 				<HiliteLayer hilites={props.settings.hilites} />
 				<LabelsLayer labels={props.settings.labels} scale={scale} />

@@ -1,7 +1,6 @@
 import { Label } from './types';
 import React from 'react';
 import { useMap } from 'react-leaflet';
-import { useVideoConfig } from 'remotion';
 
 const paddingX = 8;
 const paddingY = -3;

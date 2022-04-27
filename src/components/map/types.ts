@@ -1,4 +1,13 @@
+import { LatLngBoundsExpression } from 'leaflet';
+
 export type Pos = [number, number];
+
+export interface MapSettings {
+	boundsEnd: LatLngBoundsExpression;
+	boundsStart: LatLngBoundsExpression;
+	hilites: Hilite[];
+	labels: Label[];
+}
 
 export interface Hilite {
 	name: string;

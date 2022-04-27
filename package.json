@@ -10,6 +10,8 @@
 		"deploy": "DEST=cnnitouch ./deploy.sh",
 		"dev": "NODE_OPTIONS=--openssl-legacy-provider webpack serve --mode=development --color --progress",
 		"gql": "gql-gen",
+		"preview": "remotion preview src/Compositions.tsx --props=test/testJob.json",
+		"render": "remotion render src/Compositions.tsx Mapper /Users/jsanders/Desktop/video.mp4 --concurrency=1",
 		"storybook": "NODE_OPTIONS=--openssl-legacy-provider start-storybook -p 6006",
 		"update": "npx npm-check-updates -i --timeout 60000"
 	},
@@ -42,6 +44,7 @@
 		"@babel/preset-react": "^7.16.7",
 		"@babel/preset-typescript": "^7.16.7",
 		"@fortawesome/fontawesome-common-types": "^6.1.1",
+		"@remotion/cli": "^3.0.0",
 		"@types/d3": "^7.1.0",
 		"@types/google-maps": "^3.2.3",
 		"@types/leaflet": "^1.7.9",

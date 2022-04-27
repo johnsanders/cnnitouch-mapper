@@ -1,12 +1,5 @@
-import { Hilite, Label } from '../map/types';
+import { Hilite, Label, MapSettings } from '../map/types';
 import { LatLngBoundsExpression } from 'leaflet';
-
-export interface MapSettings {
-	boundsEnd: LatLngBoundsExpression;
-	boundsStart: LatLngBoundsExpression;
-	hilites: Hilite[];
-	labels: Label[];
-}
 
 export interface EditSettings {
 	activeTab: TabName;

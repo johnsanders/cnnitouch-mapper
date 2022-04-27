@@ -5,21 +5,17 @@ import { useMap } from 'react-leaflet';
 
 const zoomDuration = 10 * 30;
 
-const defaultBounds: LatLngBoundsExpression = [
-	[69.77895, 174.726562],
-	[-69.2872, -174.023437],
-];
-
 interface Props {
-	endBounds?: LatLngBoundsExpression;
-	startBounds?: LatLngBoundsExpression;
+	endBounds: LatLngBoundsExpression;
+	startBounds: LatLngBoundsExpression;
 }
 
 const MapAnimator: React.FC<Props> = (props: Props) => {
-	const startBounds = props.startBounds || defaultBounds;
-	const endBounds = props.endBounds || defaultBounds;
+	const startBounds = props.startBounds;
+	const endBounds = props.endBounds;
 	const map = useMap();
 	const frame = useCurrentFrame();
+	console.log(frame);
 	React.useEffect(() => {
 		if (!startBounds || !endBounds) return;
 		const delayId = delayRender();
@@ -43,7 +39,7 @@ const MapAnimator: React.FC<Props> = (props: Props) => {
 			[bounds1Lat, bounds1Lng],
 			[bounds2Lat, bounds2Lng],
 		]);
-		setTimeout(() => continueRender(delayId), 100);
+		setTimeout(() => continueRender(delayId), 500);
 	});
 
 	return null;
