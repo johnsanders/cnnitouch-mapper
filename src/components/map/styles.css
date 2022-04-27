@@ -1,4 +1,7 @@
-
+#filtersDefs{
+	position:absolute;
+	left:-10000px;
+}
 .leaflet-tile img{
 	width:259.6px !important;
 	height:259.6px !important;

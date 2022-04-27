@@ -1,6 +1,3 @@
-import { LatLng } from 'leaflet';
-
-export type Bounds = [LatLng, LatLng];
 export type Pos = [number, number];
 
 export interface Hilite {

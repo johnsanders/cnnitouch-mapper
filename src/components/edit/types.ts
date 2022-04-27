@@ -1,19 +1,23 @@
-import { Bounds, Hilite, Label } from '../map/types';
-import { LatLng } from 'leaflet';
+import { Hilite, Label } from '../map/types';
+import { LatLngBoundsExpression } from 'leaflet';
 
-export interface EditState {
-	activeTab: TabName;
-	bounds: [LatLng, LatLng];
+export interface MapSettings {
+	boundsEnd: LatLngBoundsExpression;
+	boundsStart: LatLngBoundsExpression;
 	hilites: Hilite[];
 	labels: Label[];
-	mapDims: [number, number];
+}
+
+export interface EditSettings {
+	activeTab: TabName;
+	mapSettings: MapSettings;
 }
 
 export type EditAction =
-	| { key: 'activeTab'; value: string }
-	| { key: 'bounds'; value: Bounds }
+	| { key: 'activeTab'; value: TabName }
+	| { key: 'bounds'; value: LatLngBoundsExpression }
 	| { key: 'hilites'; value: Hilite[] }
 	| { key: 'labels'; value: Label[] }
 	| { key: 'mapDims'; value: [number, number] };
 
-export type TabName = 'bounds' | 'hilites' | 'labels' | 'render';
+export type TabName = 'boundsStart' | 'boundsEnd' | 'hilites' | 'labels' | 'render';

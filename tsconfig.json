@@ -18,5 +18,5 @@
 		"target": "es6",
 		"allowJs": true
 	},
-	"include": ["./app/**/*"]
+	"include": ["./src/**/*"]
 }

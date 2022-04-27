@@ -17,21 +17,21 @@ const isDevServer = process.argv.includes('serve');
 const htmlWebpackPluginConfig = new HtmlWebpackPlugin({
 	base: isDevServer ? '/' : '/apps/mapper/',
 	destination: outputDir,
-	favicon: './app/img/favicon.ico',
+	favicon: './src/img/favicon.ico',
 	filename: 'index.html',
 	inject: 'body',
-	template: './app/index.html',
+	template: './src/index.html',
 });
 const purgecssPluginConfig = new PurgecssPlugin({
 	keyframes: true,
-	paths: glob.sync(path.resolve('./app/**/*'), { nodir: true }),
+	paths: glob.sync(path.resolve('./src/**/*'), { nodir: true }),
 	safelist: [/leaflet/, /map/i],
 });
 const miniCssExtractPlugin = new MiniCssExtractPlugin({ filename: '[name].css' });
 const bundleAnalyzerPlugin = new BundleAnalyzerPlugin({
 	analyzerMode: isDevServer || os.hostname().includes('cnnitouch') ? 'disabled' : 'server',
 });
-const myHtaccess = './app/.htaccess';
+const myHtaccess = './src/.htaccess';
 const copyPlugin = new CopyPlugin({
 	patterns: [{ from: myHtaccess, to: '.htaccess', toType: 'file' }],
 });
@@ -46,7 +46,7 @@ const plugins = [
 ];
 
 module.exports = {
-	entry: path.resolve('./app/index.tsx'),
+	entry: path.resolve('./src/index.tsx'),
 	output: {
 		filename: 'bundle.js',
 		path: outputDir,
@@ -60,7 +60,7 @@ module.exports = {
 	},
 	module: {
 		rules: [
-			{ test: /\.tsx?$/, loader: 'babel-loader', include: path.resolve('./app') },
+			{ test: /\.tsx?$/, loader: 'babel-loader', include: path.resolve('./src') },
 			{ test: /\.css$/, loader: MiniCssExtractPlugin.loader },
 			{ test: /\.css$/, loader: 'css-loader' },
 			{

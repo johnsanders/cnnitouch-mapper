@@ -4,6 +4,7 @@ import React from 'react';
 
 interface Props {
 	labels: Label[];
+	scale: number;
 }
 
 const LabelsLayer: React.FC<Props> = (props: Props) => (
@@ -13,11 +14,11 @@ const LabelsLayer: React.FC<Props> = (props: Props) => (
 			height: '100%',
 			position: 'absolute',
 			width: '100%',
-			zIndex: 1000,
+			zIndex: 500,
 		}}
 	>
 		{props.labels.map((label) => (
-			<PointLabel key={label.id} label={label} />
+			<PointLabel key={label.id} label={label} scale={props.scale} />
 		))}
 	</svg>
 );

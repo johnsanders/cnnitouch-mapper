@@ -15,11 +15,10 @@ const getPositionAtAngle = (angle: number, distance: number) => ({
 
 interface Props {
 	label: Label;
+	scale: number;
 }
 
 const PointLabel: React.FC<Props> = (props: Props) => {
-	const { height: compHeight } = useVideoConfig();
-	const scale = compHeight / 1080;
 	const textRef = React.useRef<SVGTextElement>(null);
 	const [angle, setAngle] = React.useState(Math.PI * 0.3);
 	const [path, setPath] = React.useState('');
@@ -40,7 +39,7 @@ const PointLabel: React.FC<Props> = (props: Props) => {
 	}, []);
 	return (
 		<g className="label" transform={`translate(${position.x}, ${position.y})`}>
-			<g transform={`scale(${scale})`}>
+			<g transform={`scale(${props.scale})`}>
 				<path d={path} fill="black" stroke="white" strokeWidth="1px" />
 				<text
 					{...offset}

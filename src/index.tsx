@@ -1,5 +1,4 @@
 import './style.css';
-import 'leaflet/dist/leaflet.css';
 import EditContainer from './components/edit/EditContainer';
 import Loading from './misc/Loading';
 import React from 'react';
