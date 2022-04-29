@@ -1,6 +1,7 @@
+import { useMap, useMapEvent } from 'react-leaflet';
 import { Label } from './types';
+import { Point } from 'leaflet';
 import React from 'react';
-import { useMap } from 'react-leaflet';
 
 const paddingX = 8;
 const paddingY = -3;
@@ -19,9 +20,11 @@ interface Props {
 
 const PointLabel: React.FC<Props> = (props: Props) => {
 	const textRef = React.useRef<SVGTextElement>(null);
+	const map = useMap();
+	const { lat, lng } = props.label;
 	const [angle, setAngle] = React.useState(Math.PI * 0.3);
 	const [path, setPath] = React.useState('');
-	const position = useMap().latLngToContainerPoint([props.label.lat, props.label.lng]);
+	const [position, setPosition] = React.useState(map.latLngToContainerPoint([lat, lng]));
 	const offset = getPositionAtAngle(angle, fontSize + 20);
 	React.useEffect(() => {
 		if (!textRef.current) throw new Error('Cannot get text for label');
@@ -36,6 +39,7 @@ const PointLabel: React.FC<Props> = (props: Props) => {
 			Z
 		`);
 	}, []);
+	useMapEvent('moveend', () => setPosition(map.latLngToContainerPoint([lat, lng])));
 	return (
 		<g className="label" transform={`translate(${position.x}, ${position.y})`}>
 			<g transform={`scale(${props.scale})`}>

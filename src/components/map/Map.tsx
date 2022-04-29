@@ -18,17 +18,44 @@ import googleApiKey from '../../config/googleApiKey_disableGit';
 interface Props {
 	compHeight: number;
 	settings: MapSettings;
-	mode: 'render' | 'edit';
 	setBounds?: (bounds: LatLngBoundsExpression) => void;
 }
 
 const Map: React.FC<Props> = (props) => {
 	const scale = props.compHeight / 1080;
-	console.log(props.mode);
+	const elements = {
+		edit: (
+			<>
+				<ReactLeafletGoogleLayer
+					apiKey={props.settings.mode === 'renderMap' ? googleApiKey : undefined}
+					type="satellite"
+				/>
+				<BordersLayer />
+				<HiliteLayer hilites={props.settings.hilites} />
+				<GoogleFont scale={scale} />
+				<LabelsLayer labels={props.settings.labels} scale={scale} />
+			</>
+		),
+		renderMap: (
+			<>
+				<ReactLeafletGoogleLayer
+					apiKey={props.settings.mode === 'renderMap' ? googleApiKey : undefined}
+					type="satellite"
+				/>
+				<BordersLayer />
+				<HiliteLayer hilites={props.settings.hilites} />
+			</>
+		),
+		renderOverlay: (
+			<>
+				<div style={{ backgroundColor: 'green', height: '100%', width: '100%' }} />
+				<LabelsLayer labels={props.settings.labels} scale={scale} />
+			</>
+		),
+	};
 	return (
 		<Box height="100%" position="relative" width="100%">
 			<SvgFiltersDefs />
-			<GoogleFont scale={scale} />
 			<LeafletContainer
 				fadeAnimation={true}
 				maxBounds={[
@@ -43,19 +70,14 @@ const Map: React.FC<Props> = (props) => {
 					height: '100%',
 					width: '100%',
 				}}
+				zoom={2}
 				zoomAnimation={true}
-				zoomControl={props.mode === 'edit'}
+				zoomControl={props.settings.mode === 'edit'}
 				zoomSnap={0}
 			>
-				<ReactLeafletGoogleLayer
-					apiKey={props.mode === 'render' ? googleApiKey : undefined}
-					type="satellite"
-				/>
-				<BordersLayer />
-				<HiliteLayer hilites={props.settings.hilites} />
-				<LabelsLayer labels={props.settings.labels} scale={scale} />
 				<MapEventHandlers initialBounds={props.settings.boundsStart} setBounds={props.setBounds} />
-				{props.mode !== 'render' ? null : (
+				{elements[props.settings.mode]}
+				{props.settings.mode === 'edit' ? null : (
 					<MapAnimator
 						endBounds={props.settings.boundsEnd}
 						startBounds={props.settings.boundsStart}

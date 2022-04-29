@@ -23,7 +23,6 @@ const Edit: React.FC<Props> = (props) => (
 					<Box height="360px" m="auto" position="relative" width="640px">
 						<Map
 							compHeight={360}
-							mode="edit"
 							setBounds={(bounds: LatLngBoundsExpression) =>
 								props.dispatch({ key: 'bounds', value: bounds })
 							}

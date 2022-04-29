@@ -15,6 +15,7 @@ const initialState: EditSettings = {
 		boundsStart: defaultBounds,
 		hilites: [],
 		labels: [],
+		mode: 'edit',
 	},
 };
 

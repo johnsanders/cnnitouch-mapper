@@ -1,3 +1,4 @@
+import { continueRender, delayRender } from 'remotion';
 import { useMap, useMapEvents } from 'react-leaflet';
 import { LatLngBoundsExpression } from 'leaflet';
 import React from 'react';
@@ -13,7 +14,12 @@ const MapEventHandlers: React.FC<Props> = (props: Props): null => {
 	const map = useMap();
 	const { initialBounds } = props;
 	React.useEffect(() => {
-		if (!didInitRef.current) {
+		const delayId = delayRender();
+		setTimeout(() => continueRender(delayId), 3000);
+	}, []);
+	React.useEffect(() => {
+		if (didInitRef.current) return;
+		else {
 			map.fitBounds(initialBounds);
 			didInitRef.current = true;
 		}

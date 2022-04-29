@@ -17,6 +17,7 @@ module.exports = {
 	},
 	plugins: ['react-hooks'],
 	rules: {
+		'@typescript-eslint/no-explicit-any': 0,
 		'no-invalid-this': 'error',
 		'prettier/prettier': 'warn',
 		'react-hooks/exhaustive-deps': 'warn',

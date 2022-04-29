@@ -10,7 +10,7 @@ const Compositions: React.FC = () => {
 			<link href="https://ix.cnn.io/static/fonts/fonts.css" rel="stylesheet" />
 			<Composition
 				component={Map}
-				defaultProps={{ ...props, mode: 'render' }}
+				defaultProps={{ ...props }}
 				durationInFrames={300}
 				fps={30}
 				height={1080}

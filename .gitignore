@@ -3,3 +3,4 @@ deploy.sh
 *generated-models.tsx
 *_disableGit*
 .DS_Store
+dist/
