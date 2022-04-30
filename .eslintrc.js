@@ -4,8 +4,10 @@ module.exports = {
 	},
 	extends: [
 		'plugin:@typescript-eslint/recommended',
-		'plugin:react/recommended',
 		'plugin:prettier/recommended',
+		'plugin:react/recommended',
+		'plugin:@remotion/recommended',
+		'plugin:react-hooks/recommended',
 	],
 	parser: '@typescript-eslint/parser',
 	parserOptions: {
@@ -15,13 +17,11 @@ module.exports = {
 		ecmaVersion: 2020,
 		sourceType: 'module',
 	},
-	plugins: ['react-hooks'],
+	plugins: ['react-hooks', '@remotion'],
 	rules: {
 		'@typescript-eslint/no-explicit-any': 0,
 		'no-invalid-this': 'error',
 		'prettier/prettier': 'warn',
-		'react-hooks/exhaustive-deps': 'warn',
-		'react-hooks/rules-of-hooks': 'error',
 		'react/destructuring-assignment': 0,
 		'react/jsx-sort-props': 'error',
 		'react/prop-types': 0,
