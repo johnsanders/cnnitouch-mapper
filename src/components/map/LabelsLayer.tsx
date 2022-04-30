@@ -23,10 +23,12 @@ const LabelsLayer: React.FC<Props> = (props: Props) => {
 		fontPrimer
 	) : (
 		<svg
+			id="labels"
 			style={{
 				filter: 'drop-shadow(0 0 6px #000000A0)',
 				height: '100%',
 				left: 0,
+				opacity: 0,
 				position: 'absolute',
 				top: 0,
 				width: '100%',

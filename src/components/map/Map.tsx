@@ -23,36 +23,6 @@ interface Props {
 
 const Map: React.FC<Props> = (props) => {
 	const scale = props.compHeight / 1080;
-	const elements = {
-		edit: (
-			<>
-				<ReactLeafletGoogleLayer
-					apiKey={props.settings.mode === 'renderMap' ? googleApiKey : undefined}
-					type="satellite"
-				/>
-				<BordersLayer />
-				<HiliteLayer hilites={props.settings.hilites} />
-				<GoogleFont scale={scale} />
-				<LabelsLayer labels={props.settings.labels} scale={scale} />
-			</>
-		),
-		renderMap: (
-			<>
-				<ReactLeafletGoogleLayer
-					apiKey={props.settings.mode === 'renderMap' ? googleApiKey : undefined}
-					type="satellite"
-				/>
-				<BordersLayer />
-				<HiliteLayer hilites={props.settings.hilites} />
-			</>
-		),
-		renderOverlay: (
-			<>
-				<div style={{ backgroundColor: 'green', height: '100%', width: '100%' }} />
-				<LabelsLayer labels={props.settings.labels} scale={scale} />
-			</>
-		),
-	};
 	return (
 		<Box height="100%" position="relative" width="100%">
 			<SvgFiltersDefs />
@@ -76,7 +46,13 @@ const Map: React.FC<Props> = (props) => {
 				zoomSnap={0}
 			>
 				<MapEventHandlers initialBounds={props.settings.boundsStart} setBounds={props.setBounds} />
-				{elements[props.settings.mode]}
+				<ReactLeafletGoogleLayer
+					apiKey={props.settings.mode === 'render' ? googleApiKey : undefined}
+					type="satellite"
+				/>
+				<BordersLayer />
+				<HiliteLayer hilites={props.settings.hilites} />
+				<LabelsLayer labels={props.settings.labels} scale={scale} />
 				{props.settings.mode === 'edit' ? null : (
 					<MapAnimator
 						endBounds={props.settings.boundsEnd}

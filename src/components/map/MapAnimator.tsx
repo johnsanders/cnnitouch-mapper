@@ -3,7 +3,8 @@ import { LatLngBoundsExpression } from 'leaflet';
 import React from 'react';
 import { useMap } from 'react-leaflet';
 
-const zoomDuration = 10 * 30;
+const zoomDuration = 6 * 30;
+const easing = Easing.bezier(0.21, 0.84, 0, 1);
 
 interface Props {
 	endBounds: LatLngBoundsExpression;
@@ -18,20 +19,32 @@ const MapAnimator: React.FC<Props> = (props: Props) => {
 	React.useEffect(() => {
 		if (!startBounds || !endBounds) return;
 		const delayId = delayRender();
+		const hilitesOpacity = interpolate(frame, [zoomDuration / 2, zoomDuration / 2 + 15], [1, 0], {
+			extrapolateLeft: 'clamp',
+			extrapolateRight: 'clamp',
+		});
+		const hilitesPane = document.querySelector('.leaflet-overlay-pane') as HTMLDivElement;
+		if (hilitesPane) hilitesPane.style.opacity = hilitesOpacity.toString();
+		const labelsOpacity = interpolate(frame, [zoomDuration - 60, zoomDuration - 45], [0, 1], {
+			extrapolateLeft: 'clamp',
+			extrapolateRight: 'clamp',
+		});
+		const labelsPane = document.querySelector('#labels') as HTMLDivElement;
+		if (labelsPane) labelsPane.style.opacity = labelsOpacity.toString();
 		const bounds1Lat = interpolate(frame, [0, zoomDuration], [startBounds[0][0], endBounds[0][0]], {
-			easing: Easing.out(Easing.exp),
+			easing,
 			extrapolateRight: 'clamp',
 		});
 		const bounds1Lng = interpolate(frame, [0, zoomDuration], [startBounds[0][1], endBounds[0][1]], {
-			easing: Easing.out(Easing.exp),
+			easing,
 			extrapolateRight: 'clamp',
 		});
 		const bounds2Lat = interpolate(frame, [0, zoomDuration], [startBounds[1][0], endBounds[1][0]], {
-			easing: Easing.out(Easing.exp),
+			easing,
 			extrapolateRight: 'clamp',
 		});
 		const bounds2Lng = interpolate(frame, [0, zoomDuration], [startBounds[1][1], endBounds[1][1]], {
-			easing: Easing.out(Easing.exp),
+			easing,
 			extrapolateRight: 'clamp',
 		});
 		map.fitBounds([

@@ -7,7 +7,7 @@ export interface MapSettings {
 	boundsStart: LatLngBoundsExpression;
 	hilites: Hilite[];
 	labels: Label[];
-	mode: 'renderMap' | 'renderOverlay' | 'edit';
+	mode: 'render' | 'edit';
 }
 
 export interface Hilite {

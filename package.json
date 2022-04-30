@@ -12,7 +12,7 @@
 		"dev": "NODE_OPTIONS=--openssl-legacy-provider webpack serve --mode=development --color --progress",
 		"gql": "gql-gen",
 		"preview": "remotion preview src/Compositions.tsx --props=test/testJob.json",
-		"render": "remotion render src/Compositions.tsx Mapper /Users/jsanders/Desktop/video_o.mp4 --props=test/testJob.json --concurrency=5 --gl=egl",
+		"render": "remotion render src/Compositions.tsx Mapper /Users/jsanders/Desktop/video.mp4 --props=test/testJob.json --concurrency=1 --gl=egl",
 		"storybook": "NODE_OPTIONS=--openssl-legacy-provider start-storybook -p 6006",
 		"update": "npx npm-check-updates -i --timeout 60000"
 	},

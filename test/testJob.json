@@ -9,13 +9,13 @@
 			[72.77895, 174.726562],
 			[-52.2872, -174.023437]
 		],
-		"hilites": [{"name": "China"}],
+		"hilites": [{"name": "Spain"}],
 		"labels": [{
 			"id": "12",
 			"lat": 36.109674815167935,
 			"lng": -5.346726885509293,
 			"name": "Gibraltar"
 		}],
-		"mode": "renderOverlay"
+		"mode": "render"
 	}
 }
