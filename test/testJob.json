@@ -1,4 +1,5 @@
 {
+	"bannerText": "This is the banner",
 	"compHeight": 1080,
 	"settings": {
 		"boundsEnd": [
@@ -17,5 +18,7 @@
 			"name": "Gibraltar"
 		}],
 		"mode": "render"
-	}
+	},
+	"subheadText": "This is the subhead",
+	"zoomDuration": 150
 }

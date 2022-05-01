@@ -20,13 +20,13 @@ const GoogleFont: React.FC<Props> = (props) => (
 				backgroundColor: 'black',
 				borderRight: 'solid #c00 0.2em',
 				color: 'white',
-				fontSize: '40px',
+				fontSize: '50px',
 				fontWeight: 400,
 				lineHeight: 1.25,
 				padding: '2px 8px',
 				position: 'relative',
-				right: '50px',
-				top: '30px',
+				right: '70px',
+				top: '50px',
 			}}
 		>
 			Google Earth

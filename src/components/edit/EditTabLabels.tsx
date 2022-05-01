@@ -1,14 +1,14 @@
-import { Box, Button, Grid } from '@mui/material';
-import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
+import { Box, Grid } from '@mui/material';
+import EditTabNavButtons from './EditTabNavButtons';
 import { Label } from '../map/types';
 import LabelsChooser from './LabelsChooser';
 import React from 'react';
-import { faArrowRight } from '@fortawesome/pro-solid-svg-icons';
 
 interface Props {
 	active: boolean;
 	labels: Label[];
-	onNext: () => void;
+	onNext?: () => void;
+	onPrevious?: () => void;
 	setLabels: (labels: Label[]) => void;
 }
 
@@ -20,16 +20,7 @@ const EditTabLabels: React.FC<Props> = (props: Props) =>
 				to the best position.
 			</Box>
 			<LabelsChooser labels={props.labels} setLabels={props.setLabels} />
-			<Box mt={2} textAlign="center">
-				<Button
-					color="secondary"
-					endIcon={<Icon icon={faArrowRight} />}
-					onClick={props.onNext}
-					variant="contained"
-				>
-					Next
-				</Button>
-			</Box>
+			<EditTabNavButtons onNext={props.onNext} onPrevious={props.onPrevious} />
 		</Grid>
 	);
 

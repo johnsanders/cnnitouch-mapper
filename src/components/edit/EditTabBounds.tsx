@@ -1,12 +1,12 @@
-import { Box, Button, Grid } from '@mui/material';
-import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
+import { Box, Grid } from '@mui/material';
+import EditTabNavButtons from './EditTabNavButtons';
 import React from 'react';
 import { TabName } from './types';
-import { faArrowRight } from '@fortawesome/pro-solid-svg-icons';
 
 interface Props {
 	active: boolean;
-	onNext: () => void;
+	onNext?: () => void;
+	onPrevious?: () => void;
 	tabName: TabName;
 }
 
@@ -31,16 +31,7 @@ const EditTabBounds: React.FC<Props> = (props: Props) =>
 			<Box mb={2} textAlign="center">
 				{messages[props.tabName]}
 			</Box>
-			<Box textAlign="center">
-				<Button
-					color="secondary"
-					endIcon={<Icon icon={faArrowRight} />}
-					onClick={props.onNext}
-					variant="contained"
-				>
-					Next
-				</Button>
-			</Box>
+			<EditTabNavButtons onNext={props.onNext} onPrevious={props.onPrevious} />
 		</Grid>
 	);
 

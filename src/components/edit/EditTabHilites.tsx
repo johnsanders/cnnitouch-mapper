@@ -1,14 +1,14 @@
-import { Box, Button, Grid } from '@mui/material';
+import { Box, Grid } from '@mui/material';
+import EditTabNavButtons from './EditTabNavButtons';
 import { Hilite } from '../map/types';
 import HiliteChooser from './HilitesChooser';
-import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import React from 'react';
-import { faArrowRight } from '@fortawesome/pro-solid-svg-icons';
 
 interface Props {
 	active: boolean;
 	hilites: Hilite[];
-	onNext: () => void;
+	onNext?: () => void;
+	onPrevious?: () => void;
 	setHilites: (hilites: Hilite[]) => void;
 }
 
@@ -19,16 +19,7 @@ const EditTabHilites: React.FC<Props> = (props: Props) =>
 				Search for and select the countries you want to highlight.
 			</Box>
 			<HiliteChooser hilites={props.hilites} setHilites={props.setHilites} />
-			<Box mt={2} textAlign="center">
-				<Button
-					color="secondary"
-					endIcon={<Icon icon={faArrowRight} />}
-					onClick={props.onNext}
-					variant="contained"
-				>
-					Next
-				</Button>
-			</Box>
+			<EditTabNavButtons onNext={props.onNext} onPrevious={props.onPrevious} />
 		</Grid>
 	);
 

@@ -7,6 +7,7 @@ const fontPrimer = <div style={{ fontFamily: 'CNN', fontWeight: '500' }}>Font Pr
 
 interface Props {
 	labels: Label[];
+	mode: 'edit' | 'render';
 	scale: number;
 }
 
@@ -28,7 +29,7 @@ const LabelsLayer: React.FC<Props> = (props: Props) => {
 				filter: 'drop-shadow(0 0 6px #000000A0)',
 				height: '100%',
 				left: 0,
-				opacity: 0,
+				opacity: props.mode === 'render' ? 0 : 1,
 				position: 'absolute',
 				top: 0,
 				width: '100%',

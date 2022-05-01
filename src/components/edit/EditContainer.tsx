@@ -9,13 +9,16 @@ const defaultBounds: LatLngBoundsExpression = [
 ];
 
 const initialState: EditSettings = {
-	activeTab: 'labels',
+	activeTab: 'banner',
 	mapSettings: {
+		bannerText: '',
 		boundsEnd: defaultBounds,
 		boundsStart: defaultBounds,
 		hilites: [],
 		labels: [],
 		mode: 'edit',
+		subheadText: '',
+		zoomDuration: 150,
 	},
 };
 

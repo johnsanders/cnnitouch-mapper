@@ -1,5 +1,6 @@
 import './styles.css';
 import 'leaflet/dist/leaflet.css';
+import Banner from './Banner';
 import BordersLayer from './BordersLayer';
 import { Box } from '@mui/material';
 import GoogleFont from './GoogleFont';
@@ -24,8 +25,18 @@ interface Props {
 const Map: React.FC<Props> = (props) => {
 	const scale = props.compHeight / 1080;
 	return (
-		<Box height="100%" position="relative" width="100%">
+		<Box height="100%" id="mapContainer" position="relative" width="100%">
 			<SvgFiltersDefs />
+			{props.settings.bannerText ? (
+				<Banner
+					headlineText={props.settings.bannerText}
+					note="Google Earth"
+					scale={scale}
+					subheadText={props.settings.subheadText}
+				/>
+			) : (
+				<GoogleFont scale={scale} />
+			)}
 			<LeafletContainer
 				fadeAnimation={true}
 				maxBounds={[
@@ -52,11 +63,12 @@ const Map: React.FC<Props> = (props) => {
 				/>
 				<BordersLayer />
 				<HiliteLayer hilites={props.settings.hilites} />
-				<LabelsLayer labels={props.settings.labels} scale={scale} />
+				<LabelsLayer labels={props.settings.labels} mode={props.settings.mode} scale={scale} />
 				{props.settings.mode === 'edit' ? null : (
 					<MapAnimator
 						endBounds={props.settings.boundsEnd}
 						startBounds={props.settings.boundsStart}
+						zoomDuration={props.settings.zoomDuration}
 					/>
 				)}
 			</LeafletContainer>
