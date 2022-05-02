@@ -1,4 +1,4 @@
-import { Box, Container, CssBaseline, Grid, Paper, Tab, Tabs } from '@mui/material';
+import { Box, Container, CssBaseline, Grid, Tab, Tabs } from '@mui/material';
 import { EditAction, EditSettings } from './types';
 import { Hilite, Label } from '../map/types';
 import EditTabBanner from './EditTabBanner';
