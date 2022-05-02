@@ -9,13 +9,21 @@ const defaultBounds: LatLngBoundsExpression = [
 ];
 
 const initialState: EditSettings = {
-	activeTab: 'banner',
+	activeTab: 'labels',
 	mapSettings: {
 		bannerText: '',
 		boundsEnd: defaultBounds,
 		boundsStart: defaultBounds,
 		hilites: [],
-		labels: [],
+		labels: [
+			{
+				angle: 0,
+				id: 'a',
+				lat: 0,
+				lng: 0,
+				name: 'Null Island',
+			},
+		],
 		mode: 'edit',
 		subheadText: '',
 		zoomDuration: 150,

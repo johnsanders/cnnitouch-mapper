@@ -1,4 +1,12 @@
-import { Autocomplete, IconButton, List, ListItem, TextField } from '@mui/material';
+import {
+	Autocomplete,
+	IconButton,
+	Table,
+	TableBody,
+	TableCell,
+	TableRow,
+	TextField,
+} from '@mui/material';
 import { Box } from '@mui/system';
 import { Hilite } from '../map/types';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
@@ -41,25 +49,25 @@ const HilitesChooser: React.FC<Props> = (props) => {
 				renderInput={(params) => <TextField {...params} label="Country Name" />}
 				value={searchValue}
 			/>
-			<List>
-				{props.hilites.map((hilite) => (
-					<ListItem
-						key={hilite.name}
-						secondaryAction={
-							<IconButton
-								aria-label="delete"
-								data-name={hilite.name}
-								onClick={handleDelete}
-								size="small"
-							>
-								<Icon icon={faTrash} />
-							</IconButton>
-						}
-					>
-						{hilite.name}
-					</ListItem>
-				))}
-			</List>
+			<Table>
+				<TableBody>
+					{props.hilites.map((hilite) => (
+						<TableRow key={hilite.name}>
+							<TableCell>{hilite.name}</TableCell>
+							<TableCell>
+								<IconButton
+									aria-label="delete"
+									data-name={hilite.name}
+									onClick={handleDelete}
+									size="small"
+								>
+									<Icon icon={faTrash} />
+								</IconButton>
+							</TableCell>
+						</TableRow>
+					))}
+				</TableBody>
+			</Table>
 		</Box>
 	);
 };

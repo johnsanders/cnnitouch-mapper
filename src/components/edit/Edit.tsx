@@ -1,4 +1,4 @@
-import { Box, Container, CssBaseline, Grid, Tab, Tabs } from '@mui/material';
+import { Box, Container, CssBaseline, Grid, Paper, Tab, Tabs } from '@mui/material';
 import { EditAction, EditSettings } from './types';
 import { Hilite, Label } from '../map/types';
 import EditTabBanner from './EditTabBanner';
@@ -24,6 +24,7 @@ const Edit: React.FC<Props> = (props) => (
 					<Box height="360px" mt={3} mx="auto" position="relative" width="640px">
 						<Map
 							compHeight={360}
+							disableDrag={props.state.mapSettings.disableDrag}
 							setBounds={(bounds: LatLngBoundsExpression) =>
 								props.dispatch({ key: 'bounds', value: bounds })
 							}

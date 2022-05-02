@@ -6,6 +6,7 @@ export interface MapSettings {
 	bannerText: string;
 	boundsEnd: LatLngBoundsExpression;
 	boundsStart: LatLngBoundsExpression;
+	disableDrag: boolean;
 	hilites: Hilite[];
 	labels: Label[];
 	mode: 'render' | 'edit';
@@ -19,6 +20,7 @@ export interface Hilite {
 }
 
 export interface Label {
+	angle: number;
 	iconType: 'none' | 'redStar' | 'redDot';
 	id: string;
 	name: string;

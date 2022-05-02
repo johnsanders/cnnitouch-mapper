@@ -1,12 +1,11 @@
 import './styles.css';
 import 'leaflet/dist/leaflet.css';
+import { LatLngBoundsExpression, Map as LeafletMap } from 'leaflet';
 import Banner from './Banner';
 import BordersLayer from './BordersLayer';
-import { Box } from '@mui/material';
 import GoogleFont from './GoogleFont';
 import HiliteLayer from './HiliteLayer';
 import LabelsLayer from './LabelsLayer';
-import { LatLngBoundsExpression } from 'leaflet';
 import { MapContainer as LeafletContainer } from 'react-leaflet';
 import MapAnimator from './MapAnimator';
 import MapEventHandlers from './MapEventHandlers';
@@ -18,14 +17,24 @@ import googleApiKey from '../../config/googleApiKey_disableGit';
 
 interface Props {
 	compHeight: number;
+	disableDrag: boolean;
 	settings: MapSettings;
 	setBounds?: (bounds: LatLngBoundsExpression) => void;
 }
 
 const Map: React.FC<Props> = (props) => {
+	const containerRef = React.useRef<LeafletMap>(null);
 	const scale = props.compHeight / 1080;
+	const { disableDrag } = props;
+	React.useEffect(() => {
+		if (!containerRef.current) return;
+		console.log(disableDrag);
+		const container = containerRef.current.getContainer();
+		if (disableDrag) container.style.pointerEvents = 'none';
+		else container.style.pointerEvents = 'auto';
+	}, [disableDrag]);
 	return (
-		<Box height="100%" id="mapContainer" position="relative" width="100%">
+		<div id="mapContainer" style={{ height: '100%', position: 'relative', width: '100%' }}>
 			<SvgFiltersDefs />
 			{props.settings.bannerText ? (
 				<Banner
@@ -45,6 +54,7 @@ const Map: React.FC<Props> = (props) => {
 				]}
 				maxZoom={18}
 				minZoom={1}
+				ref={containerRef}
 				scrollWheelZoom={true}
 				style={{
 					filter: 'brightness(1.15) saturate(1.3)',
@@ -72,7 +82,21 @@ const Map: React.FC<Props> = (props) => {
 					/>
 				)}
 			</LeafletContainer>
-		</Box>
+			<svg
+				id="labels"
+				style={{
+					filter: 'drop-shadow(0 0 6px #000000A0)',
+					height: '100%',
+					left: 0,
+					opacity: props.settings.mode === 'render' ? 0 : 1,
+					pointerEvents: 'none',
+					position: 'absolute',
+					top: 0,
+					width: '100%',
+					zIndex: 500,
+				}}
+			/>
+		</div>
 	);
 };
 
