@@ -9,13 +9,37 @@ const defaultBounds: LatLngBoundsExpression = [
 ];
 
 const initialState: EditSettings = {
-	activeTab: 'banner',
+	activeTab: 'hilites',
 	mapSettings: {
 		bannerText: '',
 		boundsEnd: defaultBounds,
 		boundsStart: defaultBounds,
-		hilites: [],
-		labels: [],
+		hilites: [
+			{
+				id: '123',
+				label: {
+					angle: -1,
+					iconType: 'none',
+					id: '123',
+					lat: 35,
+					lng: 100,
+					name: 'China',
+					type: 'area',
+				},
+				name: 'China',
+			},
+		],
+		labels: [
+			{
+				angle: 0,
+				iconType: 'redDot',
+				id: 'a',
+				lat: 0,
+				lng: 0,
+				name: 'Null Island',
+				type: 'point',
+			},
+		],
 		mode: 'edit',
 		subheadText: '',
 		zoomDuration: 150,

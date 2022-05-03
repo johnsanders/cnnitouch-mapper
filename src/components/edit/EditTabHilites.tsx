@@ -1,7 +1,7 @@
 import { Box, Grid } from '@mui/material';
 import EditTabNavButtons from './EditTabNavButtons';
 import { Hilite } from '../map/types';
-import HiliteChooser from './HilitesChooser';
+import HiliteChooserContainer from './HilitesChooserContainer';
 import React from 'react';
 
 interface Props {
@@ -18,7 +18,7 @@ const EditTabHilites: React.FC<Props> = (props: Props) =>
 			<Box mb={2} textAlign="center">
 				Search for and select the countries you want to highlight.
 			</Box>
-			<HiliteChooser hilites={props.hilites} setHilites={props.setHilites} />
+			<HiliteChooserContainer hilites={props.hilites} setHilites={props.setHilites} />
 			<EditTabNavButtons onNext={props.onNext} onPrevious={props.onPrevious} />
 		</Grid>
 	);
