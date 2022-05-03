@@ -1,5 +1,9 @@
 import React from 'react';
 
+const bannerMaxWidth = 1400;
+export const bannerMaxChars = 40;
+export const subheadMaxChars = 50;
+
 interface Props {
 	headlineText: string;
 	note?: string;
@@ -8,6 +12,25 @@ interface Props {
 }
 
 const Banner: React.FC<Props> = (props: Props) => {
+	const headlineRef = React.useRef<HTMLSpanElement>(null);
+	const subheadRef = React.useRef<HTMLSpanElement>(null);
+	const [bannerScale, setBannerScale] = React.useState(1);
+	const [subheadScale, setSubheadScale] = React.useState(1);
+	const headlineText = props.headlineText.substring(0, bannerMaxChars);
+	const subheadText = props.subheadText?.substring(0, subheadMaxChars);
+	React.useEffect(() => {
+		if (!headlineRef.current) throw new Error('Cannot find headline ref');
+		const bannerWidth = headlineRef.current.clientWidth;
+		setBannerScale(bannerWidth <= bannerMaxWidth ? 1 : bannerMaxWidth / bannerWidth);
+	}, [headlineText]);
+	React.useEffect(() => {
+		if (!subheadText) return;
+		if (!subheadRef.current) throw new Error('Cannot find subhead ref');
+		const subheadWidth = subheadRef.current.clientWidth;
+		console.log(subheadWidth);
+		setSubheadScale(subheadWidth <= bannerMaxWidth ? 1 : bannerMaxWidth / subheadWidth);
+	}, [subheadText]);
+	console.log(subheadScale);
 	return (
 		<div
 			style={{
@@ -42,18 +65,29 @@ const Banner: React.FC<Props> = (props: Props) => {
 			>
 				<div
 					style={{
-						fontSize: props.subheadText ? '75px' : '80px',
+						fontSize: subheadText ? '75px' : '80px',
 						fontWeight: 800,
-						left: props.subheadText ? '20px' : '30px',
+						left: subheadText ? '20px' : '30px',
 						position: 'absolute',
 						textTransform: 'uppercase',
-						top: props.subheadText ? '-12px' : '13px',
+						top: subheadText ? '-12px' : '13px',
+						whiteSpace: 'nowrap',
 						width: '100%',
 					}}
 				>
-					{props.headlineText}
+					<span
+						ref={headlineRef}
+						style={{
+							display: 'inline-block',
+
+							transform: `scale(${bannerScale},1)`,
+							transformOrigin: 'left',
+						}}
+					>
+						{headlineText}
+					</span>
 				</div>
-				{!props.subheadText ? null : (
+				{!subheadText ? null : (
 					<div
 						style={{
 							background:
@@ -69,13 +103,23 @@ const Banner: React.FC<Props> = (props: Props) => {
 						}}
 					>
 						<div style={{ display: 'flex', justifyContent: 'space-between' }}>
-							<span style={{ fontWeight: 500 }}>{props.subheadText}</span>
+							<span
+								ref={subheadRef}
+								style={{
+									display: 'inline-block',
+									fontWeight: 500,
+									transform: `scale(${subheadScale},1)`,
+									transformOrigin: 'left',
+								}}
+							>
+								{subheadText}
+							</span>
 						</div>
 					</div>
 				)}
 				<span
 					style={{
-						bottom: props.subheadText ? 0 : '38px',
+						bottom: subheadText ? 0 : '38px',
 						fontFamily: 'CNN',
 						fontSize: '40px',
 						fontWeight: 500,

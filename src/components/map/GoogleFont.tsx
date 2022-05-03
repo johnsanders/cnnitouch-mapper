@@ -20,7 +20,7 @@ const GoogleFont: React.FC<Props> = (props) => (
 				backgroundColor: 'black',
 				borderRight: 'solid #c00 0.2em',
 				color: 'white',
-				fontSize: '45px',
+				fontSize: '35px',
 				fontWeight: 400,
 				lineHeight: 1.25,
 				padding: '2px 12px',

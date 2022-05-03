@@ -26,11 +26,24 @@ const LabelsLayer: React.FC<Props> = (props: Props) => {
 	const children = !ready ? (
 		fontPrimer
 	) : (
-		<>
+		<svg
+			id="labels"
+			style={{
+				filter: 'drop-shadow(0 0 6px #000000A0)',
+				height: '100%',
+				left: 0,
+				opacity: props.mode === 'render' ? 0 : 1,
+				pointerEvents: 'none',
+				position: 'absolute',
+				top: 0,
+				width: '100%',
+				zIndex: 500,
+			}}
+		>
 			{props.labels.map((label) => (
 				<PointLabel key={label.id} label={label} scale={props.scale} />
 			))}
-		</>
+		</svg>
 	);
 	return createPortal(children, container);
 };

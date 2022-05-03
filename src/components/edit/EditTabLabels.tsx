@@ -1,6 +1,6 @@
 import { Box, Grid } from '@mui/material';
 import EditTabNavButtons from './EditTabNavButtons';
-import { Label } from '../map/types';
+import { Label } from '../map/labels/types';
 import LabelsChooser from './LabelsChooser';
 import React from 'react';
 

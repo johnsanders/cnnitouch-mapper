@@ -1,4 +1,5 @@
 import { Box, Grid, TextField } from '@mui/material';
+import { bannerMaxChars, subheadMaxChars } from '../map/Banner';
 import EditTabNavButtons from './EditTabNavButtons';
 import React from 'react';
 
@@ -27,6 +28,7 @@ const EditTabBanner: React.FC<Props> = (props: Props) => {
 			</Box>
 			<TextField
 				fullWidth={true}
+				inputProps={{ maxLength: bannerMaxChars }}
 				label="Banner"
 				onChange={handleBannerChange}
 				sx={{ marginBottom: '10px' }}
@@ -34,6 +36,7 @@ const EditTabBanner: React.FC<Props> = (props: Props) => {
 			/>
 			<TextField
 				fullWidth={true}
+				inputProps={{ maxLength: subheadMaxChars }}
 				label="Subbanner"
 				onChange={handleSubheadChange}
 				value={props.subheadText}

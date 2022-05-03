@@ -9,15 +9,16 @@ const defaultBounds: LatLngBoundsExpression = [
 ];
 
 const initialState: EditSettings = {
-	activeTab: 'labels',
+	activeTab: 'banner',
 	mapSettings: {
-		bannerText: '',
+		bannerText: 'banner',
 		boundsEnd: defaultBounds,
 		boundsStart: defaultBounds,
 		hilites: [],
 		labels: [
 			{
 				angle: 0,
+				iconType: 'redDot',
 				id: 'a',
 				lat: 0,
 				lng: 0,

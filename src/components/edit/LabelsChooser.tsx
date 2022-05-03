@@ -15,7 +15,7 @@ import {
 } from '@mui/material';
 import { faTimes, faTrash } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
-import { Label } from '../map/types';
+import { Label } from '../map/labels/types';
 import React from 'react';
 import { v4 as uuid } from 'uuid';
 

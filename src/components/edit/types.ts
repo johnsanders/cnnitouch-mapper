@@ -1,4 +1,5 @@
-import { Hilite, Label, MapSettings } from '../map/types';
+import { Hilite, MapSettings } from '../map/types';
+import { Label } from '../map/labels/types';
 import { LatLngBoundsExpression } from 'leaflet';
 
 export interface EditSettings {
