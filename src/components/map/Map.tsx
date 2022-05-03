@@ -14,7 +14,7 @@ import { MapSettings } from './types';
 import React from 'react';
 import ReactLeafletGoogleLayer from 'react-leaflet-google-layer';
 import SpecialCasesLayer from './SpecialCasesLayer';
-import SvgFiltersDefs from '../../img/SvgFiltersDefs';
+import SvgDefs from '../../img/SvgDefs';
 import googleApiKey from '../../config/googleApiKey_disableGit';
 
 interface Props {
@@ -39,7 +39,7 @@ const Map: React.FC<Props> = (props) => {
 			id="mapContainer"
 			style={{ height: '100%', position: 'relative', width: '100%' }}
 		>
-			<SvgFiltersDefs />
+			<SvgDefs />
 			{props.settings.bannerText ? (
 				<Banner
 					headlineText={props.settings.bannerText}

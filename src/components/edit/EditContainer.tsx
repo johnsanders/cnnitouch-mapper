@@ -15,6 +15,7 @@ const initialState: EditSettings = {
 		boundsEnd: defaultBounds,
 		boundsStart: defaultBounds,
 		hilites: [
+			/*
 			{
 				id: '123',
 				label: {
@@ -28,6 +29,7 @@ const initialState: EditSettings = {
 				},
 				name: 'China',
 			},
+			*/
 		],
 		labels: [
 			{
