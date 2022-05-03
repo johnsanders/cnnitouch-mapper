@@ -1,10 +1,12 @@
 import { continueRender, delayRender } from 'remotion';
+import AreaLabel from './AreaLabel';
 import { Label } from './types';
 import PointLabel from './PointLabel';
 import React from 'react';
-import { createPortal } from 'react-dom';
 
-const fontPrimer = <div style={{ fontFamily: 'CNN', fontWeight: '500' }}>Font Primer</div>;
+const fontPrimer = (
+	<div style={{ fontFamily: 'CNN', fontWeight: '500', opacity: 0 }}>Font Primer</div>
+);
 
 interface Props {
 	labels: Label[];
@@ -19,11 +21,9 @@ const LabelsLayer: React.FC<Props> = (props: Props) => {
 		setTimeout(() => {
 			setReady(true);
 			continueRender(delayId);
-		}, 1000);
+		}, 500);
 	});
-	const container = document.getElementById('labels');
-	if (!container) return null;
-	const children = !ready ? (
+	return !ready ? (
 		fontPrimer
 	) : (
 		<svg
@@ -40,12 +40,15 @@ const LabelsLayer: React.FC<Props> = (props: Props) => {
 				zIndex: 500,
 			}}
 		>
-			{props.labels.map((label) => (
-				<PointLabel key={label.id} label={label} scale={props.scale} />
-			))}
+			{props.labels.map((label) =>
+				label.type === 'point' ? (
+					<PointLabel key={label.id} label={label} scale={props.scale} />
+				) : label.type === 'area' ? (
+					<AreaLabel key={label.id} label={label} scale={props.scale} />
+				) : null,
+			)}
 		</svg>
 	);
-	return createPortal(children, container);
 };
 
 export default LabelsLayer;

@@ -15,6 +15,7 @@ export interface MapSettings {
 }
 
 export interface Hilite {
+	id: string;
+	label?: Label;
 	name: string;
-	type: string;
 }

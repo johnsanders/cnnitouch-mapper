@@ -3,11 +3,7 @@ import { Label } from './types';
 import React from 'react';
 import getLabelHolderPath from './getLabelHolderPath';
 import getLabelOffsetAtAngle from './getLabelOffsetAtAngle';
-import redDot from '../../../img/redCityDot.png';
-import redStar from '../../../img/capitalCityDot.png';
 
-const icons = { redDot, redStar };
-const iconSize = 40;
 const fontSize = 40;
 
 interface Props {
@@ -25,7 +21,7 @@ const PointLabel: React.FC<Props> = (props: Props) => {
 	React.useEffect(() => {
 		if (!textRef.current) throw new Error('Cannot get text for label');
 		const { height, width, x, y } = textRef.current.getBBox();
-		setOffset(getLabelOffsetAtAngle(angle, width, height, fontSize + 20));
+		setOffset(getLabelOffsetAtAngle(angle, width, fontSize, fontSize + 20));
 		setPath(getLabelHolderPath(angle, x, y, width, height));
 	}, [angle, path]);
 	useMapEvent('move', () => setPosition(map.latLngToContainerPoint([lat, lng])));
@@ -36,26 +32,17 @@ const PointLabel: React.FC<Props> = (props: Props) => {
 			transform={`translate(${position.x}, ${position.y})`}
 		>
 			<g transform={`scale(${props.scale})`}>
-				{props.label.iconType === 'none' ? null : (
-					<image
-						height={iconSize}
-						href={icons[props.label.iconType]}
-						width={iconSize}
-						x={-iconSize / 2}
-						y={-iconSize / 2}
-					/>
-				)}
-				<path d={path} fill="black" stroke="white" strokeWidth="1px" />
+				<path d={path} fill="white" />
 				<text
 					{...offset}
-					fill="white"
+					fill="black"
 					fontFamily="CNN"
 					fontSize={fontSize}
 					fontWeight="500"
 					ref={textRef}
 					style={{ userSelect: 'none' }}
 				>
-					{props.label.name}
+					{props.label.name.toUpperCase()}
 				</text>
 			</g>
 		</g>

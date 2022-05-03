@@ -5,4 +5,5 @@ export interface Label {
 	name: string;
 	lat: number;
 	lng: number;
+	type: 'area' | 'point';
 }

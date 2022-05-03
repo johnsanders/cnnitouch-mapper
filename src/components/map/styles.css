@@ -18,6 +18,7 @@ body {
 .leaflet-control-attribution {
 	display:none;
 }
-.leaflet-control-zoom {
+.hasBanner .leaflet-control-zoom {
+	left: 10px;
 	top: 75px;
 }

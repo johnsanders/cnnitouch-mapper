@@ -5,6 +5,7 @@ import Banner from './Banner';
 import BordersLayer from './BordersLayer';
 import GoogleFont from './GoogleFont';
 import HiliteLayer from './HiliteLayer';
+import { Label } from './labels/types';
 import LabelsLayer from './labels/LabelsLayer';
 import { MapContainer as LeafletContainer } from 'react-leaflet';
 import MapAnimator from './MapAnimator';
@@ -24,8 +25,19 @@ interface Props {
 const Map: React.FC<Props> = (props) => {
 	const containerRef = React.useRef<LeafletMap>(null);
 	const scale = props.compHeight / 1080;
+	const allLabels = [
+		...props.settings.labels,
+		...props.settings.hilites.reduce<Label[]>(
+			(acc, hilite) => (hilite.label ? [...acc, hilite.label] : acc),
+			[],
+		),
+	];
 	return (
-		<div id="mapContainer" style={{ height: '100%', position: 'relative', width: '100%' }}>
+		<div
+			className={props.settings.bannerText ? 'hasBanner' : undefined}
+			id="mapContainer"
+			style={{ height: '100%', position: 'relative', width: '100%' }}
+		>
 			<SvgFiltersDefs />
 			{props.settings.bannerText ? (
 				<Banner
@@ -64,7 +76,7 @@ const Map: React.FC<Props> = (props) => {
 				/>
 				<BordersLayer />
 				<HiliteLayer hilites={props.settings.hilites} />
-				<LabelsLayer labels={props.settings.labels} mode={props.settings.mode} scale={scale} />
+				<LabelsLayer labels={allLabels} mode={props.settings.mode} scale={scale} />
 				{props.settings.mode === 'edit' ? null : (
 					<MapAnimator
 						endBounds={props.settings.boundsEnd}

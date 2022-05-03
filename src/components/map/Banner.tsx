@@ -27,10 +27,8 @@ const Banner: React.FC<Props> = (props: Props) => {
 		if (!subheadText) return;
 		if (!subheadRef.current) throw new Error('Cannot find subhead ref');
 		const subheadWidth = subheadRef.current.clientWidth;
-		console.log(subheadWidth);
 		setSubheadScale(subheadWidth <= bannerMaxWidth ? 1 : bannerMaxWidth / subheadWidth);
 	}, [subheadText]);
-	console.log(subheadScale);
 	return (
 		<div
 			style={{

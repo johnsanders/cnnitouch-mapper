@@ -1,7 +1,7 @@
 import { Box, Grid } from '@mui/material';
 import EditTabNavButtons from './EditTabNavButtons';
 import { Label } from '../map/labels/types';
-import LabelsChooser from './LabelsChooser';
+import LabelsChooserContainer from './LabelsChooserContainer';
 import React from 'react';
 
 interface Props {
@@ -19,7 +19,7 @@ const EditTabLabels: React.FC<Props> = (props: Props) =>
 				Search for and select places you want to label. When the label appears on the map, use the
 				controls in the list below to select the best position.
 			</Box>
-			<LabelsChooser labels={props.labels} setLabels={props.setLabels} />
+			<LabelsChooserContainer labels={props.labels} setLabels={props.setLabels} />
 			<EditTabNavButtons onNext={props.onNext} onPrevious={props.onPrevious} />
 		</Grid>
 	);

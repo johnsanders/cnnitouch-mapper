@@ -20,11 +20,9 @@ const EditTabBanner: React.FC<Props> = (props: Props) => {
 		props.setSubhead(e.currentTarget.value);
 	return !props.active ? null : (
 		<Grid item={true} md={6} sm={8} xs={12}>
-			<Box mb={2} textAlign="center">
-				Add your banner and optional sub-banner.
-			</Box>
-			<Box mb={2} textAlign="center">
-				Leave everything blank for no banner.
+			<Box mb={2}>
+				<Box textAlign="center">Add your banner and optional sub-banner.</Box>
+				<Box textAlign="center">Leave everything blank for no banner.</Box>
 			</Box>
 			<TextField
 				fullWidth={true}
