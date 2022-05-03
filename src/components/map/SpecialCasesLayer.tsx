@@ -6,21 +6,19 @@ import { feature as topojsonFeature } from 'topojson-client';
 const topoData = (kashmirData as any).objects.kashmir;
 const geoData = topojsonFeature(kashmirData as any, topoData);
 
-const hiliteStyle = (feature: any): any => {
-	if (feature)
-		return {
-			color: '#000000',
-			fillColor: 'url(#diagonalHatch)',
-			fillOpacity: 1,
-			weight: 1,
-		};
-};
+const hiliteStyle = (feature: any): any => ({
+	color: '#000000',
+	fillColor: `url(#hatch-${feature.properties.NAME})`,
+	fillOpacity: 1,
+	weight: 1,
+});
 
 const SpecialCasesLayer: React.FC = () => (
 	<>
-		{(geoData as any).features.map((feature: any) => (
-			<GeoJSON data={feature} key={feature.properties.NAME} style={hiliteStyle} />
-		))}
+		{(geoData as any).features.map((feature: any) => {
+			console.log(feature.properties.NAME);
+			return <GeoJSON data={feature} key={feature.properties.NAME} style={hiliteStyle} />;
+		})}
 	</>
 );
 

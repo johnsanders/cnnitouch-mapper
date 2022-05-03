@@ -1,4 +1,32 @@
+import { faRotate } from '@fortawesome/pro-solid-svg-icons';
 import React from 'react';
+
+const hatchPatternD = 'M-1,1 l2,-2 M0,4 l4,-4 M3,5 l2,-2';
+const hatchPatternBase = {
+	height: '4',
+	patternTransform: 'scale(3)',
+	patternUnits: 'userSpaceOnUse',
+	width: '4',
+};
+const hatchPatternsData = [
+	{
+		key: 'Pakistan-Controlled',
+		stroke: 'green',
+	},
+	{
+		key: 'India-Controlled',
+		stroke: 'red',
+	},
+	{
+		key: 'China-Controlled',
+		stroke: 'purple',
+	},
+];
+const hatchPatterns = hatchPatternsData.map((patternData) => (
+	<pattern {...hatchPatternBase} id={`hatch-${patternData.key}`} key={patternData.key}>
+		<path d={hatchPatternD} style={{ stroke: patternData.stroke, strokeWidth: 1 }} />
+	</pattern>
+));
 
 const SvgDefs: React.FC = () => (
 	<svg height="0" id="filtersDefs" version="1.1" width="0" xmlns="w3.org/2000/svg">
@@ -11,15 +39,7 @@ const SvgDefs: React.FC = () => (
 				</feComponentTransfer>
 				<feComposite in="shadowMasked" in2="fill" operator="over" />
 			</filter>
-			<pattern
-				height="4"
-				id="diagonalHatch"
-				patternTransform="scale(3)"
-				patternUnits="userSpaceOnUse"
-				width="4"
-			>
-				<path d="M-1,1 l2,-2 M0,4 l4,-4 M3,5 l2,-2" style={{ stroke: 'red', strokeWidth: 1 }} />
-			</pattern>
+			{hatchPatterns}
 		</defs>
 	</svg>
 );

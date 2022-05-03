@@ -6,6 +6,7 @@ import { feature as topojsonFeature } from 'topojson-client';
 
 const topoData = (hilitesData as any).objects.ne_10m_admin_0_countries;
 const geoData = topojsonFeature(hilitesData as any, topoData);
+
 const hiliteStyle = (feature: any): any => {
 	if (feature)
 		return {
