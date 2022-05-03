@@ -13,6 +13,7 @@ import MapEventHandlers from './MapEventHandlers';
 import { MapSettings } from './types';
 import React from 'react';
 import ReactLeafletGoogleLayer from 'react-leaflet-google-layer';
+import SpecialCasesLayer from './SpecialCasesLayer';
 import SvgFiltersDefs from '../../img/SvgFiltersDefs';
 import googleApiKey from '../../config/googleApiKey_disableGit';
 
@@ -76,6 +77,7 @@ const Map: React.FC<Props> = (props) => {
 				/>
 				<BordersLayer />
 				<HiliteLayer hilites={props.settings.hilites} />
+				<SpecialCasesLayer />
 				<LabelsLayer labels={allLabels} mode={props.settings.mode} scale={scale} />
 				{props.settings.mode === 'edit' ? null : (
 					<MapAnimator

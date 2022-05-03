@@ -49,7 +49,7 @@ const Edit: React.FC<Props> = (props) => {
 							/>
 							<img
 								src={props.state.showBanner ? bannerOverlay : bugOverlay}
-								style={{ position: 'absolute', top: 0, width: '100%' }}
+								style={{ pointerEvents: 'none', position: 'absolute', top: 0, width: '100%' }}
 							/>
 						</Box>
 					</Grid>
