@@ -1,8 +1,10 @@
 import { Box, Grid } from '@mui/material';
 import EditTabNavButtons from './EditTabNavButtons';
+import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import { Label } from '../map/labels/types';
 import LabelsChooserContainer from './LabelsChooserContainer';
 import React from 'react';
+import { faEdit } from '@fortawesome/pro-solid-svg-icons';
 
 interface Props {
 	active: boolean;
@@ -14,10 +16,21 @@ interface Props {
 
 const EditTabLabels: React.FC<Props> = (props: Props) =>
 	!props.active ? null : (
-		<Grid item={true} md={6} sm={8} xs={12}>
+		<Grid item={true} md={8} xs={12}>
 			<Box mb={2} textAlign="center">
-				Search for and select places you want to label. When the label appears on the map, use the
-				controls in the list below to select the best position.
+				<Box margin="auto" maxWidth="40em">
+					<Box>Search for and select places you want to label.</Box>
+					<Box>Use the controls below to select the best position.</Box>
+					<Box>
+						Change the label text by clicking the
+						<Icon
+							className="fa-sm"
+							icon={faEdit}
+							style={{ marginLeft: '0.5em', marginRight: '0.5em' }}
+						/>
+						button.
+					</Box>
+				</Box>
 			</Box>
 			<LabelsChooserContainer labels={props.labels} setLabels={props.setLabels} />
 			<EditTabNavButtons onNext={props.onNext} onPrevious={props.onPrevious} />

@@ -13,10 +13,7 @@ const theme = createTheme({
 	components: {
 		MuiListItem: {
 			styleOverrides: {
-				root: {
-					backgroundColor: '#f5f5f5',
-					marginBottom: '5px',
-				},
+				root: {},
 			},
 		},
 	},

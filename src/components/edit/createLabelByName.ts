@@ -1,0 +1,25 @@
+import { Label } from '../map/labels/types';
+import geoSearch from '../../misc/geoSearch';
+import { v4 as uuid } from 'uuid';
+
+const createLabelByName = async (name: string): Promise<Label | null> => {
+	try {
+		const geoResults = await geoSearch(name);
+		const location = geoResults[0].geometry?.location;
+		if (!location) return null;
+		return {
+			angle: 0,
+			iconType: 'none',
+			id: uuid(),
+			lat: location.lat(),
+			lng: location.lng(),
+			name,
+			type: 'area',
+		};
+	} catch (e) {
+		console.log(e);
+		return null;
+	}
+};
+
+export default createLabelByName;

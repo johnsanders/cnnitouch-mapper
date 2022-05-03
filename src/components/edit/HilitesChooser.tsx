@@ -15,6 +15,7 @@ import {
 import { Box } from '@mui/system';
 import { Hilite } from '../map/types';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
+import InlineEdit from './InlineEdit';
 import React from 'react';
 import { countryNames } from './HilitesChooserContainer';
 import { faTrash } from '@fortawesome/pro-solid-svg-icons';
@@ -22,6 +23,7 @@ import { faTrash } from '@fortawesome/pro-solid-svg-icons';
 interface Props {
 	handleAddHilite: (_e: React.SyntheticEvent, value: string | null) => Promise<void>;
 	handleDelete: (e: React.MouseEvent<HTMLButtonElement>) => void;
+	handleNameChange: (id: string, value: string) => void;
 	handleLabelChange: (e: SelectChangeEvent) => void;
 	hilites: Hilite[];
 	searchValue: string;
@@ -44,10 +46,25 @@ const HilitesChooser: React.FC<Props> = (props) => {
 				value={props.searchValue}
 			/>
 			<Table>
+				<colgroup>
+					<col style={{ width: '50%' }} />
+					<col style={{ width: '40%' }} />
+					<col style={{ width: '10%' }} />
+				</colgroup>
 				<TableBody>
 					{props.hilites.map((hilite) => (
 						<TableRow key={hilite.name} style={{ backgroundColor: '#f8f8f8' }}>
-							<TableCell>{hilite.name}</TableCell>
+							<TableCell>
+								{!hilite.label ? (
+									<span>{hilite.name}</span>
+								) : (
+									<InlineEdit
+										id={hilite.id}
+										updateValue={props.handleNameChange}
+										value={hilite.label.name}
+									/>
+								)}
+							</TableCell>
 							<TableCell>
 								<FormControl fullWidth={true}>
 									<InputLabel id="labelPosition">Label</InputLabel>

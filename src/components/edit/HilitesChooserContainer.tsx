@@ -3,7 +3,7 @@ import HilitesChooser from './HilitesChooser';
 import { Label } from '../map/labels/types';
 import React from 'react';
 import { SelectChangeEvent } from '@mui/material';
-import geoSearch from '../../misc/geoSearch';
+import createLabelByName from './createLabelByName';
 import hilitesData from '../../data/ne_10m_admin_0_countries.topo.json';
 import { v4 as uuid } from 'uuid';
 
@@ -12,26 +12,6 @@ export const countryNames: string[] = (
 ).objects.ne_10m_admin_0_countries.geometries
 	.map((geom: any) => geom.properties.NAME)
 	.sort();
-
-const createLabelByName = async (name: string): Promise<Label | null> => {
-	try {
-		const geoResults = await geoSearch(name);
-		const location = geoResults[0].geometry?.location;
-		if (!location) return null;
-		return {
-			angle: 0,
-			iconType: 'none',
-			id: uuid(),
-			lat: location.lat(),
-			lng: location.lng(),
-			name,
-			type: 'area',
-		};
-	} catch (e) {
-		console.log(e);
-		return null;
-	}
-};
 
 interface Props {
 	hilites: Hilite[];
@@ -69,6 +49,14 @@ const HilitesChooserContainer: React.FC<Props> = (props) => {
 		const newHilites = await Promise.all(newHilitesPromises);
 		props.setHilites(newHilites);
 	};
+	const handleNameChange = (id: string, name: string) =>
+		props.setHilites(
+			props.hilites.map((hilite) => {
+				if (hilite.id !== id || !hilite.label) return hilite;
+				return { ...hilite, label: { ...hilite.label, name } };
+			}),
+		);
+
 	const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
 		const nameToDelete = e.currentTarget.dataset.name;
 		if (!nameToDelete) throw new Error('Cannot get name to delete');
@@ -79,6 +67,7 @@ const HilitesChooserContainer: React.FC<Props> = (props) => {
 			handleAddHilite={handleAddHilite}
 			handleDelete={handleDelete}
 			handleLabelChange={handleLabelChange}
+			handleNameChange={handleNameChange}
 			hilites={props.hilites}
 			searchValue={searchValue}
 			setSearchValue={setSearchValue}

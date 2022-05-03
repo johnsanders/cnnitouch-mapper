@@ -9,7 +9,7 @@ const defaultBounds: LatLngBoundsExpression = [
 ];
 
 const initialState: EditSettings = {
-	activeTab: 'hilites',
+	activeTab: 'labels',
 	mapSettings: {
 		bannerText: '',
 		boundsEnd: defaultBounds,
@@ -44,12 +44,13 @@ const initialState: EditSettings = {
 		subheadText: '',
 		zoomDuration: 150,
 	},
+	showBanner: true,
 };
 
 const reducer = (state: EditSettings, action: EditAction) => {
 	const { key, value } = action;
 	let newState = { ...state };
-	if (key === 'activeTab') newState = { ...state, [key]: value };
+	if (key === 'activeTab' || key === 'showBanner') newState = { ...state, [key]: value };
 	else {
 		if (key === 'bounds') {
 			if (state.activeTab === 'boundsStart')
@@ -57,6 +58,7 @@ const reducer = (state: EditSettings, action: EditAction) => {
 			else newState = { ...state, mapSettings: { ...state.mapSettings, boundsEnd: value } };
 		} else newState = { ...state, mapSettings: { ...state.mapSettings, [key]: value } };
 	}
+	console.log(newState);
 	return newState;
 };
 

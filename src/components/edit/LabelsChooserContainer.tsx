@@ -46,6 +46,9 @@ const LabelsChooserContainer: React.FC<Props> = (props) => {
 			),
 		);
 	};
+	const handleLabelNameChange = (id: string, name: string) => {
+		props.setLabels(props.labels.map((label) => (label.id === id ? { ...label, name } : label)));
+	};
 	const handleLabelPositionChange = (e: SelectChangeEvent<number>) => {
 		props.setLabels(
 			props.labels.map((label) =>
@@ -57,6 +60,7 @@ const LabelsChooserContainer: React.FC<Props> = (props) => {
 		<LabelsChooser
 			handleDelete={handleDelete}
 			handleIconChange={handleIconChange}
+			handleLabelNameChange={handleLabelNameChange}
 			handleLabelPositionChange={handleLabelPositionChange}
 			inputRef={inputRef}
 			labels={props.labels}
