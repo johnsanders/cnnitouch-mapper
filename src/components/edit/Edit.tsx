@@ -1,30 +1,14 @@
-import {
-	Box,
-	Container,
-	CssBaseline,
-	FormControlLabel,
-	FormGroup,
-	Grid,
-	Switch,
-	Tab,
-	Tabs,
-	useTheme,
-} from '@mui/material';
+import { Container, CssBaseline, Grid, Tab, Tabs } from '@mui/material';
 import { EditAction, EditSettings } from './types';
+import EditMap from './EditMap';
 import EditTabBanner from './EditTabBanner';
 import EditTabBounds from './EditTabBounds';
 import EditTabHilites from './EditTabHilites';
 import EditTabLabels from './EditTabLabels';
 import EditTabRender from './EditTabRender';
 import { Hilite } from '../map/types';
-import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import { Label } from '../map/labels/types';
-import { LatLngBoundsExpression } from 'leaflet';
-import Map from '../map/Map';
 import React from 'react';
-import bannerOverlay from '../../img/banner_overlay.png';
-import bugOverlay from '../../img/bug_overlay.png';
-import { faExclamationTriangle } from '@fortawesome/pro-solid-svg-icons';
 
 interface Props {
 	dispatch: React.Dispatch<EditAction>;
@@ -32,57 +16,12 @@ interface Props {
 }
 
 const Edit: React.FC<Props> = (props) => {
-	const theme = useTheme();
 	return (
 		<>
 			<CssBaseline />
 			<Container>
+				<EditMap dispatch={props.dispatch} state={props.state} />
 				<Grid container={true} justifyContent="center">
-					<Grid item={true} justifyContent="center" xs={12}>
-						<Box height="405px" mt={3} mx="auto" position="relative" width="720px">
-							<Map
-								compHeight={405}
-								setBounds={(bounds: LatLngBoundsExpression) =>
-									props.dispatch({ key: 'bounds', value: bounds })
-								}
-								settings={props.state.mapSettings}
-							/>
-							<img
-								src={props.state.showBanner ? bannerOverlay : bugOverlay}
-								style={{ pointerEvents: 'none', position: 'absolute', top: 0, width: '100%' }}
-							/>
-						</Box>
-					</Grid>
-					<Grid item={true} xs={12}>
-						<Box margin="auto" width="720px">
-							<FormGroup sx={{ display: 'inline' }}>
-								<FormControlLabel
-									control={
-										<Switch
-											checked={props.state.showBanner}
-											onChange={(e) =>
-												props.dispatch({ key: 'showBanner', value: e.target.checked })
-											}
-										/>
-									}
-									label="Banner Guide"
-								/>
-							</FormGroup>
-							{props.state.showBanner ? null : (
-								<Box
-									color={theme.palette.warning.dark}
-									display="inline"
-									fontStyle="italic"
-									fontWeight={500}
-									position="relative"
-									top="1px"
-								>
-									<Icon icon={faExclamationTriangle} style={{ marginRight: '0.5em' }} />
-									The control room may need to drop the banner!
-								</Box>
-							)}
-						</Box>
-					</Grid>
 					<Grid item={true} xs={12}>
 						<Tabs
 							centered={true}
