@@ -1,13 +1,14 @@
 import { GeoJSON } from 'react-leaflet';
 import { Hilite } from './types';
 import React from 'react';
+import { StyleFunction } from 'leaflet';
 import hilitesData from '../..//data/ne_10m_admin_0_countries.topo.json';
 import { feature as topojsonFeature } from 'topojson-client';
 
 const topoData = (hilitesData as any).objects.ne_10m_admin_0_countries;
 const geoData = topojsonFeature(hilitesData as any, topoData);
 
-const hiliteStyle = (feature: any): any => {
+const hiliteStyle: StyleFunction = (feature) => {
 	if (feature)
 		return {
 			color: '#000000',
@@ -15,6 +16,7 @@ const hiliteStyle = (feature: any): any => {
 			fillOpacity: 1,
 			weight: 1,
 		};
+	return {};
 };
 
 interface Props {
