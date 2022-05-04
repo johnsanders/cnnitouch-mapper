@@ -24,7 +24,7 @@ const HilitesChooserContainer: React.FC<Props> = (props) => {
 	const handleAddHilite = async (_e: React.SyntheticEvent, value: string | null) => {
 		const hiliteNames = props.hilites.map((hilite) => hilite.name);
 		if (!value || hiliteNames.includes(value)) return;
-		const label = (await createLabelByName(value)) || undefined;
+		const label = (await createLabelByName(value, -1)) || undefined;
 		if (label) labelsCreatedRef.current[value] = label;
 		props.setHilites([...props.hilites, { id: uuid(), label, name: value }]);
 		setSearchValue('');

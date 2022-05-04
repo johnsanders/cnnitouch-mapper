@@ -2,13 +2,13 @@ import { Label } from '../map/labels/types';
 import geoSearch from '../../misc/geoSearch';
 import { v4 as uuid } from 'uuid';
 
-const createLabelByName = async (name: string): Promise<Label | null> => {
+const createLabelByName = async (name: string, angle = 0): Promise<Label | null> => {
 	try {
 		const geoResults = await geoSearch(name);
 		const location = geoResults[0].geometry?.location;
 		if (!location) return null;
 		return {
-			angle: 0,
+			angle,
 			iconType: 'none',
 			id: uuid(),
 			lat: location.lat(),

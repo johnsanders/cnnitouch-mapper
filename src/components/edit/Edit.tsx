@@ -60,10 +60,9 @@ const Edit: React.FC<Props> = (props) => {
 									control={
 										<Switch
 											checked={props.state.showBanner}
-											onChange={(e) => {
-												console.log(e.target);
-												props.dispatch({ key: 'showBanner', value: e.target.checked });
-											}}
+											onChange={(e) =>
+												props.dispatch({ key: 'showBanner', value: e.target.checked })
+											}
 										/>
 									}
 									label="Banner Guide"

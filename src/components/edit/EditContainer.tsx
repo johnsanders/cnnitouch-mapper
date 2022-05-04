@@ -60,7 +60,6 @@ const reducer = (state: EditSettings, action: EditAction) => {
 			else newState = { ...state, mapSettings: { ...state.mapSettings, boundsEnd: value } };
 		} else newState = { ...state, mapSettings: { ...state.mapSettings, [key]: value } };
 	}
-	console.log(newState);
 	return newState;
 };
 

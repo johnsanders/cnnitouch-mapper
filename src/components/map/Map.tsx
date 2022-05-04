@@ -14,7 +14,8 @@ import { MapSettings } from './types';
 import React from 'react';
 import ReactLeafletGoogleLayer from 'react-leaflet-google-layer';
 import SpecialCasesLayer from './SpecialCasesLayer';
-import SvgDefs from '../../img/SvgDefs';
+import SvgDefs from './SvgDefs';
+import getSpecialLabels from './labels/getSpecialLabels';
 import googleApiKey from '../../config/googleApiKey_disableGit';
 
 interface Props {
@@ -26,8 +27,10 @@ interface Props {
 const Map: React.FC<Props> = (props) => {
 	const containerRef = React.useRef<LeafletMap>(null);
 	const scale = props.compHeight / 1080;
+	const hiliteNames = props.settings.hilites.map((hilite) => hilite.name);
 	const allLabels = [
 		...props.settings.labels,
+		...getSpecialLabels(hiliteNames),
 		...props.settings.hilites.reduce<Label[]>(
 			(acc, hilite) => (hilite.label ? [...acc, hilite.label] : acc),
 			[],
@@ -39,7 +42,6 @@ const Map: React.FC<Props> = (props) => {
 			id="mapContainer"
 			style={{ height: '100%', position: 'relative', width: '100%' }}
 		>
-			<SvgDefs />
 			{props.settings.bannerText ? (
 				<Banner
 					headlineText={props.settings.bannerText}
@@ -77,8 +79,9 @@ const Map: React.FC<Props> = (props) => {
 				/>
 				<BordersLayer />
 				<HiliteLayer hilites={props.settings.hilites} />
-				<SpecialCasesLayer />
+				<SpecialCasesLayer hiliteNames={hiliteNames} />
 				<LabelsLayer labels={allLabels} mode={props.settings.mode} scale={scale} />
+				<SvgDefs hiliteNames={hiliteNames} />
 				{props.settings.mode === 'edit' ? null : (
 					<MapAnimator
 						endBounds={props.settings.boundsEnd}
