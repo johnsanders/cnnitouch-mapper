@@ -27,11 +27,8 @@ const EditMap: React.FC<Props> = (props: Props) => {
 	const [mapZoom, setMapZoom] = React.useState(20);
 	const theme = useTheme();
 	React.useEffect(() => {
-		const handleZoomChange: LeafletEventHandlerFn = (e) => {
-			if (mapRef.current) {
-				console.log(mapRef.current.getZoom(), 'fjdskl');
-				setMapZoom(mapRef.current.getZoom());
-			}
+		const handleZoomChange: LeafletEventHandlerFn = () => {
+			if (mapRef.current) setMapZoom(mapRef.current.getZoom());
 		};
 		const addListeners = () => {
 			if (mapRef.current) {

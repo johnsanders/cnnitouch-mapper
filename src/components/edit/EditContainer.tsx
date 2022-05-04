@@ -9,7 +9,7 @@ const defaultBounds: LatLngBoundsExpression = [
 ];
 
 const initialState: EditSettings = {
-	activeTab: 'labels',
+	activeTab: 'render',
 	mapSettings: {
 		bannerText: '',
 		boundsEnd: defaultBounds,

@@ -5,7 +5,7 @@ import EditTabBanner from './EditTabBanner';
 import EditTabBounds from './EditTabBounds';
 import EditTabHilites from './EditTabHilites';
 import EditTabLabels from './EditTabLabels';
-import EditTabRender from './EditTabRender';
+import EditTabRenderContainer from './EditTabRenderContainer';
 import { Hilite } from '../map/types';
 import { Label } from '../map/labels/types';
 import React from 'react';
@@ -81,8 +81,9 @@ const Edit: React.FC<Props> = (props) => {
 						onPrevious={() => props.dispatch({ key: 'activeTab', value: 'hilites' })}
 						setLabels={(labels: Label[]) => props.dispatch({ key: 'labels', value: labels })}
 					/>
-					<EditTabRender
+					<EditTabRenderContainer
 						active={props.state.activeTab === 'render'}
+						mapSettings={props.state.mapSettings}
 						onPrevious={() => props.dispatch({ key: 'activeTab', value: 'labels' })}
 					/>
 				</Grid>
