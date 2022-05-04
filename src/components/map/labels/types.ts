@@ -6,4 +6,5 @@ export interface Label {
 	lat: number;
 	lng: number;
 	type: 'area' | 'point';
+	minZoom: number;
 }

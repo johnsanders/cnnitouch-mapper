@@ -38,6 +38,7 @@ const initialState: EditSettings = {
 				id: 'a',
 				lat: 0,
 				lng: 0,
+				minZoom: 2,
 				name: 'Null Island',
 				type: 'point',
 			},

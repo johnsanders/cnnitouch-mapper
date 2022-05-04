@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import './styles.css';
 import 'leaflet/dist/leaflet.css';
 import { LatLngBoundsExpression, Map as LeafletMap } from 'leaflet';
@@ -24,8 +25,7 @@ interface Props {
 	setBounds?: (bounds: LatLngBoundsExpression) => void;
 }
 
-const Map: React.FC<Props> = (props) => {
-	const containerRef = React.useRef<LeafletMap>(null);
+const Map = React.forwardRef<LeafletMap, Props>((props, ref) => {
 	const scale = props.compHeight / 1080;
 	const hiliteNames = props.settings.hilites.map((hilite) => hilite.name);
 	const allLabels = [
@@ -60,7 +60,7 @@ const Map: React.FC<Props> = (props) => {
 				]}
 				maxZoom={18}
 				minZoom={1}
-				ref={containerRef}
+				ref={ref}
 				scrollWheelZoom={true}
 				style={{
 					filter: 'brightness(1.15) saturate(1.3)',
@@ -92,6 +92,6 @@ const Map: React.FC<Props> = (props) => {
 			</LeafletContainer>
 		</div>
 	);
-};
+});
 
 export default Map;

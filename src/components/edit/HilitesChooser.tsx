@@ -66,7 +66,7 @@ const HilitesChooser: React.FC<Props> = (props) => {
 								)}
 							</TableCell>
 							<TableCell>
-								<FormControl fullWidth={true}>
+								<FormControl fullWidth={true} size="small">
 									<InputLabel id="labelPosition">Label</InputLabel>
 									<Select
 										label="Position"

@@ -9,6 +9,7 @@ import EditTabRender from './EditTabRender';
 import { Hilite } from '../map/types';
 import { Label } from '../map/labels/types';
 import React from 'react';
+import SpecialCasesInfo from './SpecialCasesInfo';
 
 interface Props {
 	dispatch: React.Dispatch<EditAction>;
@@ -16,12 +17,15 @@ interface Props {
 }
 
 const Edit: React.FC<Props> = (props) => {
+	const hiliteNames = props.state.mapSettings.hilites.map((hilite) => hilite.name);
+	const labelNames = props.state.mapSettings.labels.map((label) => label.name);
 	return (
 		<>
 			<CssBaseline />
-			<Container>
-				<EditMap dispatch={props.dispatch} state={props.state} />
+			<Container sx={{ marginBottom: '2em' }}>
 				<Grid container={true} justifyContent="center">
+					<EditMap dispatch={props.dispatch} state={props.state} />
+					<SpecialCasesInfo names={[...hiliteNames, ...labelNames]} />
 					<Grid item={true} xs={12}>
 						<Tabs
 							centered={true}

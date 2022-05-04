@@ -32,7 +32,7 @@ interface Props {
 
 const PlaceSearch: React.FC<Props> = (props) => (
 	<Box>
-		<FormControl fullWidth={true} sx={{ marginBottom: '1em' }}>
+		<FormControl fullWidth={true} size="small" sx={{ marginBottom: '1em' }}>
 			<InputLabel htmlFor="locationSearch">Location Search</InputLabel>
 			<OutlinedInput
 				endAdornment={

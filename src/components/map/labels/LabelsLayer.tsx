@@ -3,6 +3,7 @@ import AreaLabel from './AreaLabel';
 import { Label } from './types';
 import PointLabel from './PointLabel';
 import React from 'react';
+import { useMap } from 'react-leaflet';
 
 const fontPrimer = (
 	<div style={{ fontFamily: 'CNN', fontWeight: '500', opacity: 0 }}>Font Primer</div>
@@ -16,6 +17,7 @@ interface Props {
 
 const LabelsLayer: React.FC<Props> = (props: Props) => {
 	const [ready, setReady] = React.useState(false);
+	const mapZoom = useMap().getZoom();
 	React.useEffect(() => {
 		const delayId = delayRender();
 		setTimeout(() => {
@@ -41,7 +43,7 @@ const LabelsLayer: React.FC<Props> = (props: Props) => {
 			}}
 		>
 			{props.labels.map((label) =>
-				label.type === 'point' ? (
+				mapZoom < label.minZoom ? null : label.type === 'point' ? (
 					<PointLabel key={label.id} label={label} scale={props.scale} />
 				) : label.type === 'area' ? (
 					<AreaLabel key={label.id} label={label} scale={props.scale} />

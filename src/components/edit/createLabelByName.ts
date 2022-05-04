@@ -13,6 +13,7 @@ const createLabelByName = async (name: string, angle = 0): Promise<Label | null>
 			id: uuid(),
 			lat: location.lat(),
 			lng: location.lng(),
+			minZoom: 3,
 			name,
 			type: 'area',
 		};

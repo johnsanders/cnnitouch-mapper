@@ -22,11 +22,12 @@ const LabelsChooserContainer: React.FC<Props> = (props) => {
 			const name = place.name;
 			if (!lat || !lng || !name) throw new Error('Could not get place info');
 			const label: Label = {
-				angle: 0.3,
+				angle: 0,
 				iconType: 'redDot',
 				id: uuid(),
 				lat,
 				lng,
+				minZoom: 2,
 				name,
 				type: 'point',
 			};

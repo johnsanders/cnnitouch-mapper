@@ -13,7 +13,7 @@ interface Props {
 }
 
 const SvgDefs: React.FC<Props> = (props) => {
-	const mapZoom = useMap().getZoom();
+	const mapZoom = useMap().getZoom() || 1;
 	const kashmirActive = kashmirIsActive(props.hiliteNames);
 	return (
 		<svg height="0" id="filtersDefs" version="1.1" width="0" xmlns="w3.org/2000/svg">

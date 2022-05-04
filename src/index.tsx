@@ -2,7 +2,7 @@ import './style.css';
 import EditContainer from './components/edit/EditContainer';
 import Loading from './misc/Loading';
 import React from 'react';
-import { ThemeProvider } from '@emotion/react';
+import { ThemeProvider } from '@mui/material/styles';
 import { createRoot } from 'react-dom/client';
 import googleApiKey from './config/googleApiKey_disableGit';
 import injectScript from './misc/injectScript';
