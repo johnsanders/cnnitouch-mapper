@@ -1,24 +1,60 @@
 {
-	"bannerText": "This is the banner",
-	"compHeight": 1080,
-	"settings": {
-		"boundsEnd": [
-			[36.16592488235953, -5.269878888469429],
-			[36.08855677010942, -5.440166973918659]
-		],
-		"boundsStart": [
-			[72.77895, 174.726562],
-			[-52.2872, -174.023437]
-		],
-		"hilites": [{"name": "Spain"}],
-		"labels": [{
-			"id": "12",
-			"lat": 36.109674815167935,
-			"lng": -5.346726885509293,
-			"name": "Gibraltar"
-		}],
-		"mode": "render"
-	},
-	"subheadText": "This is the subhead",
+	"bannerText": "this is the banner",
+	"boundsEnd": "108.28223958333328,29.043752240513673,145.71473958333328,45.65437644446243",
+	"boundsStart": "49.37804166666663,-6.11108858574477,199.10804166666662,61.29595860966831",
+	"hilites": [
+		{
+			"id": "49f07c36-cd3c-45ed-878a-db0fc4641ac4",
+			"label": {
+				"angle": -1,
+				"iconType": "none",
+				"id": "35942454-8ced-4c8a-96da-2cc202dbd52b",
+				"lat": 40.339852,
+				"lng": 127.510093,
+				"minZoom": 1,
+				"name": "North Korea",
+				"type": "area"
+			},
+			"name": "North Korea"
+		},
+		{
+			"id": "2c5b4acc-6961-4566-8066-9c850e05c087",
+			"label": {
+				"angle": -1,
+				"iconType": "none",
+				"id": "3988390e-d83b-4231-9a6a-4143ac1d4a20",
+				"lat": 35.907757,
+				"lng": 127.766922,
+				"minZoom": 1,
+				"name": "South Korea",
+				"type": "area"
+			},
+			"name": "South Korea"
+		}
+	],
+	"labels": [
+		{
+			"angle": 3.141592653589793,
+			"iconType": "redStar",
+			"id": "a39d2b15-2357-40f7-b197-e1d27688b1bb",
+			"lat": 39.0392193,
+			"lng": 125.7625241,
+			"minZoom": 2,
+			"name": "Pyongyang",
+			"type": "point"
+		},
+		{
+			"angle": 0,
+			"iconType": "redStar",
+			"id": "f10cbb79-b97a-4834-b906-cf0313091f0b",
+			"lat": 37.566535,
+			"lng": 126.9779692,
+			"minZoom": 2,
+			"name": "Seoul",
+			"type": "point"
+		}
+	],
+	"mode": "render",
+	"subheadText": "this is the sub-banner",
 	"zoomDuration": 150
 }

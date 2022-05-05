@@ -2,7 +2,7 @@ import { Label } from '../map/labels/types';
 import geoSearch from '../../misc/geoSearch';
 import { v4 as uuid } from 'uuid';
 
-const createLabelByName = async (name: string, angle = 0): Promise<Label | null> => {
+const createLabelByName = async (name: string, angle = 0, minZoom = 3): Promise<Label | null> => {
 	try {
 		const geoResults = await geoSearch(name);
 		const location = geoResults[0].geometry?.location;
@@ -13,7 +13,7 @@ const createLabelByName = async (name: string, angle = 0): Promise<Label | null>
 			id: uuid(),
 			lat: location.lat(),
 			lng: location.lng(),
-			minZoom: 3,
+			minZoom,
 			name,
 			type: 'area',
 		};

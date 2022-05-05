@@ -1,12 +1,12 @@
 import { Label } from './labels/types';
-import { LatLngBoundsExpression } from 'leaflet';
+import { LatLngBounds } from 'leaflet';
 
 export type Pos = [number, number];
 
 export interface MapSettings {
 	bannerText: string;
-	boundsEnd: LatLngBoundsExpression;
-	boundsStart: LatLngBoundsExpression;
+	boundsEnd: LatLngBounds;
+	boundsStart: LatLngBounds;
 	hilites: Hilite[];
 	labels: Label[];
 	mode: 'render' | 'edit';
@@ -18,4 +18,15 @@ export interface Hilite {
 	id: string;
 	label?: Label;
 	name: string;
+}
+
+export interface RenderSettings {
+	bannerText: string;
+	boundsEnd: string;
+	boundsStart: string;
+	hilites: Hilite[];
+	labels: Label[];
+	mode: 'render' | 'edit';
+	subheadText: string;
+	zoomDuration: number;
 }

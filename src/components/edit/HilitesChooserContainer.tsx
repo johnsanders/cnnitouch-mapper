@@ -24,7 +24,7 @@ const HilitesChooserContainer: React.FC<Props> = (props) => {
 	const handleAddHilite = async (_e: React.SyntheticEvent, value: string | null) => {
 		const hiliteNames = props.hilites.map((hilite) => hilite.name);
 		if (!value || hiliteNames.includes(value)) return;
-		const label = (await createLabelByName(value, -1)) || undefined;
+		const label = (await createLabelByName(value, -1, 1)) || undefined;
 		if (label) labelsCreatedRef.current[value] = label;
 		props.setHilites([...props.hilites, { id: uuid(), label, name: value }]);
 		setSearchValue('');
@@ -40,7 +40,7 @@ const HilitesChooserContainer: React.FC<Props> = (props) => {
 			const angle = parseFloat(e.target.value);
 			if (hilite.label) return { ...hilite, label: { ...hilite.label, angle } };
 			const newLabel =
-				labelsCreatedRef.current[hilite.name] || (await createLabelByName(hilite.name));
+				labelsCreatedRef.current[hilite.name] || (await createLabelByName(hilite.name, -1, 1));
 			if (newLabel) {
 				labelsCreatedRef.current[hilite.name] = newLabel;
 				return { ...hilite, label: { ...newLabel, angle } };

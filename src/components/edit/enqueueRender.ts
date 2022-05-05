@@ -1,4 +1,4 @@
-import { MapSettings } from '../map/types';
+import { RenderSettings } from '../map/types';
 import qs from 'qs';
 
 export const createPrecut = async (slug: string): Promise<string> => {
@@ -21,7 +21,7 @@ const lambdaEndpoint =
 	'https://gs1rx7vpui.execute-api.eu-central-1.amazonaws.com/Prod/ServicesInterface';
 
 export const enqueueRender = async (
-	mapSettings: MapSettings,
+	mapSettings: RenderSettings,
 	msNumber: string,
 	slug: string,
 	email: string,

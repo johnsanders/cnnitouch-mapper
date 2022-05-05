@@ -1,6 +1,6 @@
 import { Hilite, MapSettings } from '../map/types';
 import { Label } from '../map/labels/types';
-import { LatLngBoundsExpression } from 'leaflet';
+import { LatLngBounds } from 'leaflet';
 
 export interface EditSettings {
 	activeTab: TabName;
@@ -11,7 +11,7 @@ export interface EditSettings {
 export type EditAction =
 	| { key: 'activeTab'; value: TabName }
 	| { key: 'bannerText' | 'subheadText'; value: string }
-	| { key: 'bounds'; value: LatLngBoundsExpression }
+	| { key: 'bounds'; value: LatLngBounds }
 	| { key: 'showBanner'; value: boolean }
 	| { key: 'hilites'; value: Hilite[] }
 	| { key: 'labels'; value: Label[] }

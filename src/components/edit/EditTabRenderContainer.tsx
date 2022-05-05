@@ -1,6 +1,6 @@
-import { createPrecut, enqueueRender } from './createPrecut';
+import { MapSettings, RenderSettings } from '../map/types';
+import { createPrecut, enqueueRender } from './enqueueRender';
 import EditTabRender from './EditTabRender';
-import { MapSettings } from '../map/types';
 import React from 'react';
 
 interface Props {
@@ -33,10 +33,18 @@ const EditTabRenderContainer: React.FC<Props> = (props: Props) => {
 		}
 		setSubmitted(true);
 		setLoading(true);
+		const renderData: RenderSettings = {
+			...props.mapSettings,
+			boundsEnd: props.mapSettings.boundsEnd.toBBoxString(),
+			boundsStart: props.mapSettings.boundsStart.toBBoxString(),
+			mode: 'render',
+		};
 		window.localStorage.setItem('email', email);
+		console.log(JSON.stringify(renderData));
+		return;
 		try {
 			const msNumber = await createPrecut(slug);
-			await enqueueRender(props.mapSettings, msNumber, slug, email, '');
+			await enqueueRender(renderData, msNumber, slug, email, '');
 			setLoading(false);
 			setConfirmText(
 				`Success! Your Mediasource number will be ${msNumber}. We'll email you in a few minutes when it's ready.`,

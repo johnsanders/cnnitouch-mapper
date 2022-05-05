@@ -38,7 +38,10 @@ const EditMap: React.FC<Props> = (props: Props) => {
 		};
 		addListeners();
 	}, []);
-	const labelsAreHidden = props.state.mapSettings.labels.some((label) => label.minZoom > mapZoom);
+	const hiliteLabels = props.state.mapSettings.hilites.map((hilite) => hilite?.label);
+	const labelsAreHidden = [...hiliteLabels, ...props.state.mapSettings.labels].some(
+		(label) => label && label.minZoom > mapZoom,
+	);
 	return (
 		<>
 			<Grid item={true} justifyContent="center" xs={12}>
