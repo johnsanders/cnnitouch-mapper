@@ -24,11 +24,11 @@ const MapAnimator: React.FC<Props> = (props: Props) => {
 		if (!startBounds || !endBounds) return;
 		const delayId = delayRender();
 		const currentZoom = map.getZoom();
-		console.log(currentZoom);
-		if (currentZoom > hiliteZoomThreshold) {
-			console.log('yep');
+		const hilitesPane = document.querySelector('.leaflet-overlay-pane') as HTMLDivElement;
+		if (currentZoom <= hiliteZoomThreshold) {
+			if (hilitesPane) hilitesPane.style.opacity = '1';
+		} else {
 			if (!hiliteFadeStartFrameRef.current) hiliteFadeStartFrameRef.current = frame;
-			console.log('transframe', frame - hiliteFadeStartFrameRef.current);
 			const hilitesOpacity = interpolate(
 				frame - hiliteFadeStartFrameRef.current,
 				[0, fadeDuration],
@@ -38,7 +38,6 @@ const MapAnimator: React.FC<Props> = (props: Props) => {
 					extrapolateRight: 'clamp',
 				},
 			);
-			console.log('opacity', hilitesOpacity);
 			const hilitesPane = document.querySelector('.leaflet-overlay-pane') as HTMLDivElement;
 			if (hilitesPane) hilitesPane.style.opacity = hilitesOpacity.toString();
 		}
