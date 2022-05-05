@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
 import './styles.css';
 import 'leaflet/dist/leaflet.css';
-import { LatLngBoundsExpression, Map as LeafletMap } from 'leaflet';
+import { LatLngBounds, Map as LeafletMap } from 'leaflet';
 import Banner from './Banner';
 import BordersLayer from './BordersLayer';
 import GoogleFont from './GoogleFont';
@@ -22,7 +22,7 @@ import googleApiKey from '../../config/googleApiKey_disableGit';
 interface Props {
 	compHeight: number;
 	settings: MapSettings;
-	setBounds?: (bounds: LatLngBoundsExpression) => void;
+	setBounds?: (bounds: LatLngBounds) => void;
 }
 
 const Map = React.forwardRef<LeafletMap, Props>((props, ref) => {

@@ -1,12 +1,12 @@
 import { continueRender, delayRender } from 'remotion';
 import { useMap, useMapEvents } from 'react-leaflet';
-import { LatLngBoundsExpression } from 'leaflet';
+import { LatLngBounds } from 'leaflet';
 import React from 'react';
 import { debounce } from 'lodash-es';
 
 interface Props {
-	setBounds?: (bounds: LatLngBoundsExpression) => void;
-	initialBounds: LatLngBoundsExpression;
+	setBounds?: (bounds: LatLngBounds) => void;
+	initialBounds: LatLngBounds;
 }
 
 const MapEventHandlers: React.FC<Props> = (props: Props): null => {

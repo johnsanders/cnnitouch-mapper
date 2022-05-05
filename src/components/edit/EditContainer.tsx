@@ -4,8 +4,8 @@ import { LatLngBounds } from 'leaflet';
 import React from 'react';
 
 const defaultBounds = new LatLngBounds([
-	[69.21, 166.72],
 	[-57.84, -132.74],
+	[69.21, 166.72],
 ]);
 
 const initialState: EditSettings = {
@@ -14,37 +14,8 @@ const initialState: EditSettings = {
 		bannerText: '',
 		boundsEnd: defaultBounds,
 		boundsStart: defaultBounds,
-		hilites: [
-			/*
-			{
-				id: '123',
-				label: {
-					angle: -1,
-					iconType: 'none',
-					id: '123',
-					lat: 35,
-					lng: 100,
-					name: 'China',
-					type: 'area',
-				},
-				name: 'China',
-			},
-			*/
-		],
-		labels: [
-			/*
-			{
-				angle: 0,
-				iconType: 'redDot',
-				id: 'a',
-				lat: 0,
-				lng: 0,
-				minZoom: 2,
-				name: 'Null Island',
-				type: 'point',
-			},
-		*/
-		],
+		hilites: [],
+		labels: [],
 		mode: 'edit',
 		subheadText: '',
 		zoomDuration: 150,
@@ -75,6 +46,7 @@ const reducer = (state: EditSettings, action: EditAction) => {
 
 const EditContainer: React.FC = () => {
 	const [state, dispatch] = React.useReducer(reducer, initialState);
+	console.log(state.mapSettings.boundsStart.toBBoxString());
 	return <Edit dispatch={dispatch} state={state} />;
 };
 

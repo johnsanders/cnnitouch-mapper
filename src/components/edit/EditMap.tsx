@@ -8,7 +8,7 @@ import {
 	Tooltip,
 	useTheme,
 } from '@mui/material';
-import { LatLngBoundsExpression, LeafletEventHandlerFn, Map as LeafletMap } from 'leaflet';
+import { LatLngBounds, LeafletEventHandlerFn, Map as LeafletMap } from 'leaflet';
 import { faExclamationTriangle, faInfoCircle } from '@fortawesome/pro-solid-svg-icons';
 import { Box } from '@mui/system';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
@@ -49,9 +49,7 @@ const EditMap: React.FC<Props> = (props: Props) => {
 					<Map
 						compHeight={405}
 						ref={mapRef}
-						setBounds={(bounds: LatLngBoundsExpression) =>
-							props.dispatch({ key: 'bounds', value: bounds })
-						}
+						setBounds={(bounds: LatLngBounds) => props.dispatch({ key: 'bounds', value: bounds })}
 						settings={props.state.mapSettings}
 					/>
 					<img
