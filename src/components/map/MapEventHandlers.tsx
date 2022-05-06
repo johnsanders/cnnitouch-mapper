@@ -7,26 +7,24 @@ import { debounce } from 'lodash-es';
 interface Props {
 	setBounds?: (bounds: LatLngBounds) => void;
 	initialBounds: LatLngBounds;
+	mode: string;
 }
 
 const MapEventHandlers: React.FC<Props> = (props: Props): null => {
-	const didInitRef = React.useRef(false);
 	const map = useMap();
-	const { initialBounds } = props;
+	const { initialBounds, mode } = props;
 	React.useEffect(() => {
-		const delayId = delayRender();
-		setTimeout(() => continueRender(delayId), 3000);
-	}, []);
-	React.useEffect(() => {
-		if (didInitRef.current) return;
-		else {
-			map.fitBounds(initialBounds);
-			didInitRef.current = true;
-		}
+		map.fitBounds(initialBounds);
 		const afterResize = debounce(() => map.invalidateSize(), 1000);
 		window.addEventListener('resize', afterResize);
 		return () => window.removeEventListener('resize', afterResize);
 	}, [initialBounds, map]);
+	React.useEffect(() => {
+		if (mode === 'edit') return;
+		const delayId = delayRender();
+		setTimeout(() => continueRender(delayId), 2000);
+		return () => continueRender(delayId);
+	}, [mode]);
 	const handleBoundsChange = () => {
 		if (!props.setBounds) return;
 		props.setBounds(map.getBounds());
@@ -35,7 +33,6 @@ const MapEventHandlers: React.FC<Props> = (props: Props): null => {
 		moveend: handleBoundsChange,
 		zoomend: handleBoundsChange,
 	});
-
 	return null;
 };
 

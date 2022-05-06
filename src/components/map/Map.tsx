@@ -72,7 +72,11 @@ const Map = React.forwardRef<LeafletMap, Props>((props, ref) => {
 				zoomControl={props.settings.mode === 'edit'}
 				zoomSnap={0}
 			>
-				<MapEventHandlers initialBounds={props.settings.boundsStart} setBounds={props.setBounds} />
+				<MapEventHandlers
+					initialBounds={props.settings.boundsStart}
+					mode={props.settings.mode}
+					setBounds={props.setBounds}
+				/>
 				<ReactLeafletGoogleLayer
 					apiKey={props.settings.mode === 'render' ? googleApiKey : undefined}
 					type="satellite"
@@ -85,6 +89,7 @@ const Map = React.forwardRef<LeafletMap, Props>((props, ref) => {
 				{props.settings.mode === 'edit' ? null : (
 					<MapAnimator
 						endBounds={props.settings.boundsEnd}
+						mode={props.settings.mode}
 						startBounds={props.settings.boundsStart}
 						zoomDuration={props.settings.zoomDuration}
 					/>

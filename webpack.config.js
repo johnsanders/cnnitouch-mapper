@@ -6,7 +6,6 @@ const os = require('os');
 
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const PurgecssPlugin = require('purgecss-webpack-plugin');
@@ -31,17 +30,12 @@ const miniCssExtractPlugin = new MiniCssExtractPlugin({ filename: '[name].css' }
 const bundleAnalyzerPlugin = new BundleAnalyzerPlugin({
 	analyzerMode: isDevServer || os.hostname().includes('cnnitouch') ? 'disabled' : 'server',
 });
-const myHtaccess = './src/.htaccess';
-const copyPlugin = new CopyPlugin({
-	patterns: [{ from: myHtaccess, to: '.htaccess', toType: 'file' }],
-});
 
 const plugins = [
 	new CleanWebpackPlugin(),
 	htmlWebpackPluginConfig,
 	miniCssExtractPlugin,
 	purgecssPluginConfig,
-	copyPlugin,
 	bundleAnalyzerPlugin,
 ];
 
@@ -51,9 +45,6 @@ module.exports = {
 		filename: 'bundle.js',
 		path: outputDir,
 		publicPath: isDevServer ? '/' : undefined,
-	},
-	optimization: {
-		providedExports: false,
 	},
 	resolve: {
 		extensions: ['.js', '.ts', '.tsx', '.json'],

@@ -18,13 +18,19 @@ interface Props {
 const LabelsLayer: React.FC<Props> = (props: Props) => {
 	const [ready, setReady] = React.useState(false);
 	const mapZoom = useMap().getZoom();
+	const { mode } = props;
 	React.useEffect(() => {
+		if (mode === 'edit') {
+			setReady(true);
+			return;
+		}
 		const delayId = delayRender();
 		setTimeout(() => {
 			setReady(true);
 			continueRender(delayId);
 		}, 500);
-	});
+		return () => continueRender(delayId);
+	}, [mode]);
 	return !ready ? (
 		fontPrimer
 	) : (

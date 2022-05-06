@@ -46,7 +46,6 @@ const reducer = (state: EditSettings, action: EditAction) => {
 
 const EditContainer: React.FC = () => {
 	const [state, dispatch] = React.useReducer(reducer, initialState);
-	console.log(state.mapSettings.boundsStart.toBBoxString());
 	return <Edit dispatch={dispatch} state={state} />;
 };
 

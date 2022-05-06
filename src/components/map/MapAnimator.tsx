@@ -9,6 +9,7 @@ const fadeDuration = 15;
 
 interface Props {
 	endBounds: LatLngBounds;
+	mode: string;
 	startBounds: LatLngBounds;
 	zoomDuration: number;
 }
@@ -16,13 +17,13 @@ interface Props {
 const MapAnimator: React.FC<Props> = (props: Props) => {
 	const prevZoomRef = React.useRef(0);
 	const hiliteFadeStartFrameRef = React.useRef<number>();
-	const { endBounds, startBounds, zoomDuration } = props;
+	const { endBounds, mode, startBounds, zoomDuration } = props;
 	const map = useMap();
 	const frame = useCurrentFrame();
 	const labelsIn = zoomDuration * 0.3;
 	React.useEffect(() => {
 		if (!startBounds || !endBounds) return;
-		const delayId = delayRender();
+		const delayId = mode === 'edit' ? 0 : delayRender();
 		const currentZoom = map.getZoom();
 		const hilitesPane = document.querySelector('.leaflet-overlay-pane') as HTMLDivElement;
 		if (currentZoom <= hiliteZoomThreshold) {
@@ -103,12 +104,12 @@ const MapAnimator: React.FC<Props> = (props: Props) => {
 						[southWestLat, southWestLng],
 						[northEastLat, northEastLng],
 					]);
-					setTimeout(() => continueRender(delayId), 5000);
+					if (mode !== 'edit') setTimeout(() => continueRender(delayId), 5000);
 				}, 5000);
 			}
 		}, delay);
 		prevZoomRef.current = currentZoom;
-	}, [endBounds, frame, labelsIn, map, startBounds, zoomDuration]);
+	}, [endBounds, frame, labelsIn, map, mode, startBounds, zoomDuration]);
 
 	return null;
 };

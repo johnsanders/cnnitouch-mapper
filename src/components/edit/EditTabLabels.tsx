@@ -20,7 +20,7 @@ const EditTabLabels: React.FC<Props> = (props: Props) =>
 			<Box mb={2} textAlign="center">
 				<Box margin="auto" maxWidth="40em">
 					<Box>Search for and select places you want to label.</Box>
-					<Box>Use the controls below to select the best position.</Box>
+					<Box>Use the controls below to select the best label position.</Box>
 					<Box>
 						Change the label text by clicking the
 						<Icon
