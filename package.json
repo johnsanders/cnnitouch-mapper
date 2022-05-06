@@ -6,14 +6,11 @@
 	"license": "UNLICENSED",
 	"main": "index.js",
 	"scripts": {
-		"build": "NODE_OPTIONS=--openssl-legacy-provider NODE_ENV=production TOOLBOX_ENV=cnnitouch webpack --mode=production  --color --progress",
-		"buildDev": "NODE_OPTIONS=--openssl-legacy-provider NODE_ENV=development TOOLBOX_ENV=cnnitouch webpack --mode=development  --color --progress",
-		"deploy": "DEST=cnnitouch ./deploy.sh",
-		"dev": "NODE_OPTIONS=--openssl-legacy-provider webpack serve --mode=development --color --progress",
-		"gql": "gql-gen",
+		"buildSetup": "NODE_OPTIONS=--openssl-legacy-provider NODE_ENV=production TOOLBOX_ENV=cnnitouch webpack --mode=production  --color --progress",
+		"deploySetup": "DEST=cnnitouch ./deploy.sh",
+		"devSetup": "NODE_OPTIONS=--openssl-legacy-provider webpack serve --mode=development --color --progress",
 		"preview": "remotion preview src/Compositions.tsx --props=test/testJob.json",
 		"render": "remotion render src/Compositions.tsx Mapper /Users/jsanders/Desktop/video.mp4 --props=test/testJob.json --concurrency=1 --gl=egl",
-		"storybook": "NODE_OPTIONS=--openssl-legacy-provider start-storybook -p 6006",
 		"update": "npx npm-check-updates -i --timeout 60000"
 	},
 	"dependencies": {
