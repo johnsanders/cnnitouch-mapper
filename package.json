@@ -6,9 +6,9 @@
 	"license": "UNLICENSED",
 	"main": "index.js",
 	"scripts": {
-		"buildSetup": "NODE_OPTIONS=--openssl-legacy-provider NODE_ENV=production TOOLBOX_ENV=cnnitouch webpack --mode=production  --color --progress",
-		"deploySetup": "DEST=cnnitouch ./deploy.sh",
-		"devSetup": "NODE_OPTIONS=--openssl-legacy-provider webpack serve --mode=development --color --progress",
+		"build": "NODE_OPTIONS=--openssl-legacy-provider NODE_ENV=production TOOLBOX_ENV=cnnitouch webpack --mode=production  --color --progress",
+		"deploy": "DEST=cnnitouch ./deploy.sh",
+		"dev": "NODE_OPTIONS=--openssl-legacy-provider webpack serve --mode=development --color --progress",
 		"preview": "remotion preview src/Compositions.tsx --props=test/testJob.json",
 		"render": "remotion render src/Compositions.tsx Mapper /Users/jsanders/Desktop/video.mp4 --props=test/testJob.json --concurrency=1 --gl=egl",
 		"update": "npx npm-check-updates -i --timeout 60000"
