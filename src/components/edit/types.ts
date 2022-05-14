@@ -18,3 +18,26 @@ export type EditAction =
 	| { key: 'mapDims'; value: [number, number] };
 
 export type TabName = 'banner' | 'boundsStart' | 'boundsEnd' | 'hilites' | 'labels' | 'render';
+
+export interface RenderState {
+	confirmText: string;
+	email: string;
+	errorText: string;
+	loading: boolean;
+	playback: { ATL: boolean; DC: boolean; NYH: boolean };
+	slug: string;
+	submitted: boolean;
+}
+export interface RenderAction {
+	key:
+		| 'confirmText'
+		| 'email'
+		| 'errorText'
+		| 'loading'
+		| 'playbackATL'
+		| 'playbackNYH'
+		| 'playbackDC'
+		| 'slug'
+		| 'submitted';
+	value: string | boolean;
+}

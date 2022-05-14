@@ -11,8 +11,14 @@ interface Props {
 }
 
 const InlineEdit: React.FC<Props> = (props: Props) => {
+	const inputRef = React.useRef<HTMLInputElement>(null);
 	const undoRef = React.useRef('');
 	const [active, setActive] = React.useState(false);
+	React.useEffect(() => {
+		if (inputRef.current && active) {
+			inputRef.current.select();
+		}
+	}, [active]);
 	const handleOpen = () => {
 		undoRef.current = props.value;
 		setActive(true);
@@ -42,6 +48,7 @@ const InlineEdit: React.FC<Props> = (props: Props) => {
 			<Box display="flex">
 				<TextField
 					inputProps={{ maxLength: 30 }}
+					inputRef={inputRef}
 					onChange={handleChange}
 					onKeyDown={handleKeyDown}
 					size="small"

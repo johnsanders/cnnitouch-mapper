@@ -21,6 +21,7 @@ const messages = {
 		<div>
 			<p>Drag and zoom the map to the view you want to start from.</p>
 			<p>This is where your animation with start, before we zoom into your final map.</p>
+			<p>You probably want either the whole world or a continent.</p>
 		</div>
 	),
 };
