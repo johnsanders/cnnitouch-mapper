@@ -5,9 +5,9 @@ body {
 	position:absolute;
 	left:-10000px;
 }
-.leaflet-tile img{
-	width:259.6px !important;
-	height:259.6px !important;
+.leaflet-tile img {
+	transform: scale(1.006) !important;
+	transform-origin: center !important;
 }
 .leaflet-overlay-pane {
 	filter:url(#dropshadow);
