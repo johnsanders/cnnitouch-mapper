@@ -35,6 +35,7 @@ const InlineEdit: React.FC<Props> = (props: Props) => {
 	};
 	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
 		if (e.code === 'Escape') handleCancel();
+		else if (e.code === 'Enter') handleClose();
 	};
 	return !active ? (
 		<div>
