@@ -41,7 +41,7 @@ const SpecialCasesInfo: React.FC<Props> = (props: Props) => {
 				<Grid item={true} xs={12}>
 					<Box color={theme.palette.warning.dark} mb={1} textAlign="center">
 						<Icon icon={faExclamationTriangle} style={{ marginRight: '0.5em' }} />
-						Your map includes Kashmir. Please be sure to follow the style guide&nbsp;
+						Your map includes Kashmir. Please be sure to follow the CNN style guide&nbsp;
 						<a
 							href="https://warnermedia.sharepoint.com/sites/CNNStylebook/Stylebook%20Wiki/Kashmir.aspx"
 							rel="noreferrer"
@@ -57,8 +57,8 @@ const SpecialCasesInfo: React.FC<Props> = (props: Props) => {
 				<Grid item={true} xs={12}>
 					<Box color={theme.palette.warning.dark} textAlign="center">
 						<Icon icon={faExclamationTriangle} style={{ marginRight: '0.5em' }} />
-						Your map includes Israel and the Palestinian territories. Be sure to follow the style
-						guides.
+						Your map includes Israel and the Palestinian territories. Be sure to follow the CNN
+						style guides.
 					</Box>
 					<Box fontSize="0.8em" mb={1} textAlign="center">
 						{Object.entries(israelLinks).map(([name, link]) => (

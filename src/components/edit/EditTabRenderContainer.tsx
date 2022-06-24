@@ -74,8 +74,7 @@ const EditTabRenderContainer: React.FC<Props> = (props: Props) => {
 		};
 		window.localStorage.setItem('email', email);
 		try {
-			//const msNumber = await createPrecut(slug);
-			const msNumber = '0';
+			const msNumber = await createPrecut(slug);
 			await enqueueRender(renderData, msNumber, slug, email, '');
 			dispatch([
 				{ key: 'loading', value: false },

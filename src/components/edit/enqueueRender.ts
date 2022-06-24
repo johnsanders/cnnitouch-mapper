@@ -2,7 +2,7 @@ import { RenderSettings } from '../map/types';
 import qs from 'qs';
 
 export const createPrecut = async (slug: string): Promise<string> => {
-	return '0';
+	return '12345678';
 	const params = {
 		location: 'atlanta',
 		slug,
