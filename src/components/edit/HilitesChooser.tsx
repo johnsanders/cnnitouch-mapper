@@ -69,7 +69,7 @@ const HilitesChooser: React.FC<Props> = (props) => {
 								<FormControl fullWidth={true} size="small">
 									<InputLabel id="labelPosition">Label</InputLabel>
 									<Select
-										label="Position"
+										label="Label"
 										labelId="labelPosition"
 										name={hilite.id}
 										onChange={props.handleLabelChange}
