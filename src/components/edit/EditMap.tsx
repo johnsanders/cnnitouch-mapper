@@ -8,10 +8,10 @@ import {
 	Tooltip,
 	useTheme,
 } from '@mui/material';
-import { LatLngBounds, Map as LeafletMap } from 'leaflet';
 import { faExclamationTriangle, faInfoCircle } from '@fortawesome/pro-solid-svg-icons';
 import { Box } from '@mui/system';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
+import { LatLngBounds } from 'leaflet';
 import Map from '../map/Map';
 import React from 'react';
 import bannerOverlay from '../../img/banner_overlay.png';
@@ -23,7 +23,7 @@ interface Props {
 }
 
 const EditMap: React.FC<Props> = (props: Props) => {
-	const mapRef = React.useRef<LeafletMap>(null);
+	const [labelsAreHidden, setLabelsAreHidden] = React.useState(false);
 	const theme = useTheme();
 	return (
 		<>
@@ -31,8 +31,8 @@ const EditMap: React.FC<Props> = (props: Props) => {
 				<Box height="405px" mt={3} mx="auto" position="relative" width="720px">
 					<Map
 						compHeight={405}
-						ref={mapRef}
 						setBounds={(bounds: LatLngBounds) => props.dispatch({ key: 'bounds', value: bounds })}
+						setLabelsAreHidden={setLabelsAreHidden}
 						settings={props.state.mapSettings}
 					/>
 					<img
@@ -69,9 +69,9 @@ const EditMap: React.FC<Props> = (props: Props) => {
 						)}
 					</Box>
 					<Box color={theme.palette.secondary.main} mt="6px">
-						{true ? null : (
+						{!labelsAreHidden ? null : (
 							<>
-								<Tooltip title="Some labels are not visible at this zoom level. Zoom in to view.">
+								<Tooltip title="Some overlapping labels are hidden at this zoom level. They'll appear when you zoom in.">
 									<IconButton size="small">
 										<Icon icon={faInfoCircle} />
 									</IconButton>

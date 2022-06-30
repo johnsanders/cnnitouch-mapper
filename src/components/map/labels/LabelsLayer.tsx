@@ -15,13 +15,14 @@ interface Props {
 	labels: Label[];
 	mode: 'edit' | 'render';
 	scale: number;
+	setLabelsAreHidden?: (labelsAreHidden: boolean) => void;
 }
 
 const LabelsLayer: React.FC<Props> = (props: Props) => {
 	const [ready, setReady] = React.useState(false);
 	const [visibleLabels, setVisibleLabels] = React.useState(props.labels);
 	const map = useMap();
-	const { labels, mode } = props;
+	const { labels, mode, setLabelsAreHidden } = props;
 	React.useEffect(() => {
 		const delayId = delayRender();
 		setTimeout(() => {
@@ -37,10 +38,12 @@ const LabelsLayer: React.FC<Props> = (props: Props) => {
 			const visibility = calcLabelsOverlapVisibility(
 				createLabelAnimConfigs(labels, []).normalLabelAnimConfigs,
 			);
-			setVisibleLabels(labels.filter((_label, i) => visibility[i]));
+			const visibleLabels = labels.filter((_label, i) => visibility[i]);
+			setVisibleLabels(visibleLabels);
+			if (setLabelsAreHidden) setLabelsAreHidden(visibleLabels.length === labels.length);
 		}, 100);
 		return () => clearTimeout(timeout);
-	}, [labels, map, mode]);
+	}, [labels, map, mode, setLabelsAreHidden]);
 	return !ready ? (
 		fontPrimer
 	) : (

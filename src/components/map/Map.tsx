@@ -1,13 +1,12 @@
-/* eslint-disable react/display-name */
 import './styles.css';
 import 'leaflet/dist/leaflet.css';
 import { Label, MapSettings } from './types';
-import { LatLngBounds, Map as LeafletMap } from 'leaflet';
 import Banner from './Banner';
 import BordersLayer from './BordersLayer';
 import GoogleFont from './GoogleFont';
 import HiliteLayer from './HiliteLayer';
 import LabelsLayer from './labels/LabelsLayer';
+import { LatLngBounds } from 'leaflet';
 import { MapContainer as LeafletContainer } from 'react-leaflet';
 import MapAnimator from './animator/MapAnimator';
 import MapEventHandlers from './MapEventHandlers';
@@ -20,11 +19,12 @@ import googleApiKey from '../../config/googleApiKey_disableGit';
 
 interface Props {
 	compHeight: number;
+	setLabelsAreHidden?: (labelsAreHidden: boolean) => void;
 	settings: MapSettings;
 	setBounds?: (bounds: LatLngBounds) => void;
 }
 
-const Map = React.forwardRef<LeafletMap, Props>((props, ref) => {
+const Map: React.FC<Props> = (props) => {
 	const scale = props.compHeight / 2160;
 	const hiliteNames = props.settings.hilites.map((hilite) => hilite.name);
 	const [hiliteBounds, setHiliteBounds] = React.useState<LatLngBounds[]>([]);
@@ -62,7 +62,6 @@ const Map = React.forwardRef<LeafletMap, Props>((props, ref) => {
 				]}
 				maxZoom={18}
 				minZoom={1}
-				ref={ref}
 				scrollWheelZoom={true}
 				style={{
 					filter: 'brightness(1.15) saturate(1.3)',
@@ -82,7 +81,12 @@ const Map = React.forwardRef<LeafletMap, Props>((props, ref) => {
 				<BordersLayer mode={mode} />
 				<HiliteLayer hilites={hilites} setBounds={setHiliteBounds} />
 				<SpecialCasesLayer hiliteNames={hiliteNames} />
-				<LabelsLayer labels={allLabels} mode={props.settings.mode} scale={scale} />
+				<LabelsLayer
+					labels={allLabels}
+					mode={props.settings.mode}
+					scale={scale}
+					setLabelsAreHidden={props.setLabelsAreHidden}
+				/>
 				<SvgDefs hiliteNames={hiliteNames} />
 				{props.settings.mode === 'edit' || hiliteBounds.length !== hilites.length ? null : (
 					<MapAnimator
@@ -97,6 +101,6 @@ const Map = React.forwardRef<LeafletMap, Props>((props, ref) => {
 			</LeafletContainer>
 		</div>
 	);
-});
+};
 
 export default Map;
