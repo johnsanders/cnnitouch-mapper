@@ -3,6 +3,8 @@ import AreaLabel from './AreaLabel';
 import { Label } from '../types';
 import PointLabel from './PointLabel';
 import React from 'react';
+import calcLabelsOverlapVisibility from '../animator/calcLabelsOverlapVisibility';
+import createLabelAnimConfigs from '../animator/createLabelAnimConfigs';
 import { useMap } from 'react-leaflet';
 
 const fontPrimer = (
@@ -17,20 +19,28 @@ interface Props {
 
 const LabelsLayer: React.FC<Props> = (props: Props) => {
 	const [ready, setReady] = React.useState(false);
-	const mapZoom = useMap().getZoom();
-	const { mode } = props;
+	const [visibleLabels, setVisibleLabels] = React.useState(props.labels);
+	const map = useMap();
+	const { labels, mode } = props;
 	React.useEffect(() => {
-		if (mode === 'edit') {
-			setReady(true);
-			return;
-		}
 		const delayId = delayRender();
 		setTimeout(() => {
 			setReady(true);
 			continueRender(delayId);
 		}, 500);
 		return () => continueRender(delayId);
-	}, [mode]);
+	}, []);
+	React.useEffect(() => {
+		if (mode !== 'edit') return;
+		setVisibleLabels(labels);
+		const timeout = setTimeout(() => {
+			const visibility = calcLabelsOverlapVisibility(
+				createLabelAnimConfigs(labels, []).normalLabelAnimConfigs,
+			);
+			setVisibleLabels(labels.filter((_label, i) => visibility[i]));
+		}, 100);
+		return () => clearTimeout(timeout);
+	}, [labels, map, mode]);
 	return !ready ? (
 		fontPrimer
 	) : (
@@ -48,8 +58,8 @@ const LabelsLayer: React.FC<Props> = (props: Props) => {
 				zIndex: 500,
 			}}
 		>
-			{props.labels.map((label) =>
-				mapZoom < label.minZoom ? null : label.type === 'point' ? (
+			{visibleLabels.map((label) =>
+				label.type === 'point' ? (
 					<PointLabel key={label.id} label={label} scale={props.scale} />
 				) : label.type === 'area' ? (
 					<AreaLabel key={label.id} label={label} scale={props.scale} />

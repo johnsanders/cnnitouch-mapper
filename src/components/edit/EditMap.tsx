@@ -8,7 +8,7 @@ import {
 	Tooltip,
 	useTheme,
 } from '@mui/material';
-import { LatLngBounds, LeafletEventHandlerFn, Map as LeafletMap } from 'leaflet';
+import { LatLngBounds, Map as LeafletMap } from 'leaflet';
 import { faExclamationTriangle, faInfoCircle } from '@fortawesome/pro-solid-svg-icons';
 import { Box } from '@mui/system';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
@@ -24,24 +24,7 @@ interface Props {
 
 const EditMap: React.FC<Props> = (props: Props) => {
 	const mapRef = React.useRef<LeafletMap>(null);
-	const [mapZoom, setMapZoom] = React.useState(20);
 	const theme = useTheme();
-	React.useEffect(() => {
-		const handleZoomChange: LeafletEventHandlerFn = () => {
-			if (mapRef.current) setMapZoom(mapRef.current.getZoom());
-		};
-		const addListeners = () => {
-			if (mapRef.current) {
-				mapRef.current.addEventListener('zoomend', handleZoomChange);
-				setMapZoom(mapRef.current.getZoom());
-			} else setTimeout(addListeners, 1000);
-		};
-		addListeners();
-	}, []);
-	const hiliteLabels = props.state.mapSettings.hilites.map((hilite) => hilite?.label);
-	const labelsAreHidden = [...hiliteLabels, ...props.state.mapSettings.labels].some(
-		(label) => label && label.minZoom > mapZoom,
-	);
 	return (
 		<>
 			<Grid item={true} justifyContent="center" xs={12}>
@@ -86,7 +69,7 @@ const EditMap: React.FC<Props> = (props: Props) => {
 						)}
 					</Box>
 					<Box color={theme.palette.secondary.main} mt="6px">
-						{!labelsAreHidden ? null : (
+						{true ? null : (
 							<>
 								<Tooltip title="Some labels are not visible at this zoom level. Zoom in to view.">
 									<IconButton size="small">

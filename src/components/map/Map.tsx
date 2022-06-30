@@ -28,14 +28,14 @@ const Map = React.forwardRef<LeafletMap, Props>((props, ref) => {
 	const scale = props.compHeight / 2160;
 	const hiliteNames = props.settings.hilites.map((hilite) => hilite.name);
 	const [hiliteBounds, setHiliteBounds] = React.useState<LatLngBounds[]>([]);
-	const allLabelsRef = React.useRef([
+	const allLabels = [
 		...props.settings.hilites.reduce<Label[]>(
 			(acc, hilite) => (hilite.label ? [...acc, hilite.label] : acc),
 			[],
 		),
 		...props.settings.labels,
 		...getSpecialLabels(hiliteNames),
-	]);
+	];
 	const { bannerText, boundsEnd, boundsStart, hilites, labels, mode, subheadText, zoomDuration } =
 		props.settings;
 	return (
@@ -82,7 +82,7 @@ const Map = React.forwardRef<LeafletMap, Props>((props, ref) => {
 				<BordersLayer mode={mode} />
 				<HiliteLayer hilites={hilites} setBounds={setHiliteBounds} />
 				<SpecialCasesLayer hiliteNames={hiliteNames} />
-				<LabelsLayer labels={allLabelsRef.current} mode={props.settings.mode} scale={scale} />
+				<LabelsLayer labels={allLabels} mode={props.settings.mode} scale={scale} />
 				<SvgDefs hiliteNames={hiliteNames} />
 				{props.settings.mode === 'edit' || hiliteBounds.length !== hilites.length ? null : (
 					<MapAnimator
