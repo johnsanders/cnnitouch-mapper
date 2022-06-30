@@ -1,4 +1,4 @@
-import { Label } from '../map/labels/types';
+import { Label } from '../map/types';
 import LabelsChooser from './LabelsChooser';
 import React from 'react';
 import { SelectChangeEvent } from '@mui/material';

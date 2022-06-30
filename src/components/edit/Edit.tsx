@@ -1,13 +1,12 @@
 import { Container, CssBaseline, Grid, Tab, Tabs } from '@mui/material';
 import { EditAction, EditSettings } from './types';
+import { Hilite, Label } from '../map/types';
 import EditMap from './EditMap';
 import EditTabBanner from './EditTabBanner';
 import EditTabBounds from './EditTabBounds';
 import EditTabHilites from './EditTabHilites';
 import EditTabLabels from './EditTabLabels';
 import EditTabRenderContainer from './EditTabRenderContainer';
-import { Hilite } from '../map/types';
-import { Label } from '../map/labels/types';
 import React from 'react';
 import SpecialCasesInfo from './SpecialCasesInfo';
 
@@ -34,9 +33,9 @@ const Edit: React.FC<Props> = (props) => {
 							value={props.state.activeTab}
 						>
 							<Tab label="Banner" value="banner" />
+							<Tab label="Highlights" value="hilites" />
 							<Tab label="Map Start" value="boundsStart" />
 							<Tab label="Map End" value="boundsEnd" />
-							<Tab label="Highlights" value="hilites" />
 							<Tab label="Labels" value="labels" />
 							<Tab label="Render" value="render" />
 						</Tabs>

@@ -6,7 +6,6 @@ module.exports = {
 		'plugin:@typescript-eslint/recommended',
 		'plugin:prettier/recommended',
 		'plugin:react/recommended',
-		'plugin:@remotion/recommended',
 		'plugin:react-hooks/recommended',
 	],
 	parser: '@typescript-eslint/parser',
@@ -17,7 +16,7 @@ module.exports = {
 		ecmaVersion: 2020,
 		sourceType: 'module',
 	},
-	plugins: ['react-hooks', '@remotion'],
+	plugins: ['react-hooks'],
 	rules: {
 		'@typescript-eslint/no-explicit-any': 0,
 		'no-invalid-this': 'error',

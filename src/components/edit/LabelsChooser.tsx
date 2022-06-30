@@ -17,7 +17,7 @@ import {
 import { faTimes, faTrash } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import InlineEdit from './InlineEdit';
-import { Label } from '../map/labels/types';
+import { Label } from '../map/types';
 import React from 'react';
 
 interface Props {

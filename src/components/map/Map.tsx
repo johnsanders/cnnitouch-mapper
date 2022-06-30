@@ -1,17 +1,16 @@
 /* eslint-disable react/display-name */
 import './styles.css';
 import 'leaflet/dist/leaflet.css';
+import { Label, MapSettings } from './types';
 import { LatLngBounds, Map as LeafletMap } from 'leaflet';
 import Banner from './Banner';
 import BordersLayer from './BordersLayer';
 import GoogleFont from './GoogleFont';
 import HiliteLayer from './HiliteLayer';
-import { Label } from './labels/types';
 import LabelsLayer from './labels/LabelsLayer';
 import { MapContainer as LeafletContainer } from 'react-leaflet';
-import MapAnimator from './MapAnimator';
+import MapAnimator from './animator/MapAnimator';
 import MapEventHandlers from './MapEventHandlers';
-import { MapSettings } from './types';
 import React from 'react';
 import ReactLeafletGoogleLayer from 'react-leaflet-google-layer';
 import SpecialCasesLayer from './SpecialCasesLayer';
@@ -26,28 +25,31 @@ interface Props {
 }
 
 const Map = React.forwardRef<LeafletMap, Props>((props, ref) => {
-	const scale = props.compHeight / 1080;
+	const scale = props.compHeight / 2160;
 	const hiliteNames = props.settings.hilites.map((hilite) => hilite.name);
-	const allLabels = [
-		...props.settings.labels,
-		...getSpecialLabels(hiliteNames),
+	const [hiliteBounds, setHiliteBounds] = React.useState<LatLngBounds[]>([]);
+	const allLabelsRef = React.useRef([
 		...props.settings.hilites.reduce<Label[]>(
 			(acc, hilite) => (hilite.label ? [...acc, hilite.label] : acc),
 			[],
 		),
-	];
+		...props.settings.labels,
+		...getSpecialLabels(hiliteNames),
+	]);
+	const { bannerText, boundsEnd, boundsStart, hilites, labels, mode, subheadText, zoomDuration } =
+		props.settings;
 	return (
 		<div
-			className={props.settings.bannerText ? 'hasBanner' : undefined}
+			className={bannerText ? 'hasBanner' : undefined}
 			id="mapContainer"
 			style={{ height: '100%', position: 'relative', width: '100%' }}
 		>
-			{props.settings.bannerText ? (
+			{bannerText ? (
 				<Banner
-					headlineText={props.settings.bannerText}
+					headlineText={bannerText}
 					note="Google Earth"
 					scale={scale}
-					subheadText={props.settings.subheadText}
+					subheadText={subheadText}
 				/>
 			) : (
 				<GoogleFont scale={scale} />
@@ -69,29 +71,27 @@ const Map = React.forwardRef<LeafletMap, Props>((props, ref) => {
 				}}
 				zoom={2}
 				zoomAnimation={true}
-				zoomControl={props.settings.mode === 'edit'}
+				zoomControl={mode === 'edit'}
 				zoomSnap={0}
 			>
-				<MapEventHandlers
-					initialBounds={props.settings.boundsStart}
-					mode={props.settings.mode}
-					setBounds={props.setBounds}
-				/>
+				<MapEventHandlers initialBounds={boundsStart} mode={mode} setBounds={props.setBounds} />
 				<ReactLeafletGoogleLayer
-					apiKey={props.settings.mode === 'render' ? googleApiKey : undefined}
+					apiKey={mode === 'render' ? googleApiKey : undefined}
 					type="satellite"
 				/>
-				<BordersLayer />
-				<HiliteLayer hilites={props.settings.hilites} />
+				<BordersLayer mode={mode} />
+				<HiliteLayer hilites={hilites} setBounds={setHiliteBounds} />
 				<SpecialCasesLayer hiliteNames={hiliteNames} />
-				<LabelsLayer labels={allLabels} mode={props.settings.mode} scale={scale} />
+				<LabelsLayer labels={allLabelsRef.current} mode={props.settings.mode} scale={scale} />
 				<SvgDefs hiliteNames={hiliteNames} />
-				{props.settings.mode === 'edit' ? null : (
+				{props.settings.mode === 'edit' || hiliteBounds.length !== hilites.length ? null : (
 					<MapAnimator
-						endBounds={props.settings.boundsEnd}
-						mode={props.settings.mode}
-						startBounds={props.settings.boundsStart}
-						zoomDuration={props.settings.zoomDuration}
+						endBounds={boundsEnd}
+						hiliteBounds={hiliteBounds}
+						hilites={hilites}
+						labels={labels}
+						startBounds={boundsStart}
+						zoomDuration={zoomDuration}
 					/>
 				)}
 			</LeafletContainer>

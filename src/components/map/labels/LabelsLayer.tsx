@@ -1,6 +1,6 @@
 import { continueRender, delayRender } from 'remotion';
 import AreaLabel from './AreaLabel';
-import { Label } from './types';
+import { Label } from '../types';
 import PointLabel from './PointLabel';
 import React from 'react';
 import { useMap } from 'react-leaflet';
@@ -40,10 +40,10 @@ const LabelsLayer: React.FC<Props> = (props: Props) => {
 				filter: 'drop-shadow(0 0 6px #000000A0)',
 				height: '100%',
 				left: 0,
-				opacity: props.mode === 'render' ? 0 : 1,
 				pointerEvents: 'none',
 				position: 'absolute',
 				top: 0,
+				transform: 'translate3d(0.95, 9.95, 0.95)',
 				width: '100%',
 				zIndex: 500,
 			}}

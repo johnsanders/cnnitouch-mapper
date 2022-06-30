@@ -1,6 +1,6 @@
 import React from 'react';
 
-const bannerMaxWidth = 1400;
+const bannerMaxWidth = 2800;
 export const bannerMaxChars = 40;
 export const subheadMaxChars = 50;
 
@@ -32,13 +32,14 @@ const Banner: React.FC<Props> = (props: Props) => {
 	return (
 		<div
 			style={{
-				height: '135px',
+				height: '270px',
 				left: '4%',
+				pointerEvents: 'none',
 				position: 'absolute',
 				top: '5%',
 				transform: `scale(${props.scale})`,
 				transformOrigin: 'top left',
-				width: '1750px',
+				width: '3500px',
 				zIndex: 1000,
 			}}
 		>
@@ -46,10 +47,10 @@ const Banner: React.FC<Props> = (props: Props) => {
 				style={{
 					backgroundColor: 'white',
 					height: '100%',
-					left: '-12px',
+					left: '-24px',
 					position: 'absolute',
 					top: 0,
-					width: '8px',
+					width: '16px',
 				}}
 			/>
 			<div
@@ -63,12 +64,12 @@ const Banner: React.FC<Props> = (props: Props) => {
 			>
 				<div
 					style={{
-						fontSize: subheadText ? '75px' : '80px',
+						fontSize: subheadText ? '150px' : '160px',
 						fontWeight: 800,
-						left: subheadText ? '20px' : '30px',
+						left: subheadText ? '40px' : '60px',
 						position: 'absolute',
 						textTransform: 'uppercase',
-						top: subheadText ? '-12px' : '13px',
+						top: subheadText ? '-24px' : '26px',
 						whiteSpace: 'nowrap',
 						width: '100%',
 					}}
@@ -92,9 +93,9 @@ const Banner: React.FC<Props> = (props: Props) => {
 								'linear-gradient(180deg, rgba(212,225,228,1) 0%, rgba(186,198,200,1) 100%)',
 							bottom: 0,
 							color: '#112757',
-							fontSize: '50px',
+							fontSize: '100px',
 							lineHeight: 1.1,
-							paddingLeft: '20px',
+							paddingLeft: '40px',
 							position: 'absolute',
 							textTransform: 'uppercase',
 							width: '100%',
@@ -117,13 +118,13 @@ const Banner: React.FC<Props> = (props: Props) => {
 				)}
 				<span
 					style={{
-						bottom: subheadText ? 0 : '38px',
+						bottom: subheadText ? 0 : '76px',
 						fontFamily: 'CNN',
-						fontSize: '40px',
+						fontSize: '80px',
 						fontWeight: 500,
 						opacity: 0.7,
 						position: 'absolute',
-						right: '15px',
+						right: '30px',
 					}}
 				>
 					{props.note || null}

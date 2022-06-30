@@ -20,11 +20,7 @@ const reducer: React.Reducer<RenderState, RenderAction | RenderAction[]> = (
 ) => {
 	const actions = Array.isArray(actionOrActions) ? actionOrActions : [actionOrActions];
 	return actions.reduce((prev, action) => {
-		if (
-			action.key === 'playbackATL' ||
-			action.key === 'playbackNYH' ||
-			action.key === 'playbackDC'
-		) {
+		if (action.key.includes('playback')) {
 			const playbackCode = action.key.replace('playback', '');
 			const newPlayback = { ...prev.playback, [playbackCode]: action.value };
 			return { ...prev, playback: newPlayback };
