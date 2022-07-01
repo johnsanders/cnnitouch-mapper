@@ -23,8 +23,8 @@ interface Props {
 }
 
 const EditMap: React.FC<Props> = (props: Props) => {
-	const [hilitesAreHidden, setHilitesAreHidden] = React.useState(true);
-	const [labelsAreHidden, setLabelsAreHidden] = React.useState(true);
+	const [hilitesAreHidden, setHilitesAreHidden] = React.useState(false);
+	const [labelsAreHidden, setLabelsAreHidden] = React.useState(false);
 	const theme = useTheme();
 	return (
 		<>

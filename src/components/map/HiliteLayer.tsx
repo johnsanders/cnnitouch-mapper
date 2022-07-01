@@ -23,7 +23,7 @@ const HiliteLayer: React.FC<Props> = (props) => {
 	const boundsRef = React.useRef<LatLngBounds[]>([]);
 	const [hilitesVisible, setHilitesVisible] = React.useState(true);
 	const map = useMap();
-	const { hilites, mode } = props;
+	const { hilites, mode, setHilitesAreHidden } = props;
 	const checkEditVisibilities = React.useCallback(() => {
 		if (mode !== 'edit' || hilites.length === 0) return;
 		const mapBounds = map.getBounds();
@@ -35,7 +35,8 @@ const HiliteLayer: React.FC<Props> = (props) => {
 		const hiliteAggregateBounds = calcAggregateBounds(correctedBounds);
 		const hilitesExceedThreshold = boundsExceedsThreshold(hiliteAggregateBounds, mapBounds);
 		setHilitesVisible(!hilitesExceedThreshold);
-	}, [hilites, map, mode]);
+		if (setHilitesAreHidden) setHilitesAreHidden(hilitesExceedThreshold);
+	}, [hilites, map, mode, setHilitesAreHidden]);
 	useMapEvent('zoomend', checkEditVisibilities);
 	React.useEffect(() => {
 		boundsRef.current = layerRef.current.map((layer) => layer.getBounds());
