@@ -34,7 +34,6 @@ interface Props {
 const Map: React.FC<Props> = (props) => {
 	const scale = props.compHeight / 2160;
 	const hiliteNames = props.settings.hilites.map((hilite) => hilite.name);
-	const [hiliteBounds, setHiliteBounds] = React.useState<LatLngBounds[]>([]);
 	const [allLabels, setAllLabels] = React.useState(
 		collateLabels(props.settings.hilites, props.settings.labels),
 	);
@@ -85,7 +84,6 @@ const Map: React.FC<Props> = (props) => {
 				<HiliteLayer
 					hilites={hilites}
 					mode={mode}
-					setBounds={setHiliteBounds}
 					setHilitesAreHidden={props.setHilitesAreHidden}
 				/>
 				<SpecialCasesLayer hiliteNames={hiliteNames} />
@@ -96,11 +94,10 @@ const Map: React.FC<Props> = (props) => {
 					setLabelsAreHidden={props.setLabelsAreHidden}
 				/>
 				<SvgDefs hiliteNames={hiliteNames} />
-				{props.settings.mode === 'edit' || hiliteBounds.length !== hilites.length ? null : (
+				{props.settings.mode === 'edit' ? null : (
 					<MapAnimator
 						boundsEnd={boundsEnd}
 						boundsStart={boundsStart}
-						hiliteBounds={hiliteBounds}
 						hilites={hilites}
 						labels={labels}
 						zoomDuration={zoomDuration}

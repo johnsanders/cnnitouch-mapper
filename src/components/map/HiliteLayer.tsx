@@ -15,7 +15,6 @@ const geoData = topojsonFeature(hilitesData as any, topoData);
 interface Props {
 	hilites: Hilite[];
 	mode: 'edit' | 'render';
-	setBounds: (bounds: LatLngBounds[]) => void;
 	setHilitesAreHidden?: (hilitesAreHidden: boolean) => void;
 }
 
@@ -24,14 +23,14 @@ const HiliteLayer: React.FC<Props> = (props) => {
 	const boundsRef = React.useRef<LatLngBounds[]>([]);
 	const [hilitesVisible, setHilitesVisible] = React.useState(true);
 	const map = useMap();
-	const { hilites, mode, setBounds } = props;
+	const { hilites, mode } = props;
 	const checkEditVisibilities = React.useCallback(() => {
 		if (mode !== 'edit' || hilites.length === 0) return;
 		const mapBounds = map.getBounds();
 		const correctedBounds = hilites.map((hilite, i) =>
 			!hiliteBoundsSpecialCases[hilite.name]
 				? boundsRef.current[i]
-				: hiliteBoundsSpecialCases[hilite.name],
+				: new LatLngBounds(hiliteBoundsSpecialCases[hilite.name]),
 		);
 		const hiliteAggregateBounds = calcAggregateBounds(correctedBounds);
 		const hilitesExceedThreshold = boundsExceedsThreshold(hiliteAggregateBounds, mapBounds);
@@ -41,8 +40,7 @@ const HiliteLayer: React.FC<Props> = (props) => {
 	React.useEffect(() => {
 		boundsRef.current = layerRef.current.map((layer) => layer.getBounds());
 		checkEditVisibilities();
-		setBounds(boundsRef.current);
-	}, [checkEditVisibilities, setBounds]);
+	}, [checkEditVisibilities]);
 	return (
 		<>
 			{hilites.map((hilite, i) => {

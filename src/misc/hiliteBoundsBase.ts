@@ -1,5 +1,7 @@
+import { LatLngBoundsLiteral } from 'leaflet';
+
 /* eslint-disable sort-keys */
-export default {
+const hiliteBoundsBase: { [key: string]: LatLngBoundsLiteral } = {
 	Indonesia: [
 		[-10.922487304799034, 95.01288290867453],
 		[5.910186388022822, 140.97753949457356],
@@ -1033,3 +1035,5 @@ export default {
 		[15.154488526529988, 117.75551102204409],
 	],
 };
+
+export default hiliteBoundsBase;

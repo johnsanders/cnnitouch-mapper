@@ -50,7 +50,7 @@ const testHilitesAtFrame = (
 	const correctedHiliteBounds = hilitesAnimConfigs.map((hiliteAnimConfig, i) =>
 		!hiliteBoundsSpecialCases[hiliteAnimConfig.name]
 			? hiliteBounds[i]
-			: hiliteBoundsSpecialCases[hiliteAnimConfig.name],
+			: new LatLngBounds(hiliteBoundsSpecialCases[hiliteAnimConfig.name]),
 	);
 	const aggregateBounds = calcAggregateBounds(correctedHiliteBounds);
 	if (boundsExceedsThreshold(aggregateBounds, mapBounds))

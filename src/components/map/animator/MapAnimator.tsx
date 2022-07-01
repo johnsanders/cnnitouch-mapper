@@ -5,6 +5,7 @@ import React from 'react';
 import calculateMapBoundsAtFrame from './calculateMapBoundsAtFrame';
 import checkTiles from './checkTiles';
 import { easing } from './config';
+import hiliteBoundsAll from '../../../misc/hiliteBounds';
 import initLabelAndHiliteAnimations from './initLabelAndHiliteAnimations';
 import setHiliteDomStylesAtFrame from './setHiliteDomStylesAtFrame';
 import setLabelDomStylesAtFrame from './setLabelDomStylesAtFrame';
@@ -14,7 +15,6 @@ import waitFor from '../../../misc/waitFor';
 interface Props {
 	boundsEnd: LatLngBounds;
 	boundsStart: LatLngBounds;
-	hiliteBounds: LatLngBounds[];
 	hilites: Hilite[];
 	labels: Label[];
 	zoomDuration: number;
@@ -25,16 +25,14 @@ const MapAnimator: React.FC<Props> = (props: Props) => {
 	const hiliteAnimationConfigsRef = React.useRef<HiliteAnimationConfig[]>();
 	const framesRenderedRef = React.useRef<number[]>([]);
 	const prevZoomRef = React.useRef(0);
-	const {
-		boundsEnd: endBounds,
-		hiliteBounds,
-		hilites,
-		labels,
-		boundsStart: startBounds,
-		zoomDuration,
-	} = props;
+	const { boundsEnd: endBounds, hilites, labels, boundsStart: startBounds, zoomDuration } = props;
 	const map = useMap();
 	const frame = useCurrentFrame();
+	const hiliteBounds = props.hilites.map((hilite) => {
+		if (!hiliteBoundsAll[hilite.name])
+			throw new Error(`Cannot get hilite bounds for ${hilite.name}`);
+		return new LatLngBounds(hiliteBoundsAll[hilite.name]);
+	});
 	if (!startBounds || !endBounds) return null;
 	const handleFrame = async () => {
 		if (framesRenderedRef.current.includes(frame)) return;
