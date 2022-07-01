@@ -43,10 +43,17 @@ const Edit: React.FC<Props> = (props) => {
 					<EditTabBanner
 						active={props.state.activeTab === 'banner'}
 						bannerText={props.state.mapSettings.bannerText}
-						onNext={() => props.dispatch({ key: 'activeTab', value: 'boundsStart' })}
+						onNext={() => props.dispatch({ key: 'activeTab', value: 'hilites' })}
 						setBanner={(value) => props.dispatch({ key: 'bannerText', value })}
 						setSubhead={(value) => props.dispatch({ key: 'subheadText', value })}
 						subheadText={props.state.mapSettings.subheadText}
+					/>
+					<EditTabHilites
+						active={props.state.activeTab === 'hilites'}
+						hilites={props.state.mapSettings.hilites}
+						onNext={() => props.dispatch({ key: 'activeTab', value: 'boundsStart' })}
+						onPrevious={() => props.dispatch({ key: 'activeTab', value: 'banner' })}
+						setHilites={(hilites: Hilite[]) => props.dispatch({ key: 'hilites', value: hilites })}
 					/>
 					<EditTabBounds
 						active={
@@ -55,7 +62,7 @@ const Edit: React.FC<Props> = (props) => {
 						onNext={() =>
 							props.dispatch({
 								key: 'activeTab',
-								value: props.state.activeTab === 'boundsStart' ? 'boundsEnd' : 'hilites',
+								value: props.state.activeTab === 'boundsStart' ? 'boundsEnd' : 'labels',
 							})
 						}
 						onPrevious={() =>
@@ -66,18 +73,11 @@ const Edit: React.FC<Props> = (props) => {
 						}
 						tabName={props.state.activeTab}
 					/>
-					<EditTabHilites
-						active={props.state.activeTab === 'hilites'}
-						hilites={props.state.mapSettings.hilites}
-						onNext={() => props.dispatch({ key: 'activeTab', value: 'labels' })}
-						onPrevious={() => props.dispatch({ key: 'activeTab', value: 'boundsEnd' })}
-						setHilites={(hilites: Hilite[]) => props.dispatch({ key: 'hilites', value: hilites })}
-					/>
 					<EditTabLabels
 						active={props.state.activeTab === 'labels'}
 						labels={props.state.mapSettings.labels}
 						onNext={() => props.dispatch({ key: 'activeTab', value: 'render' })}
-						onPrevious={() => props.dispatch({ key: 'activeTab', value: 'hilites' })}
+						onPrevious={() => props.dispatch({ key: 'activeTab', value: 'boundsEnd' })}
 						setLabels={(labels: Label[]) => props.dispatch({ key: 'labels', value: labels })}
 					/>
 					<EditTabRenderContainer
