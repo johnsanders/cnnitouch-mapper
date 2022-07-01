@@ -5,7 +5,7 @@ import PointLabel from './PointLabel';
 import React from 'react';
 import calcLabelsOverlapVisibility from '../animator/calcLabelsOverlapVisibility';
 import createLabelAnimConfigs from '../animator/createLabelAnimConfigs';
-import { useMap } from 'react-leaflet';
+import { useMapEvent } from 'react-leaflet';
 
 const fontPrimer = (
 	<div style={{ fontFamily: 'CNN', fontWeight: '500', opacity: 0 }}>Font Primer</div>
@@ -19,9 +19,9 @@ interface Props {
 }
 
 const LabelsLayer: React.FC<Props> = (props: Props) => {
+	const timeoutRef = React.useRef<number>();
 	const [ready, setReady] = React.useState(false);
 	const [visibleLabels, setVisibleLabels] = React.useState(props.labels);
-	const map = useMap();
 	const { labels, mode, setLabelsAreHidden } = props;
 	React.useEffect(() => {
 		const delayId = delayRender();
@@ -31,19 +31,23 @@ const LabelsLayer: React.FC<Props> = (props: Props) => {
 		}, 500);
 		return () => continueRender(delayId);
 	}, []);
-	React.useEffect(() => {
+	const checkLabels = React.useCallback(() => {
 		if (mode !== 'edit') return;
 		setVisibleLabels(labels);
-		const timeout = setTimeout(() => {
+		timeoutRef.current = window.setTimeout(() => {
 			const visibility = calcLabelsOverlapVisibility(
 				createLabelAnimConfigs(labels, []).normalLabelAnimConfigs,
 			);
 			const visibleLabels = labels.filter((_label, i) => visibility[i]);
 			setVisibleLabels(visibleLabels);
-			if (setLabelsAreHidden) setLabelsAreHidden(visibleLabels.length === labels.length);
+			if (setLabelsAreHidden) setLabelsAreHidden(visibleLabels.length < labels.length);
 		}, 100);
-		return () => clearTimeout(timeout);
-	}, [labels, map, mode, setLabelsAreHidden]);
+	}, [labels, mode, setLabelsAreHidden]);
+	useMapEvent('zoomend', checkLabels);
+	React.useEffect(() => {
+		checkLabels();
+		return () => clearTimeout(timeoutRef.current);
+	}, [checkLabels]);
 	return !ready ? (
 		fontPrimer
 	) : (
