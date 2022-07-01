@@ -25,6 +25,7 @@ const collateLabels = (hilites: Hilite[], labels: Label[]) => [
 
 interface Props {
 	compHeight: number;
+	setHilitesAreHidden?: (hilitesAreHidden: boolean) => void;
 	setLabelsAreHidden?: (labelsAreHidden: boolean) => void;
 	settings: MapSettings;
 	setBounds?: (bounds: LatLngBounds) => void;
@@ -81,7 +82,12 @@ const Map: React.FC<Props> = (props) => {
 					type="satellite"
 				/>
 				<BordersLayer mode={mode} />
-				<HiliteLayer hilites={hilites} setBounds={setHiliteBounds} />
+				<HiliteLayer
+					hilites={hilites}
+					mode={mode}
+					setBounds={setHiliteBounds}
+					setHilitesAreHidden={props.setHilitesAreHidden}
+				/>
 				<SpecialCasesLayer hiliteNames={hiliteNames} />
 				<LabelsLayer
 					labels={allLabels}
@@ -92,11 +98,11 @@ const Map: React.FC<Props> = (props) => {
 				<SvgDefs hiliteNames={hiliteNames} />
 				{props.settings.mode === 'edit' || hiliteBounds.length !== hilites.length ? null : (
 					<MapAnimator
-						endBounds={boundsEnd}
+						boundsEnd={boundsEnd}
+						boundsStart={boundsStart}
 						hiliteBounds={hiliteBounds}
 						hilites={hilites}
 						labels={labels}
-						startBounds={boundsStart}
 						zoomDuration={zoomDuration}
 					/>
 				)}

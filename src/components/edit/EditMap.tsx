@@ -23,7 +23,8 @@ interface Props {
 }
 
 const EditMap: React.FC<Props> = (props: Props) => {
-	const [labelsAreHidden, setLabelsAreHidden] = React.useState(false);
+	const [hilitesAreHidden, setHilitesAreHidden] = React.useState(true);
+	const [labelsAreHidden, setLabelsAreHidden] = React.useState(true);
 	const theme = useTheme();
 	return (
 		<>
@@ -32,6 +33,7 @@ const EditMap: React.FC<Props> = (props: Props) => {
 					<Map
 						compHeight={405}
 						setBounds={(bounds: LatLngBounds) => props.dispatch({ key: 'bounds', value: bounds })}
+						setHilitesAreHidden={setHilitesAreHidden}
 						setLabelsAreHidden={setLabelsAreHidden}
 						settings={props.state.mapSettings}
 					/>
@@ -70,14 +72,24 @@ const EditMap: React.FC<Props> = (props: Props) => {
 					</Box>
 					<Box color={theme.palette.secondary.main} mt="6px">
 						{!labelsAreHidden ? null : (
-							<>
-								<Tooltip title="Some overlapping labels are hidden at this zoom level. They'll appear when you zoom in.">
+							<Box>
+								<Tooltip title="Some labels are hidden at this zoom level because they overlap. They'll appear when you zoom in.">
 									<IconButton size="small">
 										<Icon icon={faInfoCircle} />
 									</IconButton>
 								</Tooltip>
 								<Box display="inline">Some labels are hidden</Box>
-							</>
+							</Box>
+						)}
+						{!hilitesAreHidden ? null : (
+							<Box>
+								<Tooltip title="Hilites hidden at this zoom level because they would completely cover the map. They'll appear when you zoom out.">
+									<IconButton size="small">
+										<Icon icon={faInfoCircle} />
+									</IconButton>
+								</Tooltip>
+								<Box display="inline">Hilites are hidden</Box>
+							</Box>
 						)}
 					</Box>
 				</Box>

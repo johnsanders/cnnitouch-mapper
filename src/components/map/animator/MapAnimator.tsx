@@ -12,11 +12,11 @@ import { useMap } from 'react-leaflet';
 import waitFor from '../../../misc/waitFor';
 
 interface Props {
-	endBounds: LatLngBounds;
+	boundsEnd: LatLngBounds;
+	boundsStart: LatLngBounds;
 	hiliteBounds: LatLngBounds[];
 	hilites: Hilite[];
 	labels: Label[];
-	startBounds: LatLngBounds;
 	zoomDuration: number;
 }
 
@@ -25,7 +25,14 @@ const MapAnimator: React.FC<Props> = (props: Props) => {
 	const hiliteAnimationConfigsRef = React.useRef<HiliteAnimationConfig[]>();
 	const framesRenderedRef = React.useRef<number[]>([]);
 	const prevZoomRef = React.useRef(0);
-	const { endBounds, hiliteBounds, hilites, labels, startBounds, zoomDuration } = props;
+	const {
+		boundsEnd: endBounds,
+		hiliteBounds,
+		hilites,
+		labels,
+		boundsStart: startBounds,
+		zoomDuration,
+	} = props;
 	const map = useMap();
 	const frame = useCurrentFrame();
 	if (!startBounds || !endBounds) return null;

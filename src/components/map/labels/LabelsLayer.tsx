@@ -31,7 +31,7 @@ const LabelsLayer: React.FC<Props> = (props: Props) => {
 		}, 500);
 		return () => continueRender(delayId);
 	}, []);
-	const checkLabels = React.useCallback(() => {
+	const checkEditVisibilities = React.useCallback(() => {
 		if (mode !== 'edit') return;
 		setVisibleLabels(labels);
 		timeoutRef.current = window.setTimeout(() => {
@@ -43,11 +43,11 @@ const LabelsLayer: React.FC<Props> = (props: Props) => {
 			if (setLabelsAreHidden) setLabelsAreHidden(visibleLabels.length < labels.length);
 		}, 100);
 	}, [labels, mode, setLabelsAreHidden]);
-	useMapEvent('zoomend', checkLabels);
+	useMapEvent('zoomend', checkEditVisibilities);
 	React.useEffect(() => {
-		checkLabels();
+		checkEditVisibilities();
 		return () => clearTimeout(timeoutRef.current);
-	}, [checkLabels]);
+	}, [checkEditVisibilities]);
 	return !ready ? (
 		fontPrimer
 	) : (

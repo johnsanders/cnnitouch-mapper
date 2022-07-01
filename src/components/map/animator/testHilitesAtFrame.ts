@@ -1,19 +1,10 @@
 import { HiliteAnimationConfig } from '../types';
 import { LatLngBounds } from 'leaflet';
+import calcAggregateBounds from './calcAggregateBounds';
+import hiliteBoundsSpecialCases from '../../../misc/hiliteBoundsSpecialCases';
 import { hiliteFadeOutThreshold } from './config';
 
-const specialCases: { [key: string]: { ne: [number, number]; sw: [number, number] } } = {
-	'United States of America': {
-		ne: [71.41254400921397, -66],
-		sw: [18.906055400595918, -179.14374202951348],
-	},
-	// TODO:  we need Russia here
-};
-
-export const hiliteExceedsBoundsThreshold = (
-	hiliteBounds: LatLngBounds,
-	mapBounds: LatLngBounds,
-) => {
+export const boundsExceedsThreshold = (hiliteBounds: LatLngBounds, mapBounds: LatLngBounds) => {
 	const hiliteSw = hiliteBounds.getSouthWest();
 	const hiliteNe = hiliteBounds.getNorthEast();
 	const hiliteMaxLat = hiliteNe.lat;
@@ -56,15 +47,14 @@ const testHilitesAtFrame = (
 	hiliteBounds: LatLngBounds[],
 	mapBounds: LatLngBounds,
 ) => {
-	hilitesAnimConfigs.forEach((hiliteAnimConfig, i) => {
-		const correctedBounds = !specialCases[hiliteAnimConfig.name]
+	const correctedHiliteBounds = hilitesAnimConfigs.map((hiliteAnimConfig, i) =>
+		!hiliteBoundsSpecialCases[hiliteAnimConfig.name]
 			? hiliteBounds[i]
-			: new LatLngBounds(
-					specialCases[hiliteAnimConfig.name].sw,
-					specialCases[hiliteAnimConfig.name].ne,
-			  );
-		if (hiliteExceedsBoundsThreshold(correctedBounds, mapBounds)) hiliteAnimConfig.endFrame = frame;
-	});
+			: hiliteBoundsSpecialCases[hiliteAnimConfig.name],
+	);
+	const aggregateBounds = calcAggregateBounds(correctedHiliteBounds);
+	if (boundsExceedsThreshold(aggregateBounds, mapBounds))
+		hilitesAnimConfigs.forEach((hiliteAnimConfig) => (hiliteAnimConfig.endFrame = frame));
 };
 
 export default testHilitesAtFrame;

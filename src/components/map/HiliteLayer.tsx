@@ -1,8 +1,11 @@
+import { GeoJSON, useMap, useMapEvent } from 'react-leaflet';
 import { LatLngBounds, GeoJSON as LeafletGeoJSON } from 'leaflet';
-import { GeoJSON } from 'react-leaflet';
 import { Hilite } from './types';
 import React from 'react';
+import { boundsExceedsThreshold } from './animator/testHilitesAtFrame';
+import calcAggregateBounds from './animator/calcAggregateBounds';
 import getDomId from '../../misc/getDomId';
+import hiliteBoundsSpecialCases from '../../misc/hiliteBoundsSpecialCases';
 import hilitesData from '../../data/ne_10m_admin_0_countries.topo.json';
 import { feature as topojsonFeature } from 'topojson-client';
 
@@ -11,18 +14,38 @@ const geoData = topojsonFeature(hilitesData as any, topoData);
 
 interface Props {
 	hilites: Hilite[];
+	mode: 'edit' | 'render';
 	setBounds: (bounds: LatLngBounds[]) => void;
+	setHilitesAreHidden?: (hilitesAreHidden: boolean) => void;
 }
 
 const HiliteLayer: React.FC<Props> = (props) => {
 	const layerRef = React.useRef<LeafletGeoJSON[]>([]);
-	const { setBounds } = props;
+	const boundsRef = React.useRef<LatLngBounds[]>([]);
+	const [hilitesVisible, setHilitesVisible] = React.useState(true);
+	const map = useMap();
+	const { hilites, mode, setBounds } = props;
+	const checkEditVisibilities = React.useCallback(() => {
+		if (mode !== 'edit' || hilites.length === 0) return;
+		const mapBounds = map.getBounds();
+		const correctedBounds = hilites.map((hilite, i) =>
+			!hiliteBoundsSpecialCases[hilite.name]
+				? boundsRef.current[i]
+				: hiliteBoundsSpecialCases[hilite.name],
+		);
+		const hiliteAggregateBounds = calcAggregateBounds(correctedBounds);
+		const hilitesExceedThreshold = boundsExceedsThreshold(hiliteAggregateBounds, mapBounds);
+		setHilitesVisible(!hilitesExceedThreshold);
+	}, [hilites, map, mode]);
+	useMapEvent('zoomend', checkEditVisibilities);
 	React.useEffect(() => {
-		if (layerRef.current) setBounds(layerRef.current.map((layer) => layer.getBounds()));
-	}, [setBounds]);
+		boundsRef.current = layerRef.current.map((layer) => layer.getBounds());
+		checkEditVisibilities();
+		setBounds(boundsRef.current);
+	}, [checkEditVisibilities, setBounds]);
 	return (
 		<>
-			{props.hilites.map((hilite, i) => {
+			{hilites.map((hilite, i) => {
 				const feature = (geoData as any).features.find(
 					(feature: any) => feature.properties.NAME === hilite.name,
 				);
@@ -31,14 +54,12 @@ const HiliteLayer: React.FC<Props> = (props) => {
 					<GeoJSON
 						data={feature}
 						key={feature.properties.NAME}
-						ref={(el) => {
-							if (el) layerRef.current[i] = el;
-						}}
+						ref={(el) => el && (layerRef.current[i] = el)}
 						style={() => ({
 							className: getDomId('hilite', hilite.id),
 							color: '#000000',
 							fillColor: '#ffaf38',
-							fillOpacity: 1,
+							fillOpacity: hilitesVisible ? 1 : 0,
 							weight: 1,
 						})}
 					/>
