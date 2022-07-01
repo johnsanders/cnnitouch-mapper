@@ -68,7 +68,7 @@ const Edit: React.FC<Props> = (props) => {
 						onPrevious={() =>
 							props.dispatch({
 								key: 'activeTab',
-								value: props.state.activeTab === 'boundsStart' ? 'banner' : 'boundsStart',
+								value: props.state.activeTab === 'boundsStart' ? 'hilites' : 'boundsStart',
 							})
 						}
 						tabName={props.state.activeTab}
