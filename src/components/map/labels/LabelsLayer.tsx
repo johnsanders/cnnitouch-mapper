@@ -1,11 +1,11 @@
 import { continueRender, delayRender } from 'remotion';
+import { useMap, useMapEvent } from 'react-leaflet';
 import AreaLabel from './AreaLabel';
 import { Label } from '../types';
 import PointLabel from './PointLabel';
 import React from 'react';
 import calcLabelsOverlapVisibility from '../animator/calcLabelsOverlapVisibility';
 import createLabelAnimConfigs from '../animator/createLabelAnimConfigs';
-import { useMapEvent } from 'react-leaflet';
 
 const fontPrimer = (
 	<div style={{ fontFamily: 'CNN', fontWeight: '500', opacity: 0 }}>Font Primer</div>
@@ -23,6 +23,7 @@ const LabelsLayer: React.FC<Props> = (props: Props) => {
 	const [ready, setReady] = React.useState(false);
 	const [visibleLabels, setVisibleLabels] = React.useState(props.labels);
 	const { labels, mode, setLabelsAreHidden } = props;
+	const zoom = useMap().getZoom();
 	React.useEffect(() => {
 		const delayId = delayRender();
 		setTimeout(() => {
@@ -33,16 +34,17 @@ const LabelsLayer: React.FC<Props> = (props: Props) => {
 	}, []);
 	const checkEditVisibilities = React.useCallback(() => {
 		if (mode !== 'edit') return;
-		setVisibleLabels(labels);
+		const labelsAboveMinZoom = labels.filter((label) => zoom >= label.minZoom);
+		setVisibleLabels(labelsAboveMinZoom);
 		timeoutRef.current = window.setTimeout(() => {
 			const visibility = calcLabelsOverlapVisibility(
-				createLabelAnimConfigs(labels, []).normalLabelAnimConfigs,
+				createLabelAnimConfigs(labelsAboveMinZoom, []).normalLabelAnimConfigs,
 			);
-			const visibleLabels = labels.filter((_label, i) => visibility[i]);
+			const visibleLabels = labelsAboveMinZoom.filter((_label, i) => visibility[i]);
 			setVisibleLabels(visibleLabels);
 			if (setLabelsAreHidden) setLabelsAreHidden(visibleLabels.length < labels.length);
 		}, 100);
-	}, [labels, mode, setLabelsAreHidden]);
+	}, [labels, mode, setLabelsAreHidden, zoom]);
 	useMapEvent('zoomend', checkEditVisibilities);
 	React.useEffect(() => {
 		checkEditVisibilities();

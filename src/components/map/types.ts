@@ -23,11 +23,11 @@ export interface Label {
 	angle: number;
 	iconType: 'none' | 'redStar' | 'redDot';
 	id: string;
+	minZoom: number;
 	name: string;
 	lat: number;
 	lng: number;
 	type: 'area' | 'point';
-	minZoom: number;
 }
 
 export interface RenderSettings {

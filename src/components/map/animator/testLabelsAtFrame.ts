@@ -22,7 +22,8 @@ const testLabelsAtFrame = (
 			!labelsDisplayableInFrame[i] ||
 			map.getZoom() < labelAnimConfig.minZoom
 		)
-			setLabelDomStylesAtFrame(labelAnimConfig, frame, map);
+			return;
+		setLabelDomStylesAtFrame(labelAnimConfig, frame, map);
 		if (!labelAnimConfig.isHiliteLabel)
 			labelAnimConfig.startFrame = Math.max(frame - fadeDuration, 0);
 		else {
