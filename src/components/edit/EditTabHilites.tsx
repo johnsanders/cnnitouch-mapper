@@ -1,6 +1,6 @@
 import { Box, Grid } from '@mui/material';
 import EditTabNavButtons from './EditTabNavButtons';
-import { Hilite } from '../map/types';
+import { Hilite } from '../types';
 import HiliteChooserContainer from './HilitesChooserContainer';
 import React from 'react';
 

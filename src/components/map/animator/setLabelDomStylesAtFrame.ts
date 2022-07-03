@@ -1,4 +1,4 @@
-import { LabelAnimationConfig } from '../types';
+import { LabelAnimationConfig } from '../../types';
 import { Map } from 'leaflet';
 import { fadeDuration } from './config';
 import { interpolate } from 'remotion';

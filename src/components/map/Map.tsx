@@ -1,6 +1,5 @@
 import './styles.css';
 import 'leaflet/dist/leaflet.css';
-import { Hilite, Label, MapSettings } from './types';
 import Banner from './Banner';
 import BordersLayer from './BordersLayer';
 import GoogleFont from './GoogleFont';
@@ -10,18 +9,12 @@ import { LatLngBounds } from 'leaflet';
 import { MapContainer as LeafletContainer } from 'react-leaflet';
 import MapAnimator from './animator/MapAnimator';
 import MapEventHandlers from './MapEventHandlers';
+import { MapSettings } from '../types';
 import React from 'react';
 import ReactLeafletGoogleLayer from 'react-leaflet-google-layer';
 import SpecialCasesLayer from './SpecialCasesLayer';
 import SvgDefs from './SvgDefs';
-import getSpecialLabels from './labels/getSpecialLabels';
 import googleApiKey from '../../config/googleApiKey_disableGit';
-
-const collateLabels = (hilites: Hilite[], labels: Label[]) => [
-	...hilites.reduce<Label[]>((acc, hilite) => (hilite.label ? [...acc, hilite.label] : acc), []),
-	...labels,
-	...getSpecialLabels(hilites.map((hilite) => hilite.name)),
-];
 
 interface Props {
 	compHeight: number;
@@ -34,12 +27,8 @@ interface Props {
 const Map: React.FC<Props> = (props) => {
 	const scale = props.compHeight / 2160;
 	const hiliteNames = props.settings.hilites.map((hilite) => hilite.name);
-	const [allLabels, setAllLabels] = React.useState(
-		collateLabels(props.settings.hilites, props.settings.labels),
-	);
 	const { bannerText, boundsEnd, boundsStart, hilites, labels, mode, subheadText, zoomDuration } =
 		props.settings;
-	React.useEffect(() => setAllLabels(collateLabels(hilites, labels)), [hilites, labels]);
 	return (
 		<div
 			className={bannerText ? 'hasBanner' : undefined}
@@ -88,7 +77,8 @@ const Map: React.FC<Props> = (props) => {
 				/>
 				<SpecialCasesLayer hiliteNames={hiliteNames} />
 				<LabelsLayer
-					labels={allLabels}
+					hilites={hilites}
+					labels={labels}
 					mode={props.settings.mode}
 					scale={scale}
 					setLabelsAreHidden={props.setLabelsAreHidden}

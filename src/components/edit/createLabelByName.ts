@@ -1,4 +1,4 @@
-import { Label } from '../map/types';
+import { Label } from '../types';
 import geoSearch from '../../misc/geoSearch';
 import { v4 as uuid } from 'uuid';
 

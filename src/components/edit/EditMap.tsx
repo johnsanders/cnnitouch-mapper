@@ -73,7 +73,13 @@ const EditMap: React.FC<Props> = (props: Props) => {
 					<Box color={theme.palette.secondary.main} mt="6px">
 						{!labelsAreHidden ? null : (
 							<Box>
-								<Tooltip title="Some labels are hidden at this zoom level because they overlap. They'll appear when you zoom in.">
+								<Tooltip
+									title={`
+										Some labels are hidden at this zoom level because they overlap,
+										or the area they label is too small.
+										They'll appear when you zoom to a level that allows them.
+									`}
+								>
 									<IconButton size="small">
 										<Icon icon={faInfoCircle} />
 									</IconButton>
@@ -83,7 +89,12 @@ const EditMap: React.FC<Props> = (props: Props) => {
 						)}
 						{!hilitesAreHidden ? null : (
 							<Box>
-								<Tooltip title="Hilites hidden at this zoom level because they would completely cover the map. They'll appear when you zoom out.">
+								<Tooltip
+									title={`
+										Hilites are hidden at this zoom level because they would cover most of the map.
+										They'll appear when you zoom out.
+									`}
+								>
 									<IconButton size="small">
 										<Icon icon={faInfoCircle} />
 									</IconButton>

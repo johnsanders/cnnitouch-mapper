@@ -13,7 +13,7 @@ import {
 	TextField,
 } from '@mui/material';
 import { Box } from '@mui/system';
-import { Hilite } from '../map/types';
+import { Hilite } from '../types';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import InlineEdit from './InlineEdit';
 import React from 'react';

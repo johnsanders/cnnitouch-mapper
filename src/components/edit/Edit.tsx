@@ -1,6 +1,6 @@
 import { Container, CssBaseline, Grid, Tab, Tabs } from '@mui/material';
 import { EditAction, EditSettings } from './types';
-import { Hilite, Label } from '../map/types';
+import { Hilite, Label } from '../types';
 import EditMap from './EditMap';
 import EditTabBanner from './EditTabBanner';
 import EditTabBounds from './EditTabBounds';

@@ -1,17 +1,28 @@
+import { Hilite, Label } from '../../types';
 import { continueRender, delayRender } from 'remotion';
 import { useMap, useMapEvent } from 'react-leaflet';
 import AreaLabel from './AreaLabel';
-import { Label } from '../types';
 import PointLabel from './PointLabel';
 import React from 'react';
 import calcLabelsOverlapVisibility from '../animator/calcLabelsOverlapVisibility';
 import createLabelAnimConfigs from '../animator/createLabelAnimConfigs';
+import getDomId from '../../../misc/getDomId';
+import getLabelsFromHilitesList from '../../../misc/getLabelsFromHilitesList';
+import getMapSizeInPixels from '../../../misc/getMapSizeInPixels';
+import getSpecialLabels from './getSpecialLabels';
+import { hiliteLabelThreshold } from '../animator/config';
 
 const fontPrimer = (
 	<div style={{ fontFamily: 'CNN', fontWeight: '500', opacity: 0 }}>Font Primer</div>
 );
+const collateLabels = (hilites: Hilite[], labels: Label[]) => [
+	...getLabelsFromHilitesList(hilites),
+	...labels,
+	...getSpecialLabels(hilites.map((hilite) => hilite.name)),
+];
 
 interface Props {
+	hilites: Hilite[];
 	labels: Label[];
 	mode: 'edit' | 'render';
 	scale: number;
@@ -22,7 +33,7 @@ const LabelsLayer: React.FC<Props> = (props: Props) => {
 	const timeoutRef = React.useRef<number>();
 	const [ready, setReady] = React.useState(false);
 	const [visibleLabels, setVisibleLabels] = React.useState(props.labels);
-	const { labels, mode, setLabelsAreHidden } = props;
+	const { hilites, labels, mode, setLabelsAreHidden } = props;
 	const zoom = useMap().getZoom();
 	React.useEffect(() => {
 		const delayId = delayRender();
@@ -34,7 +45,18 @@ const LabelsLayer: React.FC<Props> = (props: Props) => {
 	}, []);
 	const checkEditVisibilities = React.useCallback(() => {
 		if (mode !== 'edit') return;
-		const labelsAboveMinZoom = labels.filter((label) => zoom >= label.minZoom);
+		const mapSizeInPixels = getMapSizeInPixels();
+		const visibleHiliteLabels = hilites.filter((hilite) => {
+			const hiliteEl = document.querySelector(`.${getDomId('hilite', hilite.id)}`);
+			if (!hiliteEl) throw new Error(`No hilite element for ${hilite.id}`);
+			const hiliteRect = hiliteEl.getBoundingClientRect();
+			const hiliteSizeInPixels = hiliteRect.width * hiliteRect.height;
+			const hilitePercentOfScreen = hiliteSizeInPixels / mapSizeInPixels;
+			const hiliteIsBigEnoughToLabel = hilitePercentOfScreen > hiliteLabelThreshold;
+			return hiliteIsBigEnoughToLabel;
+		});
+		const allLabels = collateLabels(visibleHiliteLabels, labels);
+		const labelsAboveMinZoom = allLabels.filter((label) => label.minZoom <= zoom);
 		setVisibleLabels(labelsAboveMinZoom);
 		timeoutRef.current = window.setTimeout(() => {
 			const visibility = calcLabelsOverlapVisibility(
@@ -42,9 +64,11 @@ const LabelsLayer: React.FC<Props> = (props: Props) => {
 			);
 			const visibleLabels = labelsAboveMinZoom.filter((_label, i) => visibility[i]);
 			setVisibleLabels(visibleLabels);
-			if (setLabelsAreHidden) setLabelsAreHidden(visibleLabels.length < labels.length);
+			const hiliteLabels = getLabelsFromHilitesList(hilites);
+			const allLabelsCount = labels.length + hiliteLabels.length;
+			if (setLabelsAreHidden) setLabelsAreHidden(visibleLabels.length < allLabelsCount);
 		}, 100);
-	}, [labels, mode, setLabelsAreHidden, zoom]);
+	}, [hilites, labels, mode, setLabelsAreHidden, zoom]);
 	useMapEvent('zoomend', checkEditVisibilities);
 	React.useEffect(() => {
 		checkEditVisibilities();

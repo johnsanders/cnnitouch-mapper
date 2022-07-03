@@ -1,4 +1,4 @@
-import { Hilite, Label, LabelAnimationConfig } from '../types';
+import { Hilite, Label, LabelAnimationConfig } from '../../types';
 import getDomId from '../../../misc/getDomId';
 
 const createLabelAnimConfigs = (labels: Label[], hilites: Hilite[]) => {

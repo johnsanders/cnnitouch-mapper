@@ -1,6 +1,6 @@
-import { Hilite } from '../map/types';
+import { Hilite } from '../types';
 import HilitesChooser from './HilitesChooser';
-import { Label } from '../map/types';
+import { Label } from '../types';
 import React from 'react';
 import { SelectChangeEvent } from '@mui/material';
 import createLabelByName from './createLabelByName';

@@ -1,4 +1,4 @@
-import { MapSettings, RenderSettings } from '../map/types';
+import { MapSettings, RenderSettings } from '../types';
 import { RenderAction, RenderState } from './types';
 import { createPrecut, enqueueRender } from './enqueueRender';
 import EditTabRender from './EditTabRender';

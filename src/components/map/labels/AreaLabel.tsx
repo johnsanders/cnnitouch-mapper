@@ -1,4 +1,4 @@
-import { Label } from '../types';
+import { Label } from '../../types';
 import React from 'react';
 import getDomId from '../../../misc/getDomId';
 import getLabelHolderPath from './getLabelHolderPath';

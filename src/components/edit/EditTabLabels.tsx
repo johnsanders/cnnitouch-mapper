@@ -1,7 +1,7 @@
 import { Box, Grid } from '@mui/material';
 import EditTabNavButtons from './EditTabNavButtons';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
-import { Label } from '../map/types';
+import { Label } from '../types';
 import LabelsChooserContainer from './LabelsChooserContainer';
 import React from 'react';
 import { faEdit } from '@fortawesome/pro-solid-svg-icons';

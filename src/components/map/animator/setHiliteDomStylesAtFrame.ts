@@ -1,4 +1,4 @@
-import { HiliteAnimationConfig } from '../types';
+import { HiliteAnimationConfig } from '../../types';
 import { fadeDuration } from './config';
 import { interpolate } from 'remotion';
 

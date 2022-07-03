@@ -1,4 +1,4 @@
-import { RenderSettings } from '../map/types';
+import { RenderSettings } from '../types';
 import qs from 'qs';
 
 export const createPrecut = async (slug: string): Promise<string> => {

@@ -1,4 +1,4 @@
-import { Hilite, HiliteAnimationConfig, Label, LabelAnimationConfig } from '../types';
+import { Hilite, HiliteAnimationConfig, Label, LabelAnimationConfig } from '../../types';
 import { continueRender, delayRender, useCurrentFrame } from 'remotion';
 import { LatLngBounds } from 'leaflet';
 import React from 'react';
