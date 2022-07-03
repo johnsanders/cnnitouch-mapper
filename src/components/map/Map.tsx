@@ -1,5 +1,6 @@
 import './styles.css';
 import 'leaflet/dist/leaflet.css';
+import AttributionMonitor from './AttributionMonitor';
 import Banner from './Banner';
 import BordersLayer from './BordersLayer';
 import GoogleFont from './GoogleFont';
@@ -25,6 +26,7 @@ interface Props {
 }
 
 const Map: React.FC<Props> = (props) => {
+	const [attribution, setAttribution] = React.useState('');
 	const scale = props.compHeight / 2160;
 	const hiliteNames = props.settings.hilites.map((hilite) => hilite.name);
 	const { bannerText, boundsEnd, boundsStart, hilites, labels, mode, subheadText, zoomDuration } =
@@ -84,6 +86,7 @@ const Map: React.FC<Props> = (props) => {
 					setLabelsAreHidden={props.setLabelsAreHidden}
 				/>
 				<SvgDefs hiliteNames={hiliteNames} />
+				<AttributionMonitor setAttribution={setAttribution} />
 				{props.settings.mode === 'edit' ? null : (
 					<MapAnimator
 						boundsEnd={boundsEnd}
