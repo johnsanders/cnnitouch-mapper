@@ -36,13 +36,16 @@ const LabelsLayer: React.FC<Props> = (props: Props) => {
 	const { hilites, labels, mode, setLabelsAreHidden } = props;
 	const zoom = useMap().getZoom();
 	React.useEffect(() => {
-		const delayId = mode === 'render' ? delayRender() : 0;
-		setTimeout(() => {
+		const delayId = delayRender();
+		const timeout = setTimeout(() => {
 			setReady(true);
 			continueRender(delayId);
 		}, 500);
-		return () => continueRender(delayId);
-	}, [mode]);
+		return () => {
+			clearTimeout(timeout);
+			continueRender(delayId);
+		};
+	}, []);
 	const checkEditVisibilities = React.useCallback(() => {
 		if (mode !== 'edit') return;
 		const mapSizeInPixels = getMapSizeInPixels();
@@ -93,9 +96,9 @@ const LabelsLayer: React.FC<Props> = (props: Props) => {
 		>
 			{visibleLabels.map((label) =>
 				label.type === 'point' ? (
-					<PointLabel key={label.id} label={label} scale={props.scale} />
+					<PointLabel key={label.id} label={label} mode={props.mode} scale={props.scale} />
 				) : label.type === 'area' ? (
-					<AreaLabel key={label.id} label={label} scale={props.scale} />
+					<AreaLabel key={label.id} label={label} mode={props.mode} scale={props.scale} />
 				) : null,
 			)}
 		</svg>

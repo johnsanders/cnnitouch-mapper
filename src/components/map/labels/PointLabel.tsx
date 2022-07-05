@@ -1,10 +1,11 @@
+import { continueRender, delayRender } from 'remotion';
 import { Label } from '../../types';
 import React from 'react';
 import getDomId from '../../../misc/getDomId';
 import getLabelHolderPath from './getLabelHolderPath';
 import getLabelOffsetAtAngle from './getLabelOffsetAtAngle';
-import redDot from '../../../img/redCityDot.png';
-import redStar from '../../../img/capitalCityDot.png';
+import redDot from '../../img/redCityDot.png';
+import redStar from '../../img/capitalCityDot.png';
 import { useMap } from 'react-leaflet';
 
 const icons = { redDot, redStar };
@@ -13,11 +14,13 @@ const fontSize = 80;
 
 interface Props {
 	label: Label;
+	mode: 'edit' | 'render';
 	scale: number;
 }
 const PointLabel: React.FC<Props> = (props: Props) => {
 	const textRef = React.useRef<SVGTextElement>(null);
 	const { angle, name } = props.label;
+	const { mode } = props;
 	const [path, setPath] = React.useState('');
 	const [offset, setOffset] = React.useState({ x: 0, y: 0 });
 	const map = useMap();
@@ -25,8 +28,16 @@ const PointLabel: React.FC<Props> = (props: Props) => {
 		if (!textRef.current) throw new Error('Cannot get text for label');
 		const { height, width, x, y } = textRef.current.getBBox();
 		setOffset(getLabelOffsetAtAngle(angle, width, height, fontSize + 20));
-		setPath(getLabelHolderPath(angle, x, y, width, height));
-	}, [angle, name, path]);
+		const delayId = mode === 'render' ? delayRender() : 0;
+		const timeout = setTimeout(() => {
+			setPath(getLabelHolderPath(angle, x, y, width, height));
+			continueRender(delayId);
+		});
+		return () => {
+			continueRender(delayId);
+			clearTimeout(timeout);
+		};
+	}, [angle, name, mode, path]);
 	const initialPosition = map.latLngToContainerPoint([props.label.lat, props.label.lng]);
 	return (
 		<g

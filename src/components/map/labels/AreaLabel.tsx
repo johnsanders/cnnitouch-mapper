@@ -9,6 +9,7 @@ const fontSize = 80;
 
 interface Props {
 	label: Label;
+	mode: 'edit' | 'render';
 	scale: number;
 }
 const PointLabel: React.FC<Props> = (props: Props) => {
