@@ -36,13 +36,13 @@ const LabelsLayer: React.FC<Props> = (props: Props) => {
 	const { hilites, labels, mode, setLabelsAreHidden } = props;
 	const zoom = useMap().getZoom();
 	React.useEffect(() => {
-		const delayId = delayRender();
+		const delayId = mode === 'render' ? delayRender() : 0;
 		setTimeout(() => {
 			setReady(true);
 			continueRender(delayId);
 		}, 500);
 		return () => continueRender(delayId);
-	}, []);
+	}, [mode]);
 	const checkEditVisibilities = React.useCallback(() => {
 		if (mode !== 'edit') return;
 		const mapSizeInPixels = getMapSizeInPixels();

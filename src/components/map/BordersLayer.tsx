@@ -14,8 +14,9 @@ interface Props {
 
 const BordersLayer: React.FC<Props> = (props) => {
 	const [key, setKey] = React.useState('1');
+	const { mode } = props;
 	React.useEffect(() => {
-		const delayId = delayRender();
+		const delayId = mode === 'render' ? delayRender() : 0;
 		const timeout = setTimeout(() => {
 			setKey('2');
 			continueRender(delayId);
@@ -24,7 +25,7 @@ const BordersLayer: React.FC<Props> = (props) => {
 			continueRender(delayId);
 			clearTimeout(timeout);
 		};
-	}, []);
+	}, [mode]);
 	useCurrentFrame();
 	const map = useMap();
 	const zoom = map.getZoom();

@@ -72,6 +72,7 @@ const EditTabRenderContainer: React.FC<Props> = (props: Props) => {
 		try {
 			const msNumber = await createPrecut(slug);
 			await enqueueRender(renderData, msNumber, slug, email, '');
+
 			dispatch([
 				{ key: 'loading', value: false },
 				{
@@ -79,6 +80,7 @@ const EditTabRenderContainer: React.FC<Props> = (props: Props) => {
 					value: `Success! Your Mediasource number will be ${msNumber}. We'll email you in a few minutes when it's ready.`,
 				},
 			]);
+			await fetch('http://loncnn-ziv1.turner.com:8081/checkRenders');
 		} catch (e) {
 			dispatch([
 				{ key: 'errorText', value: 'Failed to enqueue render.' },
