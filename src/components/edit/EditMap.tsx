@@ -8,10 +8,10 @@ import {
 	Tooltip,
 	useTheme,
 } from '@mui/material';
+import { LatLngBounds, Map as LeafletMap, map } from 'leaflet';
 import { faExclamationTriangle, faInfoCircle } from '@fortawesome/pro-solid-svg-icons';
 import { Box } from '@mui/system';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
-import { LatLngBounds } from 'leaflet';
 import Map from '../map/Map';
 import React from 'react';
 import bannerOverlay from '../../img/banner_overlay.png';
@@ -22,17 +22,34 @@ interface Props {
 	state: EditSettings;
 }
 
-const EditMap: React.FC<Props> = (props: Props) => {
+const EditMap = (props: Props) => {
+	const mapRef = React.useRef<LeafletMap>(null);
+	const prevActiveTabRef = React.useRef(props.state.activeTab);
+	const theme = useTheme();
 	const [hilitesAreHidden, setHilitesAreHidden] = React.useState(false);
 	const [labelsAreHidden, setLabelsAreHidden] = React.useState(false);
-	const theme = useTheme();
+	const {
+		activeTab,
+		mapSettings: { boundsEnd, boundsStart },
+	} = props.state;
+	const handleBoundsChange = (bounds: LatLngBounds) => {
+		if (props.state.activeTab === 'boundsStart')
+			props.dispatch({ key: 'boundsStart', value: bounds });
+		else if (props.state.activeTab === 'boundsEnd')
+			props.dispatch({ key: 'boundsEnd', value: bounds });
+	};
+	React.useEffect(() => {
+		if (activeTab === 'boundsStart' && mapRef.current) mapRef.current.fitBounds(boundsStart);
+		else if (activeTab === 'boundsEnd' && mapRef.current) mapRef.current.fitBounds(boundsEnd);
+	}, [activeTab, boundsEnd, boundsStart]);
 	return (
 		<>
 			<Grid item={true} justifyContent="center" xs={12}>
 				<Box height="405px" mt={3} mx="auto" position="relative" width="720px">
 					<Map
 						compHeight={405}
-						setBounds={(bounds: LatLngBounds) => props.dispatch({ key: 'bounds', value: bounds })}
+						ref={mapRef}
+						setBounds={handleBoundsChange}
 						setHilitesAreHidden={setHilitesAreHidden}
 						setLabelsAreHidden={setLabelsAreHidden}
 						settings={props.state.mapSettings}

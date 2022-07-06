@@ -18,6 +18,7 @@ interface Props {
 const Edit: React.FC<Props> = (props) => {
 	const hiliteNames = props.state.mapSettings.hilites.map((hilite) => hilite.name);
 	const labelNames = props.state.mapSettings.labels.map((label) => label.name);
+	const { activeTab, mapSettings } = props.state;
 	return (
 		<>
 			<CssBaseline />
@@ -30,7 +31,7 @@ const Edit: React.FC<Props> = (props) => {
 							centered={true}
 							onChange={(_e, value) => props.dispatch({ key: 'activeTab', value })}
 							sx={{ marginBottom: '1em' }}
-							value={props.state.activeTab}
+							value={activeTab}
 						>
 							<Tab label="Banner" value="banner" />
 							<Tab label="Highlights" value="hilites" />
@@ -41,48 +42,46 @@ const Edit: React.FC<Props> = (props) => {
 						</Tabs>
 					</Grid>
 					<EditTabBanner
-						active={props.state.activeTab === 'banner'}
-						bannerText={props.state.mapSettings.bannerText}
+						active={activeTab === 'banner'}
+						bannerText={mapSettings.bannerText}
 						onNext={() => props.dispatch({ key: 'activeTab', value: 'hilites' })}
 						setBanner={(value) => props.dispatch({ key: 'bannerText', value })}
 						setSubhead={(value) => props.dispatch({ key: 'subheadText', value })}
-						subheadText={props.state.mapSettings.subheadText}
+						subheadText={mapSettings.subheadText}
 					/>
 					<EditTabHilites
-						active={props.state.activeTab === 'hilites'}
-						hilites={props.state.mapSettings.hilites}
+						active={activeTab === 'hilites'}
+						hilites={mapSettings.hilites}
 						onNext={() => props.dispatch({ key: 'activeTab', value: 'boundsStart' })}
 						onPrevious={() => props.dispatch({ key: 'activeTab', value: 'banner' })}
 						setHilites={(hilites: Hilite[]) => props.dispatch({ key: 'hilites', value: hilites })}
 					/>
 					<EditTabBounds
-						active={
-							props.state.activeTab === 'boundsStart' || props.state.activeTab === 'boundsEnd'
-						}
+						active={activeTab === 'boundsStart' || activeTab === 'boundsEnd'}
 						onNext={() =>
 							props.dispatch({
 								key: 'activeTab',
-								value: props.state.activeTab === 'boundsStart' ? 'boundsEnd' : 'labels',
+								value: activeTab === 'boundsStart' ? 'boundsEnd' : 'labels',
 							})
 						}
 						onPrevious={() =>
 							props.dispatch({
 								key: 'activeTab',
-								value: props.state.activeTab === 'boundsStart' ? 'hilites' : 'boundsStart',
+								value: activeTab === 'boundsStart' ? 'hilites' : 'boundsStart',
 							})
 						}
-						tabName={props.state.activeTab}
+						tabName={activeTab}
 					/>
 					<EditTabLabels
-						active={props.state.activeTab === 'labels'}
-						labels={props.state.mapSettings.labels}
+						active={activeTab === 'labels'}
+						labels={mapSettings.labels}
 						onNext={() => props.dispatch({ key: 'activeTab', value: 'render' })}
 						onPrevious={() => props.dispatch({ key: 'activeTab', value: 'boundsEnd' })}
 						setLabels={(labels: Label[]) => props.dispatch({ key: 'labels', value: labels })}
 					/>
 					<EditTabRenderContainer
-						active={props.state.activeTab === 'render'}
-						mapSettings={props.state.mapSettings}
+						active={activeTab === 'render'}
+						mapSettings={mapSettings}
 						onPrevious={() => props.dispatch({ key: 'activeTab', value: 'labels' })}
 					/>
 				</Grid>

@@ -10,7 +10,8 @@ export interface EditSettings {
 export type EditAction =
 	| { key: 'activeTab'; value: TabName }
 	| { key: 'bannerText' | 'subheadText'; value: string }
-	| { key: 'bounds'; value: LatLngBounds }
+	| { key: 'boundsStart'; value: LatLngBounds }
+	| { key: 'boundsEnd'; value: LatLngBounds }
 	| { key: 'showBanner'; value: boolean }
 	| { key: 'hilites'; value: Hilite[] }
 	| { key: 'labels'; value: Label[] }

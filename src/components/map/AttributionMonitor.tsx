@@ -5,19 +5,29 @@ interface Props {
 }
 
 const AttributionMonitor: React.FC<Props> = (props) => {
-	const attributionNodes = document.querySelectorAll('.leaflet-control-attribution');
-	let attribution = '';
-	for (const node of Array.from(attributionNodes)) {
-		const spans = node.querySelectorAll('span');
-		for (const span of Array.from(spans)) {
-			if (span.innerHTML.includes('Imagery')) {
-				attribution = span.innerHTML.replace(/Imagery .+?[0-9]{4}\s+/i, '');
-				break;
+	const prevAttributionRef = React.useRef('');
+	const { setAttribution } = props;
+	const handleAttributionChange = React.useCallback(() => {
+		const attributionNodes = document.querySelectorAll('.leaflet-control-attribution');
+		let attribution = '';
+		for (const node of Array.from(attributionNodes)) {
+			const spans = node.querySelectorAll('span');
+			for (const span of Array.from(spans)) {
+				if (span.innerHTML.includes('Imagery')) {
+					attribution = span.innerHTML.replace(/Imagery .+?[0-9]{4}\s+/i, '');
+					break;
+				}
 			}
+			if (attribution) break;
 		}
-		if (attribution) break;
-	}
-	props.setAttribution(attribution);
+		if (attribution !== prevAttributionRef.current) setAttribution(attribution);
+		prevAttributionRef.current = attribution;
+	}, [setAttribution]);
+	React.useEffect(() => {
+		const timeout = setTimeout(handleAttributionChange, 1000);
+		return () => clearTimeout(timeout);
+	}, [handleAttributionChange]);
+	handleAttributionChange();
 	return null;
 };
 

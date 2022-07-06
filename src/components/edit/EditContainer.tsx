@@ -27,20 +27,7 @@ const reducer = (state: EditSettings, action: EditAction) => {
 	const { key, value } = action;
 	let newState = { ...state };
 	if (key === 'activeTab' || key === 'showBanner') newState = { ...state, [key]: value };
-	else {
-		if (key === 'bounds') {
-			if (state.activeTab === 'boundsStart')
-				newState = {
-					...state,
-					mapSettings: { ...state.mapSettings, boundsStart: value },
-				};
-			else
-				newState = {
-					...state,
-					mapSettings: { ...state.mapSettings, boundsEnd: value },
-				};
-		} else newState = { ...state, mapSettings: { ...state.mapSettings, [key]: value } };
-	}
+	else newState = { ...state, mapSettings: { ...state.mapSettings, [key]: value } };
 	return newState;
 };
 

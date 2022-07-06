@@ -26,8 +26,7 @@ const MapEventHandlers: React.FC<Props> = (props: Props): null => {
 		return () => continueRender(delayId);
 	}, [mode]);
 	const handleBoundsChange = () => {
-		if (!props.setBounds) return;
-		props.setBounds(map.getBounds());
+		if (props.setBounds) props.setBounds(map.getBounds());
 	};
 	useMapEvents({
 		moveend: handleBoundsChange,

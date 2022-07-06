@@ -1,12 +1,12 @@
 import './styles.css';
 import 'leaflet/dist/leaflet.css';
+import { LatLngBounds, Map as LeafletMap } from 'leaflet';
 import AttributionMonitor from './AttributionMonitor';
 import Banner from './Banner';
 import BordersLayer from './BordersLayer';
 import GoogleFont from './GoogleFont';
 import HiliteLayer from './HiliteLayer';
 import LabelsLayer from './labels/LabelsLayer';
-import { LatLngBounds } from 'leaflet';
 import { MapContainer as LeafletContainer } from 'react-leaflet';
 import MapAnimator from './animator/MapAnimator';
 import MapEventHandlers from './MapEventHandlers';
@@ -25,7 +25,7 @@ interface Props {
 	setBounds?: (bounds: LatLngBounds) => void;
 }
 
-const Map: React.FC<Props> = (props) => {
+const Map = React.forwardRef<LeafletMap, Props>((props, ref) => {
 	const [attribution, setAttribution] = React.useState('');
 	const scale = props.compHeight / 2160;
 	const hiliteNames = props.settings.hilites.map((hilite) => hilite.name);
@@ -55,6 +55,7 @@ const Map: React.FC<Props> = (props) => {
 				]}
 				maxZoom={18}
 				minZoom={1}
+				ref={ref}
 				scrollWheelZoom={true}
 				style={{
 					filter: 'brightness(1.15) saturate(1.3)',
@@ -99,6 +100,7 @@ const Map: React.FC<Props> = (props) => {
 			</LeafletContainer>
 		</div>
 	);
-};
+});
+Map.displayName = 'Map';
 
 export default Map;
