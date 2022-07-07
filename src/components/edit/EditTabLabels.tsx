@@ -4,7 +4,7 @@ import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import { Label } from '../types';
 import LabelsChooserContainer from './LabelsChooserContainer';
 import React from 'react';
-import { faEdit } from '@fortawesome/pro-solid-svg-icons';
+import { faUpDown } from '@fortawesome/pro-solid-svg-icons';
 
 interface Props {
 	active: boolean;
@@ -20,15 +20,16 @@ const EditTabLabels: React.FC<Props> = (props: Props) =>
 			<Box mb={2} textAlign="center">
 				<Box margin="auto" maxWidth="40em">
 					<Box>Search for and select places you want to label.</Box>
-					<Box>Use the controls below to select the best label position.</Box>
+					<Box>Labels lower in the list will be hidden if they overlap labels higher up.</Box>
+					<Box>As the map zooms in, hidden labels will appear.</Box>
 					<Box>
-						Change the label text by clicking the
+						Use the
 						<Icon
 							className="fa-sm"
-							icon={faEdit}
+							icon={faUpDown}
 							style={{ marginLeft: '0.5em', marginRight: '0.5em' }}
 						/>
-						button.
+						handle to reorder the label priorities.
 					</Box>
 				</Box>
 			</Box>

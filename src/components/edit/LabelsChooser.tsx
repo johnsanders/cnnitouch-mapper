@@ -6,7 +6,6 @@ import {
 	InputLabel,
 	OutlinedInput,
 	SelectChangeEvent,
-	Table,
 } from '@mui/material';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import { Label } from '../types';
@@ -44,22 +43,14 @@ const LabelsChooser: React.FC<Props> = (props) => (
 				label="Location Search"
 			/>
 		</FormControl>
-		<Table>
-			<colgroup>
-				<col style={{ width: '30%' }} />
-				<col style={{ width: '30%' }} />
-				<col style={{ width: '30%' }} />
-				<col style={{ width: '10%' }} />
-			</colgroup>
-			<LabelsSortable
-				handleDelete={props.handleDelete}
-				handleIconChange={props.handleIconChange}
-				handleLabelNameChange={props.handleLabelNameChange}
-				handleLabelPositionChange={props.handleLabelPositionChange}
-				labels={props.labels}
-				setLabels={props.setLabels}
-			/>
-		</Table>
+		<LabelsSortable
+			handleDelete={props.handleDelete}
+			handleIconChange={props.handleIconChange}
+			handleLabelNameChange={props.handleLabelNameChange}
+			handleLabelPositionChange={props.handleLabelPositionChange}
+			labels={props.labels}
+			setLabels={props.setLabels}
+		/>
 	</Box>
 );
 export default LabelsChooser;

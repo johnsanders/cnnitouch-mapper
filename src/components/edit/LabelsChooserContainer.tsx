@@ -27,7 +27,7 @@ const LabelsChooserContainer: React.FC<Props> = (props) => {
 				id: uuid(),
 				lat,
 				lng,
-				minZoom: 2,
+				minZoom: 1,
 				name,
 				type: 'point',
 			};

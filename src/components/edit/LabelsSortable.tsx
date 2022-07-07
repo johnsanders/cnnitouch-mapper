@@ -8,13 +8,13 @@ import {
 	useSensor,
 	useSensors,
 } from '@dnd-kit/core';
-import { SelectChangeEvent, TableBody } from '@mui/material';
+import { SelectChangeEvent, Table, TableBody } from '@mui/material';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import { Label } from '../types';
-import LabelChooserItem from './LabelChooserItem';
+import LabelSortable from './LableSortable';
 import React from 'react';
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
-import { sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 
 interface Props {
 	handleDelete: (e: React.MouseEvent<HTMLButtonElement>) => void;
@@ -36,7 +36,12 @@ const LabelsSortable: React.FC<Props> = (props) => {
 	const handleSortEnd = (e: DragEndEvent) => {
 		const fromId = e.active.id;
 		const toId = e?.over?.id;
-		console.log(fromId, toId);
+		const fromIndex = props.labels.findIndex((label) => label.id === fromId);
+		const toIndex = props.labels.findIndex((label) => label.id === toId);
+		if (fromIndex !== -1 && toIndex !== -1) {
+			const newLabels = arrayMove(props.labels, fromIndex, toIndex);
+			props.setLabels(newLabels);
+		}
 	};
 	return (
 		<DndContext
@@ -45,23 +50,31 @@ const LabelsSortable: React.FC<Props> = (props) => {
 			onDragEnd={handleSortEnd}
 			sensors={sensors}
 		>
-			<SortableContext
-				items={props.labels.map((label) => label.id)}
-				strategy={verticalListSortingStrategy}
-			>
-				<TableBody ref={setNodeRef}>
-					{props.labels.map((label) => (
-						<LabelChooserItem
-							handleDelete={props.handleDelete}
-							handleIconChange={props.handleIconChange}
-							handleLabelNameChange={props.handleLabelNameChange}
-							handleLabelPositionChange={props.handleLabelPositionChange}
-							key={label.id}
-							label={label}
-						/>
-					))}
-				</TableBody>
-			</SortableContext>
+			<Table>
+				<colgroup>
+					<col style={{ width: '30%' }} />
+					<col style={{ width: '25%' }} />
+					<col style={{ width: '25%' }} />
+					<col style={{ width: '20%' }} />
+				</colgroup>
+				<SortableContext
+					items={props.labels.map((label) => label.id)}
+					strategy={verticalListSortingStrategy}
+				>
+					<TableBody ref={setNodeRef}>
+						{props.labels.map((label) => (
+							<LabelSortable
+								handleDelete={props.handleDelete}
+								handleIconChange={props.handleIconChange}
+								handleLabelNameChange={props.handleLabelNameChange}
+								handleLabelPositionChange={props.handleLabelPositionChange}
+								key={label.id}
+								label={label}
+							/>
+						))}
+					</TableBody>
+				</SortableContext>
+			</Table>
 		</DndContext>
 	);
 };
