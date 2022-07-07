@@ -3,10 +3,12 @@ import getDomId from '../../../misc/getDomId';
 
 const createLabelAnimConfigs = (labels: Label[], hilites: Hilite[]) => {
 	const normalLabelAnimConfigs: LabelAnimationConfig[] = labels.map((label) => {
-		const element = document.getElementById(getDomId('label', label.id));
-		if (!(element?.nodeName === 'g')) throw new Error(`Cannot get label element ${label.id}`);
 		return {
-			element,
+			getElement: () => {
+				const element = document.getElementById(getDomId('label', label.id));
+				if (!(element?.nodeName === 'g')) throw new Error(`Cannot get label element ${label.id}`);
+				return element;
+			},
 			id: label.id,
 			isHiliteLabel: false,
 			lat: label.lat,
@@ -26,7 +28,13 @@ const createLabelAnimConfigs = (labels: Label[], hilites: Hilite[]) => {
 		return [
 			...acc,
 			{
-				element: labelElement,
+				getElement: () => {
+					if (!hilite.label) throw new Error('Calling getElement on a label that should not exist');
+					const element = document.getElementById(getDomId('label', hilite.label.id));
+					if (!(element?.nodeName === 'g'))
+						throw new Error(`Cannot get label element ${hilite.label.id}`);
+					return element;
+				},
 				hiliteEl: hiliteElement,
 				id: hilite.label.id,
 				isHiliteLabel: true,

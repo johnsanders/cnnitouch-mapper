@@ -32,7 +32,6 @@ export interface Label {
 export interface LabelWithVisibility extends Label {
 	visible: boolean;
 }
-
 export interface RenderSettings {
 	bannerText: string;
 	boundsEnd: string;
@@ -45,7 +44,7 @@ export interface RenderSettings {
 }
 
 export interface LabelAnimationConfig {
-	element: HTMLElement;
+	getElement: () => HTMLElement;
 	hiliteEl?: HTMLElement;
 	id: string;
 	isHiliteLabel: boolean;

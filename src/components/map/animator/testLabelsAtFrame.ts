@@ -12,7 +12,7 @@ const testLabelsAtFrame = (
 ) => {
 	const mapSizeInPixels = getMapSizeInPixels();
 	labelAnimationConfigs.forEach((labelAnimConfig) =>
-		setLabelDomStylesAtFrame(labelAnimConfig, frame, map),
+		setLabelDomStylesAtFrame(labelAnimConfig, frame),
 	);
 	const labelsDisplayableInFrame = calcLabelsOverlapVisibility(labelAnimationConfigs);
 	labelAnimationConfigs.forEach((labelAnimConfig, i) => {
@@ -22,7 +22,7 @@ const testLabelsAtFrame = (
 			map.getZoom() < labelAnimConfig.minZoom
 		)
 			return;
-		setLabelDomStylesAtFrame(labelAnimConfig, frame, map);
+		setLabelDomStylesAtFrame(labelAnimConfig, frame);
 		if (!labelAnimConfig.isHiliteLabel)
 			labelAnimConfig.startFrame = Math.max(frame - fadeDuration, 0);
 		else {

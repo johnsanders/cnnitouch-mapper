@@ -39,8 +39,8 @@ const EditMap = (props: Props) => {
 			props.dispatch({ key: 'boundsEnd', value: bounds });
 	};
 	React.useEffect(() => {
-		if (activeTab === 'boundsStart' && mapRef.current) mapRef.current.fitBounds(boundsStart);
-		else if (activeTab === 'boundsEnd' && mapRef.current) mapRef.current.fitBounds(boundsEnd);
+		// if (activeTab === 'boundsStart' && mapRef.current) mapRef.current.fitBounds(boundsStart);
+		// else if (activeTab === 'boundsEnd' && mapRef.current) mapRef.current.fitBounds(boundsEnd);
 	}, [activeTab, boundsEnd, boundsStart]);
 	return (
 		<>

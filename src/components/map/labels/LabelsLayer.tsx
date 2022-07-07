@@ -1,6 +1,6 @@
 import { Hilite, Label, LabelWithVisibility } from '../../types';
 import { continueRender, delayRender } from 'remotion';
-import { useMap, useMapEvent } from 'react-leaflet';
+import { useMap, useMapEvent, useMapEvents } from 'react-leaflet';
 import AreaLabel from './AreaLabel';
 import PointLabel from './PointLabel';
 import React from 'react';
@@ -11,10 +11,12 @@ import getLabelsFromHilitesList from '../../../misc/getLabelsFromHilitesList';
 import getMapSizeInPixels from '../../../misc/getMapSizeInPixels';
 import getSpecialLabels from './getSpecialLabels';
 import { hiliteLabelThreshold } from '../animator/config';
+import { uniqueId } from 'lodash-es';
 
 const fontPrimer = (
 	<div style={{ fontFamily: 'CNN', fontWeight: '500', opacity: 0 }}>Font Primer</div>
 );
+const fontPrimerDelayMs = 500;
 const collateLabels = (hilites: Hilite[], labels: Label[]) => [
 	...getLabelsFromHilitesList(hilites),
 	...labels,
@@ -32,17 +34,20 @@ interface Props {
 const LabelsLayer: React.FC<Props> = (props: Props) => {
 	const timeoutRef = React.useRef<number>();
 	const [ready, setReady] = React.useState(false);
+	const [key, setKey] = React.useState(uniqueId);
 	const [labelsWithVisibility, setLabelsWithVisibility] = React.useState<LabelWithVisibility[]>(
 		props.labels.map((label) => ({ ...label, visible: true })),
 	);
 	const { hilites, labels, mode, setLabelsAreHidden } = props;
 	const zoom = useMap().getZoom();
+	const onMapChange = () => setKey(uniqueId());
+	useMapEvents({ dragend: onMapChange, zoomend: onMapChange });
 	React.useEffect(() => {
 		const delayId = delayRender();
 		const timeout = setTimeout(() => {
 			setReady(true);
 			continueRender(delayId);
-		}, 500);
+		}, fontPrimerDelayMs);
 		return () => {
 			clearTimeout(timeout);
 			continueRender(delayId);
@@ -102,11 +107,23 @@ const LabelsLayer: React.FC<Props> = (props: Props) => {
 				zIndex: 500,
 			}}
 		>
-			{labelsWithVisibility.map((label) =>
+			{labelsWithVisibility.map((label, i) =>
 				label.type === 'point' ? (
-					<PointLabel key={label.id} label={label} mode={props.mode} scale={props.scale} />
+					<PointLabel
+						fontPrimerDelayMs={fontPrimerDelayMs}
+						key={`${key} - ${i}`}
+						label={label}
+						mode={props.mode}
+						scale={props.scale}
+					/>
 				) : label.type === 'area' ? (
-					<AreaLabel key={label.id} label={label} mode={props.mode} scale={props.scale} />
+					<AreaLabel
+						fontPrimerDelayMs={fontPrimerDelayMs}
+						key={`${key} - ${i}`}
+						label={label}
+						mode={props.mode}
+						scale={props.scale}
+					/>
 				) : null,
 			)}
 		</svg>

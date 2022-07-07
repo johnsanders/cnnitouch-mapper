@@ -63,8 +63,9 @@ const MapAnimator: React.FC<Props> = (props: Props) => {
 			easing,
 		);
 		map.fitBounds(newBounds);
+		await waitFor(500);
 		for (const labelAnimConfig of labelAnimationConfigsRef.current)
-			setLabelDomStylesAtFrame(labelAnimConfig, frame, map);
+			setLabelDomStylesAtFrame(labelAnimConfig, frame);
 		for (const hiliteAnimConfig of hiliteAnimationConfigsRef.current)
 			setHiliteDomStylesAtFrame(hiliteAnimConfig, frame);
 		const delayInMs = Math.floor(currentZoom) === Math.floor(prevZoomRef.current) ? 250 : 2000;

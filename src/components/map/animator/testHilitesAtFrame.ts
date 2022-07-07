@@ -36,7 +36,6 @@ export const boundsExceedsThreshold = (hiliteBounds: LatLngBounds, mapBounds: La
 	const hiliteVisibleLngDegrees =
 		hiliteFullLngDegrees - offscreenDegreesEast - offscreenDegreesWest;
 	const hiliteDegreesArea = hiliteVisibleLatDegrees * hiliteVisibleLngDegrees;
-
 	const hilitePercentOfScreen = hiliteDegreesArea / mapDegreesArea;
 	return hilitePercentOfScreen >= hiliteFadeOutThreshold;
 };

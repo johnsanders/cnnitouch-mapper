@@ -22,12 +22,12 @@ const initialState: EditSettings = {
 	},
 	showBanner: true,
 };
-
 const reducer = (state: EditSettings, action: EditAction) => {
 	const { key, value } = action;
 	let newState = { ...state };
 	if (key === 'activeTab' || key === 'showBanner') newState = { ...state, [key]: value };
 	else newState = { ...state, mapSettings: { ...state.mapSettings, [key]: value } };
+	console.log(newState);
 	return newState;
 };
 

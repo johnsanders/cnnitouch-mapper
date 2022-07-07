@@ -14,17 +14,21 @@ const iconSize = 80;
 const fontSize = 80;
 
 interface Props {
+	fontPrimerDelayMs: number;
 	label: LabelWithVisibility;
 	mode: 'edit' | 'render';
 	scale: number;
 }
 const PointLabel: React.FC<Props> = (props: Props) => {
 	const textRef = React.useRef<SVGTextElement>(null);
-	const { angle, name } = props.label;
-	const { mode } = props;
 	const [path, setPath] = React.useState('');
 	const [offset, setOffset] = React.useState({ x: 0, y: 0 });
 	const map = useMap();
+	const {
+		fontPrimerDelayMs,
+		label: { angle, name },
+		mode,
+	} = props;
 	React.useEffect(() => {
 		if (!textRef.current) throw new Error('Cannot get text for label');
 		const { height, width, x, y } = textRef.current.getBBox();
@@ -33,12 +37,12 @@ const PointLabel: React.FC<Props> = (props: Props) => {
 		const timeout = setTimeout(() => {
 			setPath(getLabelHolderPath(angle, x, y, width, height));
 			continueRender(delayId);
-		});
+		}, fontPrimerDelayMs + 500);
 		return () => {
 			continueRender(delayId);
 			clearTimeout(timeout);
 		};
-	}, [angle, name, mode, path]);
+	}, [angle, fontPrimerDelayMs, name, mode, path]);
 	const initialPosition = map.latLngToContainerPoint([props.label.lat, props.label.lng]);
 	return (
 		<g

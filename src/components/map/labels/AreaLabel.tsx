@@ -1,30 +1,43 @@
-import { LabelWithVisibility } from '../../types';
+import { continueRender, delayRender } from 'remotion';
+import { Label } from '../../types';
 import React from 'react';
 import getDomId from '../../../misc/getDomId';
 import getLabelHolderPath from './getLabelHolderPath';
 import getLabelOffsetAtAngle from './getLabelOffsetAtAngle';
-import getLabelOpacity from './getLabelOpacity';
 import { useMap } from 'react-leaflet';
 
 const fontSize = 80;
 
 interface Props {
-	label: LabelWithVisibility;
+	fontPrimerDelayMs: number;
+	label: Label;
 	mode: 'edit' | 'render';
 	scale: number;
 }
 const PointLabel: React.FC<Props> = (props: Props) => {
 	const textRef = React.useRef<SVGTextElement>(null);
-	const { angle, name } = props.label;
 	const [path, setPath] = React.useState('');
 	const [offset, setOffset] = React.useState({ x: 0, y: 0 });
 	const map = useMap();
+	const {
+		fontPrimerDelayMs,
+		label: { angle, name },
+		mode,
+	} = props;
 	React.useEffect(() => {
 		if (!textRef.current) throw new Error('Cannot get text for label');
 		const { height, width, x, y } = textRef.current.getBBox();
 		setOffset(getLabelOffsetAtAngle(angle, width, fontSize, fontSize + 20));
-		setPath(getLabelHolderPath(angle, x, y, width, height));
-	}, [angle, path, name]);
+		const delayId = mode === 'render' ? delayRender() : 0;
+		const timeout = setTimeout(() => {
+			setPath(getLabelHolderPath(angle, x, y, width, height));
+			continueRender(delayId);
+		}, fontPrimerDelayMs + 500);
+		return () => {
+			continueRender(delayId);
+			clearTimeout(timeout);
+		};
+	}, [angle, fontPrimerDelayMs, mode, name, path]);
 	const initialPosition = map.latLngToContainerPoint([props.label.lat, props.label.lng]);
 	return (
 		<g
@@ -32,7 +45,6 @@ const PointLabel: React.FC<Props> = (props: Props) => {
 			id={getDomId('label', props.label.id)}
 			style={{
 				cursor: 'default',
-				opacity: getLabelOpacity(props.mode, props.label.visible),
 				pointerEvents: 'all',
 				transform: `translate3d(${initialPosition.x}px, ${initialPosition.y}px, 0)`,
 			}}

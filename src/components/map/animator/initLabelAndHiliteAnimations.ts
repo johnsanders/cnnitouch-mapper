@@ -49,6 +49,7 @@ const initLabelAndHiliteAnimations = (
 					hiliteBounds,
 					new LatLngBounds(mapBoundsAtFrame),
 				);
+
 				if (
 					labelAnimationConfigs.every((labelAnimInfo) => labelAnimInfo.startFrame !== null) &&
 					hiliteAnimationConfigs.every((hiliteAnimInfo) => hiliteAnimInfo.endFrame < zoomDuration)
@@ -57,9 +58,10 @@ const initLabelAndHiliteAnimations = (
 			}
 			await waitFor(100);
 			map.fitBounds(startBounds);
+			await waitFor(100);
 			const labelAnimationConfigs = [...hiliteLabelAnimConfigs, ...normalLabelAnimConfigs];
 			labelAnimationConfigs.forEach((labelAnimConfig) =>
-				setLabelDomStylesAtFrame(labelAnimConfig, 0, map),
+				setLabelDomStylesAtFrame(labelAnimConfig, 0),
 			);
 			await waitFor(100);
 			resolve({ hiliteAnimationConfigs, labelAnimationConfigs });
