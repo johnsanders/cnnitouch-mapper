@@ -5,8 +5,8 @@ import getDomId from '../../../misc/getDomId';
 import getLabelHolderPath from './getLabelHolderPath';
 import getLabelOffsetAtAngle from './getLabelOffsetAtAngle';
 import getLabelOpacity from './getLabelOpacity';
-import redDot from '../../img/redCityDot.png';
-import redStar from '../../img/redCityDot.png';
+import redDot from '../../../img/redCityDot.png';
+import redStar from '../../../img/redCityDot.png';
 import { useMap } from 'react-leaflet';
 
 const icons = { redDot, redStar };
