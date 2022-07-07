@@ -5,13 +5,14 @@ import getDomId from '../../../misc/getDomId';
 import getLabelHolderPath from './getLabelHolderPath';
 import getLabelOffsetAtAngle from './getLabelOffsetAtAngle';
 import getLabelOpacity from './getLabelOpacity';
-import redDot from '../../../img/redCityDot.png';
-import redStar from '../../../img/redCityDot.png';
+import redDot from '../../img/redCityDot.png';
+import redStar from '../../img/redCityDot.png';
 import { useMap } from 'react-leaflet';
 
 const icons = { redDot, redStar };
 const iconSize = 80;
 const fontSize = 80;
+let fontIsPrimed = false;
 
 interface Props {
 	label: LabelWithVisibility;
@@ -20,7 +21,6 @@ interface Props {
 }
 const PointLabel: React.FC<Props> = (props: Props) => {
 	const textRef = React.useRef<SVGTextElement>(null);
-	const fontIsPrimedRef = React.useRef(false);
 	const [path, setPath] = React.useState('');
 	const [offset, setOffset] = React.useState({ x: 0, y: 0 });
 	const map = useMap();
@@ -34,9 +34,9 @@ const PointLabel: React.FC<Props> = (props: Props) => {
 		const { height, width, x, y } = textRef.current.getBBox();
 		setOffset(getLabelOffsetAtAngle(angle, width, height, fontSize + 20));
 		const delayId = mode === 'render' ? delayRender() : 0;
-		const timeoutMs = fontIsPrimedRef.current || mode === 'edit' ? 0 : 100;
+		const timeoutMs = fontIsPrimed || mode === 'edit' ? 0 : 2000;
 		const timeout = setTimeout(() => {
-			fontIsPrimedRef.current = true;
+			fontIsPrimed = true;
 			setPath(getLabelHolderPath(angle, x, y, width, height));
 			continueRender(delayId);
 		}, timeoutMs);
