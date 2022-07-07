@@ -27,7 +27,6 @@ const reducer = (state: EditSettings, action: EditAction) => {
 	let newState = { ...state };
 	if (key === 'activeTab' || key === 'showBanner') newState = { ...state, [key]: value };
 	else newState = { ...state, mapSettings: { ...state.mapSettings, [key]: value } };
-	console.log(newState);
 	return newState;
 };
 

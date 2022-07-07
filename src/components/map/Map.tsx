@@ -1,6 +1,7 @@
 import './styles.css';
 import 'leaflet/dist/leaflet.css';
 import { LatLngBounds, Map as LeafletMap } from 'leaflet';
+import Attribution from './Attribution';
 import AttributionMonitor from './AttributionMonitor';
 import Banner from './Banner';
 import BordersLayer from './BordersLayer';
@@ -47,6 +48,7 @@ const Map = React.forwardRef<LeafletMap, Props>((props, ref) => {
 			) : (
 				<GoogleFont scale={scale} />
 			)}
+			<Attribution text={attribution} />
 			<LeafletContainer
 				fadeAnimation={true}
 				maxBounds={[

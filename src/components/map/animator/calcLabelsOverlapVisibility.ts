@@ -8,13 +8,16 @@ const hitTest = (rect1: DOMRect, rect2: DOMRect) =>
 		rect2.bottom < rect1.top
 	);
 
-const calcLabelsOverlapVisibility = (labels: LabelAnimationConfig[]) => {
-	const overlaps = labels.map((label1) =>
-		labels.map((label2) => {
-			if (label2.id === label1.id) return false;
+const calcLabelsOverlapVisibility = (labels: LabelAnimationConfig[]): boolean[] => {
+	const overlaps = labels.map((thisLabel) =>
+		labels.map((thatLabel) => {
+			// If we're comparing the label to itself, there's no overlap
+			if (thatLabel.id === thisLabel.id) return false;
+			// If one of the labels is not visible, there's no overlap
+			if (thisLabel.visible === false || thatLabel.visible === false) return false;
 			return hitTest(
-				label1.element.getBoundingClientRect(),
-				label2.element.getBoundingClientRect(),
+				thisLabel.getElement().getBoundingClientRect(),
+				thatLabel.getElement().getBoundingClientRect(),
 			);
 		}),
 	);

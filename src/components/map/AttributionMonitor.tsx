@@ -1,4 +1,5 @@
 import React from 'react';
+import { useMapEvents } from 'react-leaflet';
 
 interface Props {
 	setAttribution: (attribution: string) => void;
@@ -14,7 +15,7 @@ const AttributionMonitor: React.FC<Props> = (props) => {
 			const spans = node.querySelectorAll('span');
 			for (const span of Array.from(spans)) {
 				if (span.innerHTML.includes('Imagery')) {
-					attribution = span.innerHTML.replace(/Imagery .+?[0-9]{4}\s+/i, '');
+					attribution = span.innerHTML.replace(/Imagery.+?[0-9]{4}(\s|,)+/i, '');
 					break;
 				}
 			}
@@ -23,11 +24,7 @@ const AttributionMonitor: React.FC<Props> = (props) => {
 		if (attribution !== prevAttributionRef.current) setAttribution(attribution);
 		prevAttributionRef.current = attribution;
 	}, [setAttribution]);
-	React.useEffect(() => {
-		const timeout = setTimeout(handleAttributionChange, 1000);
-		return () => clearTimeout(timeout);
-	}, [handleAttributionChange]);
-	handleAttributionChange();
+	useMapEvents({ moveend: handleAttributionChange, zoomend: handleAttributionChange });
 	return null;
 };
 

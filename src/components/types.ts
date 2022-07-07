@@ -52,6 +52,7 @@ export interface LabelAnimationConfig {
 	lng: number;
 	minZoom: number;
 	startFrame: number | null;
+	visible?: boolean;
 }
 
 export interface HiliteAnimationConfig {

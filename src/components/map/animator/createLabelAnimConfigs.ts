@@ -1,8 +1,12 @@
-import { Hilite, Label, LabelAnimationConfig } from '../../types';
+import { Hilite, Label, LabelAnimationConfig, LabelWithVisibility } from '../../types';
 import getDomId from '../../../misc/getDomId';
 
-const createLabelAnimConfigs = (labels: Label[], hilites: Hilite[]) => {
+const isLabelWithVisibility = (label: Label | LabelWithVisibility): label is LabelWithVisibility =>
+	label.hasOwnProperty('visible');
+
+const createLabelAnimConfigs = (labels: (Label | LabelWithVisibility)[], hilites: Hilite[]) => {
 	const normalLabelAnimConfigs: LabelAnimationConfig[] = labels.map((label) => {
+		const visible = isLabelWithVisibility(label) ? label.visible : undefined;
 		return {
 			getElement: () => {
 				const element = document.getElementById(getDomId('label', label.id));
@@ -15,10 +19,12 @@ const createLabelAnimConfigs = (labels: Label[], hilites: Hilite[]) => {
 			lng: label.lng,
 			minZoom: label.minZoom,
 			startFrame: null,
+			visible,
 		};
 	});
 	const hiliteLabelAnimConfigs = hilites.reduce<LabelAnimationConfig[]>((acc, hilite) => {
 		if (!hilite.label) return acc;
+		const visible = isLabelWithVisibility(hilite.label) ? hilite.label.visible : undefined;
 		const labelElement = document.getElementById(getDomId('label', hilite.label.id));
 		const hiliteElement = document.querySelector(
 			'.' + getDomId('hilite', hilite.id),
@@ -42,6 +48,7 @@ const createLabelAnimConfigs = (labels: Label[], hilites: Hilite[]) => {
 				lng: hilite.label.lng,
 				minZoom: hilite.label.minZoom,
 				startFrame: null,
+				visible,
 			},
 		];
 	}, []);

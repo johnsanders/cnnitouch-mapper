@@ -8,8 +8,8 @@ import {
 	Tooltip,
 	useTheme,
 } from '@mui/material';
-import { LatLngBounds, Map as LeafletMap, map } from 'leaflet';
-import { faExclamationTriangle, faInfoCircle } from '@fortawesome/pro-solid-svg-icons';
+import { LatLngBounds, Map as LeafletMap } from 'leaflet';
+import { faExclamationTriangle, faQuestionCircle } from '@fortawesome/pro-solid-svg-icons';
 import { Box } from '@mui/system';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import Map from '../map/Map';
@@ -25,13 +25,18 @@ interface Props {
 const EditMap = (props: Props) => {
 	const mapRef = React.useRef<LeafletMap>(null);
 	const prevActiveTabRef = React.useRef(props.state.activeTab);
+	const firstBoundsStartVisitRef = React.useRef(true);
+	const firstBoundsEndVisitRef = React.useRef(true);
 	const theme = useTheme();
 	const [hilitesAreHidden, setHilitesAreHidden] = React.useState(false);
 	const [labelsAreHidden, setLabelsAreHidden] = React.useState(false);
 	const {
-		activeTab,
-		mapSettings: { boundsEnd, boundsStart },
-	} = props.state;
+		dispatch,
+		state: {
+			activeTab,
+			mapSettings: { boundsEnd, boundsStart },
+		},
+	} = props;
 	const handleBoundsChange = (bounds: LatLngBounds) => {
 		if (props.state.activeTab === 'boundsStart')
 			props.dispatch({ key: 'boundsStart', value: bounds });
@@ -39,9 +44,20 @@ const EditMap = (props: Props) => {
 			props.dispatch({ key: 'boundsEnd', value: bounds });
 	};
 	React.useEffect(() => {
-		// if (activeTab === 'boundsStart' && mapRef.current) mapRef.current.fitBounds(boundsStart);
-		// else if (activeTab === 'boundsEnd' && mapRef.current) mapRef.current.fitBounds(boundsEnd);
-	}, [activeTab, boundsEnd, boundsStart]);
+		if (activeTab === prevActiveTabRef.current || !mapRef.current) return;
+		prevActiveTabRef.current = activeTab;
+		if (activeTab === 'boundsStart')
+			if (firstBoundsStartVisitRef.current && mapRef.current) {
+				firstBoundsStartVisitRef.current = false;
+				dispatch({ key: 'boundsStart', value: mapRef.current.getBounds() });
+			} else mapRef.current.fitBounds(boundsStart);
+		else if (activeTab === 'boundsEnd') {
+			if (firstBoundsEndVisitRef.current && mapRef.current) {
+				firstBoundsEndVisitRef.current = false;
+				dispatch({ key: 'boundsEnd', value: mapRef.current.getBounds() });
+			} else mapRef.current.fitBounds(boundsEnd);
+		}
+	}, [activeTab, boundsEnd, boundsStart, dispatch]);
 	return (
 		<>
 			<Grid item={true} justifyContent="center" xs={12}>
@@ -90,33 +106,34 @@ const EditMap = (props: Props) => {
 					<Box color={theme.palette.secondary.main} mt="6px">
 						{!labelsAreHidden ? null : (
 							<Box>
+								<Box display="inline">Why are some labels faded</Box>
 								<Tooltip
 									title={`
-										Some labels are hidden at this zoom level because they overlap,
-										or the area they label is too small.
+										Some labels are faded because they won't be in the animation at this zoom level.
 										They'll appear when you zoom to a level that allows them.
+										This happens automatically in the final animation.
 									`}
 								>
 									<IconButton size="small">
-										<Icon icon={faInfoCircle} />
+										<Icon icon={faQuestionCircle} />
 									</IconButton>
 								</Tooltip>
-								<Box display="inline">Some labels are hidden</Box>
 							</Box>
 						)}
 						{!hilitesAreHidden ? null : (
 							<Box>
+								<Box display="inline">Why are hilights not showing?</Box>
 								<Tooltip
 									title={`
 										Hilites are hidden at this zoom level because they would cover most of the map.
 										They'll appear when you zoom out.
+										This happens automatically in the final animation.
 									`}
 								>
 									<IconButton size="small">
-										<Icon icon={faInfoCircle} />
+										<Icon icon={faQuestionCircle} />
 									</IconButton>
 								</Tooltip>
-								<Box display="inline">Hilites are hidden</Box>
 							</Box>
 						)}
 					</Box>

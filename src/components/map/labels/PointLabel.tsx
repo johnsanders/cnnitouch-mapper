@@ -14,52 +14,54 @@ const iconSize = 80;
 const fontSize = 80;
 
 interface Props {
-	fontPrimerDelayMs: number;
 	label: LabelWithVisibility;
 	mode: 'edit' | 'render';
 	scale: number;
 }
 const PointLabel: React.FC<Props> = (props: Props) => {
 	const textRef = React.useRef<SVGTextElement>(null);
+	const fontIsPrimedRef = React.useRef(false);
 	const [path, setPath] = React.useState('');
 	const [offset, setOffset] = React.useState({ x: 0, y: 0 });
 	const map = useMap();
 	const {
-		fontPrimerDelayMs,
-		label: { angle, name },
+		label: { angle, iconType, id, lat, lng, name, visible },
 		mode,
+		scale,
 	} = props;
 	React.useEffect(() => {
 		if (!textRef.current) throw new Error('Cannot get text for label');
 		const { height, width, x, y } = textRef.current.getBBox();
 		setOffset(getLabelOffsetAtAngle(angle, width, height, fontSize + 20));
 		const delayId = mode === 'render' ? delayRender() : 0;
+		const timeoutMs = fontIsPrimedRef.current || mode === 'edit' ? 0 : 100;
 		const timeout = setTimeout(() => {
+			fontIsPrimedRef.current = true;
 			setPath(getLabelHolderPath(angle, x, y, width, height));
 			continueRender(delayId);
-		}, fontPrimerDelayMs + 500);
+		}, timeoutMs);
 		return () => {
 			continueRender(delayId);
 			clearTimeout(timeout);
 		};
-	}, [angle, fontPrimerDelayMs, name, mode, path]);
-	const initialPosition = map.latLngToContainerPoint([props.label.lat, props.label.lng]);
+	}, [angle, name, mode, path]);
+	const initialPosition = map.latLngToContainerPoint([lat, lng]);
 	return (
 		<g
 			className="label"
-			id={getDomId('label', props.label.id)}
+			id={getDomId('label', id)}
 			style={{
 				cursor: 'default',
-				opacity: getLabelOpacity(props.mode, props.label.visible),
+				opacity: getLabelOpacity(mode, visible),
 				pointerEvents: 'all',
 				transform: `translate3d(${initialPosition.x}px, ${initialPosition.y}px, 0)`,
 			}}
 		>
-			<g transform={`scale(${props.scale})`}>
-				{props.label.iconType === 'none' ? null : (
+			<g transform={`scale(${scale})`}>
+				{iconType === 'none' ? null : (
 					<image
 						height={iconSize}
-						href={icons[props.label.iconType]}
+						href={icons[iconType]}
 						width={iconSize}
 						x={-iconSize / 2}
 						y={-iconSize / 2}
