@@ -48,7 +48,7 @@ const Map = React.forwardRef<LeafletMap, Props>((props, ref) => {
 			) : (
 				<GoogleFont scale={scale} />
 			)}
-			<Attribution text={attribution} />
+			<Attribution scale={scale} text={attribution} />
 			<LeafletContainer
 				fadeAnimation={true}
 				maxBounds={[
