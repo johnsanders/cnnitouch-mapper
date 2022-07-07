@@ -29,6 +29,9 @@ export interface Label {
 	lng: number;
 	type: 'area' | 'point';
 }
+export interface LabelWithVisibility extends Label {
+	visible: boolean;
+}
 
 export interface RenderSettings {
 	bannerText: string;

@@ -1,9 +1,10 @@
 import { continueRender, delayRender } from 'remotion';
-import { Label } from '../../types';
+import { LabelWithVisibility } from '../../types';
 import React from 'react';
 import getDomId from '../../../misc/getDomId';
 import getLabelHolderPath from './getLabelHolderPath';
 import getLabelOffsetAtAngle from './getLabelOffsetAtAngle';
+import getLabelOpacity from './getLabelOpacity';
 import redDot from '../../../img/redCityDot.png';
 import redStar from '../../../img/redCityDot.png';
 import { useMap } from 'react-leaflet';
@@ -13,7 +14,7 @@ const iconSize = 80;
 const fontSize = 80;
 
 interface Props {
-	label: Label;
+	label: LabelWithVisibility;
 	mode: 'edit' | 'render';
 	scale: number;
 }
@@ -45,6 +46,7 @@ const PointLabel: React.FC<Props> = (props: Props) => {
 			id={getDomId('label', props.label.id)}
 			style={{
 				cursor: 'default',
+				opacity: getLabelOpacity(props.mode, props.label.visible),
 				pointerEvents: 'all',
 				transform: `translate3d(${initialPosition.x}px, ${initialPosition.y}px, 0)`,
 			}}

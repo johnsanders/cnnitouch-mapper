@@ -1,4 +1,4 @@
-import { Hilite, Label } from '../../types';
+import { Hilite, Label, LabelWithVisibility } from '../../types';
 import { continueRender, delayRender } from 'remotion';
 import { useMap, useMapEvent } from 'react-leaflet';
 import AreaLabel from './AreaLabel';
@@ -32,7 +32,9 @@ interface Props {
 const LabelsLayer: React.FC<Props> = (props: Props) => {
 	const timeoutRef = React.useRef<number>();
 	const [ready, setReady] = React.useState(false);
-	const [visibleLabels, setVisibleLabels] = React.useState(props.labels);
+	const [labelsWithVisibility, setLabelsWithVisibility] = React.useState<LabelWithVisibility[]>(
+		props.labels.map((label) => ({ ...label, visible: true })),
+	);
 	const { hilites, labels, mode, setLabelsAreHidden } = props;
 	const zoom = useMap().getZoom();
 	React.useEffect(() => {
@@ -49,27 +51,33 @@ const LabelsLayer: React.FC<Props> = (props: Props) => {
 	const checkEditVisibilities = React.useCallback(() => {
 		if (mode !== 'edit') return;
 		const mapSizeInPixels = getMapSizeInPixels();
-		const visibleHiliteLabels = hilites.filter((hilite) => {
+		const hiliteLabelsWithVisibility = hilites.map((hilite) => {
 			const hiliteEl = document.querySelector(`.${getDomId('hilite', hilite.id)}`);
 			if (!hiliteEl) throw new Error(`No hilite element for ${hilite.id}`);
 			const hiliteRect = hiliteEl.getBoundingClientRect();
 			const hiliteSizeInPixels = hiliteRect.width * hiliteRect.height;
 			const hilitePercentOfScreen = hiliteSizeInPixels / mapSizeInPixels;
 			const hiliteIsBigEnoughToLabel = hilitePercentOfScreen > hiliteLabelThreshold;
-			return hiliteIsBigEnoughToLabel;
+			return { ...hilite, visibile: hiliteIsBigEnoughToLabel };
 		});
-		const allLabels = collateLabels(visibleHiliteLabels, labels);
-		const labelsAboveMinZoom = allLabels.filter((label) => label.minZoom <= zoom);
-		setVisibleLabels(labelsAboveMinZoom);
+		const allLabels = collateLabels(hiliteLabelsWithVisibility, labels);
+		const labelsWithAboveMinZoomVisibility: LabelWithVisibility[] = allLabels.map((label) => ({
+			...label,
+			visible: label.minZoom <= zoom,
+		}));
+		setLabelsWithVisibility(labelsWithAboveMinZoomVisibility);
 		timeoutRef.current = window.setTimeout(() => {
 			const visibility = calcLabelsOverlapVisibility(
-				createLabelAnimConfigs(labelsAboveMinZoom, []).normalLabelAnimConfigs,
+				createLabelAnimConfigs(labelsWithAboveMinZoomVisibility, []).normalLabelAnimConfigs,
 			);
-			const visibleLabels = labelsAboveMinZoom.filter((_label, i) => visibility[i]);
-			setVisibleLabels(visibleLabels);
-			const hiliteLabels = getLabelsFromHilitesList(hilites);
-			const allLabelsCount = labels.length + hiliteLabels.length;
-			if (setLabelsAreHidden) setLabelsAreHidden(visibleLabels.length < allLabelsCount);
+			const visibleLabels: LabelWithVisibility[] = labelsWithAboveMinZoomVisibility.map(
+				(label, i) => ({
+					...label,
+					visible: visibility[i],
+				}),
+			);
+			setLabelsWithVisibility(visibleLabels);
+			if (setLabelsAreHidden) setLabelsAreHidden(visibleLabels.some((label) => !label.visible));
 		}, 100);
 	}, [hilites, labels, mode, setLabelsAreHidden, zoom]);
 	useMapEvent('zoomend', checkEditVisibilities);
@@ -94,7 +102,7 @@ const LabelsLayer: React.FC<Props> = (props: Props) => {
 				zIndex: 500,
 			}}
 		>
-			{visibleLabels.map((label) =>
+			{labelsWithVisibility.map((label) =>
 				label.type === 'point' ? (
 					<PointLabel key={label.id} label={label} mode={props.mode} scale={props.scale} />
 				) : label.type === 'area' ? (
