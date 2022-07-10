@@ -13,21 +13,27 @@ const calcLabelsOverlapVisibility = (labels: LabelAnimationConfig[]): boolean[] 
 		labels.map((thatLabel) => {
 			// If we're comparing the label to itself, there's no overlap
 			if (thatLabel.id === thisLabel.id) return false;
-			// If one of the labels is not visible, there's no overlap
-			if (thisLabel.visible === false || thatLabel.visible === false) return false;
+			// If the other label is a hiliteLabel, we treat is as visible even if it's not
+			// Otherwise, if one of the labels is not visible, there's no overlap
+			console.log(thisLabel, thatLabel);
+			if (!thatLabel.isHiliteLabel && (thisLabel.visible === false || thatLabel.visible === false))
+				return false;
+			console.log('fjdskl');
 			return hitTest(
 				thisLabel.getElement().getBoundingClientRect(),
 				thatLabel.getElement().getBoundingClientRect(),
 			);
 		}),
 	);
-	const visibles = overlaps.map((overlap, labelIndex) => {
+	console.log(overlaps);
+	const visibilities = overlaps.map((overlap, labelIndex) => {
 		if (overlap.every((o) => !o)) return true;
 		for (let overlapIndex = 0; overlapIndex < overlaps.length; overlapIndex += 1)
 			if (overlaps[overlapIndex] && overlapIndex < labelIndex) return false;
 		return true;
 	});
-	return visibles;
+	console.log();
+	return visibilities;
 };
 
 export default calcLabelsOverlapVisibility;

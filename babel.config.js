@@ -1,5 +1,5 @@
 module.exports = {
-	plugins: [['transform-class-properties', { spec: true }]],
+	plugins: [],
 	presets: [
 		'@babel/preset-react',
 		'@babel/preset-typescript',

@@ -10,6 +10,7 @@ const handleEditLabelVisibilities = (
 	mapSizeInPixels: number,
 	mapZoom: number,
 ): LabelWithVisibility[] => {
+	// we need to call createlabelanimconfigs here with our hilites rather that what we're doing
 	// Get hilite labels with visibility set if their hilite is big enough to label and we're above minZoom
 	const hiliteLabelsWithVisibilityInfo = hilites.reduce<LabelWithVisibility[]>((acc, hilite) => {
 		if (!hilite.label) return acc;
@@ -26,7 +27,7 @@ const handleEditLabelVisibilities = (
 			{ ...hilite.label, visible: hiliteIsBigEnoughToLabel && hilite.label.minZoom <= mapZoom },
 		];
 	}, []);
-	// Get normal labels with visibility set if we're above minZoom
+	// Get normal labels with visibility set according to whether we're above minZoom
 	const normalLabelsWithAboveMinZoomVisibilityInfo: LabelWithVisibility[] = labels.map((label) => ({
 		...label,
 		visible: label.minZoom <= mapZoom,
