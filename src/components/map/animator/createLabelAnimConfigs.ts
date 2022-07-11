@@ -13,11 +13,8 @@ const createLabelAnimConfigs = (labels: (Label | LabelWithVisibility)[], hilites
 				if (!(element?.nodeName === 'g')) throw new Error(`Cannot get label element ${label.id}`);
 				return element;
 			},
-			id: label.id,
 			isHiliteLabel: false,
-			lat: label.lat,
-			lng: label.lng,
-			minZoom: label.minZoom,
+			label,
 			startFrame: null,
 			visible,
 		};
@@ -42,11 +39,8 @@ const createLabelAnimConfigs = (labels: (Label | LabelWithVisibility)[], hilites
 					return element;
 				},
 				hiliteEl: hiliteElement,
-				id: hilite.label.id,
 				isHiliteLabel: true,
-				lat: hilite.label.lat,
-				lng: hilite.label.lng,
-				minZoom: hilite.label.minZoom,
+				label: hilite.label,
 				startFrame: null,
 				visible,
 			},

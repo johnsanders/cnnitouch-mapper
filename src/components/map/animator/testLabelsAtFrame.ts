@@ -1,7 +1,7 @@
 import { fadeDuration, hiliteLabelThreshold } from './config';
 import { LabelAnimationConfig } from '../../types';
 import { Map } from 'leaflet';
-import calcLabelsOverlapVisibility from './calcLabelsOverlapVisibility';
+import calcLabelOverlapClashes from './calcLabelOverlapClashes';
 import getMapSizeInPixels from '../../../misc/getMapSizeInPixels';
 import setLabelDomStylesAtFrame from './setLabelDomStylesAtFrame';
 
@@ -14,12 +14,12 @@ const testLabelsAtFrame = (
 	labelAnimationConfigs.forEach((labelAnimConfig) =>
 		setLabelDomStylesAtFrame(labelAnimConfig, frame),
 	);
-	const labelsDisplayableInFrame = calcLabelsOverlapVisibility(labelAnimationConfigs);
+	const labelOverlapClashes = calcLabelOverlapClashes(labelAnimationConfigs);
 	labelAnimationConfigs.forEach((labelAnimConfig, i) => {
 		if (
 			labelAnimConfig.startFrame !== null ||
-			!labelsDisplayableInFrame[i] ||
-			map.getZoom() < labelAnimConfig.minZoom
+			labelOverlapClashes[i] ||
+			map.getZoom() < labelAnimConfig.label.minZoom
 		)
 			return;
 		setLabelDomStylesAtFrame(labelAnimConfig, frame);
@@ -27,7 +27,7 @@ const testLabelsAtFrame = (
 			labelAnimConfig.startFrame = Math.max(frame - fadeDuration, 0);
 		else {
 			if (!labelAnimConfig.hiliteEl)
-				throw new Error(`Hilite label ${labelAnimConfig.id} is missing hilite element`);
+				throw new Error(`Hilite label ${labelAnimConfig.label.id} is missing hilite element`);
 			const hiliteBounds = labelAnimConfig.hiliteEl.getBoundingClientRect();
 			const hiliteSizeInPixels = hiliteBounds.height * hiliteBounds.width;
 			const hilitePercentOfScreen = hiliteSizeInPixels / mapSizeInPixels;

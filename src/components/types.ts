@@ -45,12 +45,9 @@ export interface RenderSettings {
 
 export interface LabelAnimationConfig {
 	getElement: () => HTMLElement;
+	label: Label;
 	hiliteEl?: HTMLElement;
-	id: string;
 	isHiliteLabel: boolean;
-	lat: number;
-	lng: number;
-	minZoom: number;
 	startFrame: number | null;
 	visible?: boolean;
 }

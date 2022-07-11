@@ -1,5 +1,5 @@
 import { Hilite, Label, LabelWithVisibility } from '../../types';
-import calcLabelsOverlapVisibility from '../animator/calcLabelsOverlapVisibility';
+import calcLabelOverlaps from '../animator/calcLabelOverlapClashes';
 import createLabelAnimConfigs from '../animator/createLabelAnimConfigs';
 import getDomId from '../../../misc/getDomId';
 import { hiliteLabelThreshold } from '../animator/config';
@@ -10,8 +10,18 @@ const handleEditLabelVisibilities = (
 	mapSizeInPixels: number,
 	mapZoom: number,
 ): LabelWithVisibility[] => {
-	// we need to call createlabelanimconfigs here with our hilites rather that what we're doing
-	// Get hilite labels with visibility set if their hilite is big enough to label and we're above minZoom
+	// Create animConfigs and use it to calculate overlaps
+	// We need to
+	const normalLabelsWithVisibilityInfo: LabelWithVisibility[] = labels.map((label) => ({
+		...label,
+		visible: label.minZoom <= mapZoom,
+	}));
+	const labelAnimConfigs = createLabelAnimConfigs(normalLabelsWithVisibilityInfo, hilites);
+	// Get normal labels with visibility set according to whether we're above minZoom
+	const overlapClashes = calcLabelOverlaps([
+		...labelAnimConfigs.hiliteLabelAnimConfigs,
+		...labelAnimConfigs.normalLabelAnimConfigs,
+	]);
 	const hiliteLabelsWithVisibilityInfo = hilites.reduce<LabelWithVisibility[]>((acc, hilite) => {
 		if (!hilite.label) return acc;
 		if (hilite.label && hilite.label.minZoom > mapZoom)
@@ -27,26 +37,14 @@ const handleEditLabelVisibilities = (
 			{ ...hilite.label, visible: hiliteIsBigEnoughToLabel && hilite.label.minZoom <= mapZoom },
 		];
 	}, []);
-	// Get normal labels with visibility set according to whether we're above minZoom
-	const normalLabelsWithAboveMinZoomVisibilityInfo: LabelWithVisibility[] = labels.map((label) => ({
-		...label,
-		visible: label.minZoom <= mapZoom,
-	}));
-	// Concat all our labels and calculate overlaps
-	const allLabelsWithVisibilityInfo = [
-		...hiliteLabelsWithVisibilityInfo,
-		...normalLabelsWithAboveMinZoomVisibilityInfo,
-	];
-	const visibility = calcLabelsOverlapVisibility(
-		createLabelAnimConfigs(allLabelsWithVisibilityInfo, []).normalLabelAnimConfigs,
-	);
 	// Set visibility based on visibility calculation from above && overlap visibility
-	const labelsWithFinalVisibilityInfo: LabelWithVisibility[] = allLabelsWithVisibilityInfo.map(
-		(label, i) => ({
-			...label,
-			visible: label.visible && visibility[i],
-		}),
-	);
+	const labelsWithFinalVisibilityInfo: LabelWithVisibility[] = [
+		...hiliteLabelsWithVisibilityInfo,
+		...normalLabelsWithVisibilityInfo,
+	].map((label, i) => ({
+		...label,
+		visible: label.visible && !overlapClashes[i],
+	}));
 	return labelsWithFinalVisibilityInfo;
 };
 
