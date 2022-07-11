@@ -4,9 +4,9 @@ import { useMap, useMapEvent, useMapEvents } from 'react-leaflet';
 import AreaLabel from './AreaLabel';
 import PointLabel from './PointLabel';
 import React from 'react';
+import getEditModeLabelVisibilities from './getEditModeLabelVisibilities';
 import getLabelsFromHilitesList from '../../../misc/getLabelsFromHilitesList';
 import getMapSizeInPixels from '../../../misc/getMapSizeInPixels';
-import handleEditLabelVisibilities from './handleEditLabelVisibilities';
 import { uniqueId } from 'lodash-es';
 
 const fontPrimer = (
@@ -43,13 +43,13 @@ const LabelsLayer: React.FC<Props> = (props: Props) => {
 			continueRender(delayId);
 		};
 	}, [mode]);
-	const checkEditVisibilities = React.useCallback(() => {
+	const onEditModeLabelsUpdate = React.useCallback(() => {
 		if (mode !== 'edit') return;
 		const allLabels = [...getLabelsFromHilitesList(hilites), ...labels];
 		setLabelsWithVisibilityInfo(allLabels.map((label) => ({ ...label, visible: true })));
 		const mapSizeInPixels = getMapSizeInPixels();
 		const timeout = setTimeout(() => {
-			const newLabelsWithVisibilityInfo = handleEditLabelVisibilities(
+			const newLabelsWithVisibilityInfo = getEditModeLabelVisibilities(
 				hilites,
 				labels,
 				mapSizeInPixels,
@@ -61,8 +61,8 @@ const LabelsLayer: React.FC<Props> = (props: Props) => {
 		}, 200);
 		return () => clearTimeout(timeout);
 	}, [hilites, labels, mode, setLabelsAreHidden, zoom]);
-	useMapEvent('zoomend', checkEditVisibilities);
-	React.useEffect(checkEditVisibilities, [checkEditVisibilities]);
+	useMapEvent('zoomend', onEditModeLabelsUpdate);
+	React.useEffect(onEditModeLabelsUpdate, [onEditModeLabelsUpdate]);
 	return !ready ? (
 		fontPrimer
 	) : (
