@@ -105,7 +105,7 @@ const EditMap = (props: Props) => {
 					</Box>
 					<Box color={theme.palette.secondary.main} mt="6px">
 						{!labelsAreHidden ? null : (
-							<Box>
+							<Box textAlign="right">
 								<Box display="inline">Why are some labels faded</Box>
 								<Tooltip
 									title={`
@@ -121,7 +121,7 @@ const EditMap = (props: Props) => {
 							</Box>
 						)}
 						{!hilitesAreHidden ? null : (
-							<Box>
+							<Box textAlign="right">
 								<Box display="inline">Why are hilights not showing?</Box>
 								<Tooltip
 									title={`
