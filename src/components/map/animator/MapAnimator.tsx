@@ -51,9 +51,8 @@ const MapAnimator: React.FC<Props> = (props: Props) => {
 			hiliteAnimationConfigsRef.current = hiliteAnimationConfigs;
 			labelAnimationConfigsRef.current = labelAnimationConfigs;
 		}
-		if (!labelAnimationConfigsRef.current) throw new Error('labelAnimationConfigs is not defined');
-		if (!hiliteAnimationConfigsRef.current)
-			throw new Error('hiliteAnimationConfigs is not defined');
+		if (!labelAnimationConfigsRef.current) throw new Error('labelAnimaConfigs is not defined');
+		if (!hiliteAnimationConfigsRef.current) throw new Error('hiliteAnimConfigs is not defined');
 		const currentZoom = map.getZoom();
 		const newBounds = calculateMapBoundsAtFrame(
 			frame,

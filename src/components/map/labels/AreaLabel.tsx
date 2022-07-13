@@ -29,17 +29,19 @@ const PointLabel: React.FC<Props> = (props: Props) => {
 		if (!textRef.current) throw new Error('Cannot get text for label');
 		const { height, width, x, y } = textRef.current.getBBox();
 		setOffset(getLabelOffsetAtAngle(angle, width, fontSize, fontSize + 20));
-		const delayId = mode === 'render' ? delayRender() : 0;
-		const timeoutMs = fontIsPrimed || mode === 'edit' ? 0 : 2000;
-		const timeout = setTimeout(() => {
-			fontIsPrimed = true;
-			setPath(getLabelHolderPath(angle, x, y, width, height));
-			continueRender(delayId);
-		}, timeoutMs);
-		return () => {
-			continueRender(delayId);
-			clearTimeout(timeout);
-		};
+		setPath(getLabelHolderPath(angle, x, y, width, height));
+		if (!fontIsPrimed && mode === 'render') {
+			const delayId = mode === 'render' ? delayRender() : 0;
+			const timeout = setTimeout(() => {
+				fontIsPrimed = true;
+				setPath(getLabelHolderPath(angle, x, y, width, height));
+				continueRender(delayId);
+			}, 2000);
+			return () => {
+				continueRender(delayId);
+				clearTimeout(timeout);
+			};
+		}
 	}, [angle, mode, name, path]);
 	const initialPosition = map.latLngToContainerPoint([lat, lng]);
 	return (
