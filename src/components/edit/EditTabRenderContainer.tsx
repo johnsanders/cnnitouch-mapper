@@ -72,7 +72,6 @@ const EditTabRenderContainer: React.FC<Props> = (props: Props) => {
 		try {
 			const msNumber = await createPrecut(slug);
 			await enqueueRender(renderData, msNumber, slug, email, '');
-
 			dispatch([
 				{ key: 'loading', value: false },
 				{
@@ -86,6 +85,7 @@ const EditTabRenderContainer: React.FC<Props> = (props: Props) => {
 		} catch (e) {
 			dispatch([
 				{ key: 'errorText', value: 'Failed to enqueue render.' },
+				{ key: 'confirmText', value: '' },
 				{ key: 'loading', value: false },
 			]);
 			console.log(e);
