@@ -70,6 +70,7 @@ const LabelsSortable: React.FC<Props> = (props) => {
 								handleLabelPositionChange={props.handleLabelPositionChange}
 								key={label.id}
 								label={label}
+								showDragHandle={props.labels.length > 1}
 							/>
 						))}
 					</TableBody>

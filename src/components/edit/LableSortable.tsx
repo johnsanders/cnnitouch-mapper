@@ -15,6 +15,7 @@ interface Props {
 	handleLabelNameChange: (id: string, value: string) => void;
 	handleLabelPositionChange: (e: SelectChangeEvent<number>) => void;
 	label: Label;
+	showDragHandle: boolean;
 }
 
 const LabelSortable: React.FC<Props> = (props) => {
@@ -57,16 +58,18 @@ const LabelSortable: React.FC<Props> = (props) => {
 						<Icon icon={faTrash} />
 					</IconButton>
 				</Tooltip>
-				<IconButton
-					{...listeners}
-					aria-label="delete"
-					data-id={props.label.id}
-					ref={setActivatorNodeRef}
-					size="small"
-					sx={{ cursor: 'ns-resize' }}
-				>
-					<Icon icon={faUpDown} />
-				</IconButton>
+				{!props.showDragHandle ? null : (
+					<IconButton
+						{...listeners}
+						aria-label="delete"
+						data-id={props.label.id}
+						ref={setActivatorNodeRef}
+						size="small"
+						sx={{ cursor: 'ns-resize' }}
+					>
+						<Icon icon={faUpDown} />
+					</IconButton>
+				)}
 			</TableCell>
 		</TableRow>
 	);

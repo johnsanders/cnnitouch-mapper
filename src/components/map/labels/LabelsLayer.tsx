@@ -24,7 +24,7 @@ interface Props {
 const LabelsLayer: React.FC<Props> = (props: Props) => {
 	const { hilites, labels, mode, setLabelsAreHidden } = props;
 	const [ready, setReady] = React.useState(false);
-	const [key, setKey] = React.useState(uniqueId);
+	const [key, setKey] = React.useState(uniqueId());
 	const allLabels = [...getLabelsFromHilitesList(hilites), ...labels];
 	const [labelsWithVisibilityInfo, setLabelsWithVisibilityInfo] = React.useState<
 		LabelWithVisibility[]
@@ -63,6 +63,7 @@ const LabelsLayer: React.FC<Props> = (props: Props) => {
 	}, [hilites, labels, mode, setLabelsAreHidden, zoom]);
 	useMapEvent('zoomend', onEditModeLabelsUpdate);
 	React.useEffect(onEditModeLabelsUpdate, [onEditModeLabelsUpdate]);
+	const labelsReversed = labelsWithVisibilityInfo.slice().reverse();
 	return !ready ? (
 		fontPrimer
 	) : (
@@ -80,13 +81,26 @@ const LabelsLayer: React.FC<Props> = (props: Props) => {
 				zIndex: 500,
 			}}
 		>
-			{labelsWithVisibilityInfo.map((label, i) =>
-				label.type === 'point' ? (
-					<PointLabel key={`${key} - ${i}`} label={label} mode={props.mode} scale={props.scale} />
-				) : label.type === 'area' ? (
-					<AreaLabel key={`${key} - ${i}`} label={label} mode={props.mode} scale={props.scale} />
-				) : null,
-			)}
+			{labelsReversed
+				.filter((label) => label.type === 'point')
+				.map((label) => (
+					<PointLabel
+						key={`${key}-${label.id}`}
+						label={label}
+						mode={props.mode}
+						scale={props.scale}
+					/>
+				))}
+			{labelsReversed
+				.filter((label) => label.type === 'area')
+				.map((label) => (
+					<AreaLabel
+						key={`${key}-${label.id}`}
+						label={label}
+						mode={props.mode}
+						scale={props.scale}
+					/>
+				))}
 		</svg>
 	);
 };
