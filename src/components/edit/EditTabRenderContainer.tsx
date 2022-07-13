@@ -1,6 +1,6 @@
 import { MapSettings, RenderSettings } from '../types';
 import { RenderAction, RenderState } from './types';
-import { createPrecut, enqueueRender } from './enqueueRender';
+import { callRenderWebhook, createPrecut, enqueueRender } from './enqueueRender';
 import EditTabRender from './EditTabRender';
 import React from 'react';
 
@@ -79,9 +79,7 @@ const EditTabRenderContainer: React.FC<Props> = (props: Props) => {
 					value: `Success! Your Mediasource number will be ${msNumber}. We'll email you in a few minutes when it's ready.`,
 				},
 			]);
-			await fetch(
-				'https://cnnitouch-prod1.tbsbest.com:8088/proxy?url=http://loncnn-ziv1.turner.com:8081/checkRenders',
-			);
+			await callRenderWebhook();
 		} catch (e) {
 			dispatch([
 				{ key: 'errorText', value: 'Failed to enqueue render.' },
