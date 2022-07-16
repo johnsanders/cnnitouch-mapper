@@ -12,13 +12,11 @@ export interface MapSettings {
 	subheadText: string;
 	zoomDuration: number;
 }
-
 export interface Hilite {
 	id: string;
 	label?: Label;
 	name: string;
 }
-
 export interface Label {
 	angle: number;
 	iconType: 'none' | 'redStar' | 'redDot';
@@ -42,7 +40,6 @@ export interface RenderSettings {
 	subheadText: string;
 	zoomDuration: number;
 }
-
 export interface LabelAnimationConfig {
 	getElement: () => HTMLElement;
 	label: Label;
@@ -51,10 +48,15 @@ export interface LabelAnimationConfig {
 	startFrame: number | null;
 	visible?: boolean;
 }
-
 export interface HiliteAnimationConfig {
 	element: SVGPathElement;
 	endFrame: number;
 	id: string;
 	name: string;
+}
+export interface Bounds {
+	bottom: number;
+	left: number;
+	right: number;
+	top: number;
 }
