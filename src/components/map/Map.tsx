@@ -11,7 +11,7 @@ import LabelsLayer from './labels/LabelsLayer';
 import { MapContainer as LeafletContainer } from 'react-leaflet';
 import MapAnimator from './animator/MapAnimator';
 import MapEventHandlers from './MapEventHandlers';
-import { MapSettings } from '../types';
+import { MapSettings } from '../../types';
 import React from 'react';
 import ReactLeafletGoogleLayer from 'react-leaflet-google-layer';
 import SpecialCasesLayer from './SpecialCasesLayer';
@@ -19,7 +19,6 @@ import SvgDefs from './SvgDefs';
 import googleApiKey from '../../config/googleApiKey_disableGit';
 
 interface Props {
-	compHeight: number;
 	setHilitesAreHidden?: (hilitesAreHidden: boolean) => void;
 	setLabelsAreHidden?: (labelsAreHidden: boolean) => void;
 	settings: MapSettings;
@@ -28,7 +27,8 @@ interface Props {
 
 const Map = React.forwardRef<LeafletMap, Props>((props, ref) => {
 	const [attribution, setAttribution] = React.useState('');
-	const scale = props.compHeight / 2160;
+	const scale = props.settings.compHeight / 2160;
+	console.log(props.settings.compHeight, scale);
 	const hiliteNames = props.settings.hilites.map((hilite) => hilite.name);
 	const { bannerText, boundsEnd, boundsStart, hilites, labels, mode, subheadText, zoomDuration } =
 		props.settings;
@@ -74,7 +74,7 @@ const Map = React.forwardRef<LeafletMap, Props>((props, ref) => {
 					apiKey={mode === 'render' ? googleApiKey : undefined}
 					type="satellite"
 				/>
-				<BordersLayer mode={mode} />
+				<BordersLayer mode={mode} scale={scale} />
 				<HiliteLayer
 					hilites={hilites}
 					mode={mode}

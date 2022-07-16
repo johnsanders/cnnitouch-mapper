@@ -1,5 +1,5 @@
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
-import { Label } from '../types';
+import { Label } from '../../types';
 import React from 'react';
 
 interface Props {

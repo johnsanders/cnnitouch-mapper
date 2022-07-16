@@ -1,4 +1,4 @@
-import { Hilite, Label, LabelWithVisibility } from '../../types';
+import { Hilite, Label, LabelWithVisibility } from '../../../types';
 import calcLabelOverlaps from '../animator/calcLabelOverlapClashes';
 import createLabelAnimConfigs from '../animator/createLabelAnimConfigs';
 import getDomId from '../../../misc/getDomId';

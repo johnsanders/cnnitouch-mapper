@@ -1,4 +1,4 @@
-import { HiliteAnimationConfig } from '../../types';
+import { HiliteAnimationConfig } from '../../../types';
 import calcInterpolatedOpacity from './calcInterpolatedOpacity';
 
 const setHiliteDomStylesAtFrame = (hiliteAnimConfig: HiliteAnimationConfig, frame: number) => {

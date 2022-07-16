@@ -10,13 +10,13 @@ const geoData = topojsonFeature(bordersData as any, topoData);
 
 interface Props {
 	mode: 'edit' | 'render';
+	scale: number;
 }
 
 const BordersLayer: React.FC<Props> = (props) => {
 	const [key, setKey] = React.useState('1');
-	const { mode } = props;
 	React.useEffect(() => {
-		const delayId = mode === 'render' ? delayRender() : 0;
+		const delayId = delayRender();
 		const timeout = setTimeout(() => {
 			setKey('2');
 			continueRender(delayId);
@@ -25,7 +25,7 @@ const BordersLayer: React.FC<Props> = (props) => {
 			continueRender(delayId);
 			clearTimeout(timeout);
 		};
-	}, [mode]);
+	}, []);
 	useCurrentFrame();
 	const map = useMap();
 	const zoom = map.getZoom();
@@ -34,7 +34,7 @@ const BordersLayer: React.FC<Props> = (props) => {
 			return {
 				className: 'borderLayer',
 				color: '#d4e2b0',
-				weight: props.mode === 'render' ? zoom : zoom / 2,
+				weight: props.mode === 'render' ? Math.max(zoom * props.scale, 2) : zoom / 2,
 			};
 		return {};
 	};

@@ -1,4 +1,4 @@
-import { Hilite, HiliteAnimationConfig, Label, LabelAnimationConfig } from '../../types';
+import { Hilite, HiliteAnimationConfig, Label, LabelAnimationConfig } from '../../../types';
 import { LatLngBounds, Map } from 'leaflet';
 import { easing, fadeDuration } from './config';
 import calculateMapBoundsAtFrame from './calculateMapBoundsAtFrame';

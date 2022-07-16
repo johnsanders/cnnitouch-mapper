@@ -1,6 +1,6 @@
 import { GeoJSON, useMap, useMapEvent } from 'react-leaflet';
 import { LatLngBounds, GeoJSON as LeafletGeoJSON } from 'leaflet';
-import { Hilite } from '../types';
+import { Hilite } from '../../types';
 import React from 'react';
 import { boundsExceedsThreshold } from './animator/testHilitesAtFrame';
 import calcAggregateBounds from './animator/calcAggregateBounds';

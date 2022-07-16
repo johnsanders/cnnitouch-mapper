@@ -1,4 +1,4 @@
-import { Hilite, Label, LabelAnimationConfig, LabelWithVisibility } from '../../types';
+import { Hilite, Label, LabelAnimationConfig, LabelWithVisibility } from '../../../types';
 import getDomId from '../../../misc/getDomId';
 
 const isLabelWithVisibility = (label: Label | LabelWithVisibility): label is LabelWithVisibility =>

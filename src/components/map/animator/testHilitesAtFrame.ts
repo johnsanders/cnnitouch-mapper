@@ -1,4 +1,4 @@
-import { HiliteAnimationConfig } from '../../types';
+import { HiliteAnimationConfig } from '../../../types';
 import { LatLngBounds } from 'leaflet';
 import calcAggregateBounds from './calcAggregateBounds';
 import hiliteBoundsSpecialCases from '../../../misc/hiliteBoundsSpecialCases';

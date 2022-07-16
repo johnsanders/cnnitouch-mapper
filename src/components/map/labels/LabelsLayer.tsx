@@ -1,4 +1,4 @@
-import { Hilite, Label, LabelWithVisibility } from '../../types';
+import { Hilite, Label, LabelWithVisibility } from '../../../types';
 import { continueRender, delayRender } from 'remotion';
 import { useMap, useMapEvent, useMapEvents } from 'react-leaflet';
 import AreaLabel from './AreaLabel';

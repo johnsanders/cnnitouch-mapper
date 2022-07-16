@@ -1,5 +1,5 @@
 import { continueRender, delayRender } from 'remotion';
-import { LabelWithVisibility } from '../../types';
+import { LabelWithVisibility } from '../../../types';
 import React from 'react';
 import getDomId from '../../../misc/getDomId';
 import getLabelHolderPath from './getLabelHolderPath';

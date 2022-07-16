@@ -1,4 +1,4 @@
-import { Bounds } from '../../../types';
+import { Bounds } from '../../../../types';
 
 const cellSize = 10;
 const createGrid = (mapRect: DOMRect) => {

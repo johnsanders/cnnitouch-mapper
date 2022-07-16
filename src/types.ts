@@ -6,12 +6,25 @@ export interface MapSettings {
 	bannerText: string;
 	boundsEnd: LatLngBounds;
 	boundsStart: LatLngBounds;
+	compHeight: number;
+	compWidth: number;
+	fps: number;
 	hilites: Hilite[];
 	labels: Label[];
 	mode: 'render' | 'edit';
 	subheadText: string;
 	zoomDuration: number;
 }
+export type MapSettingsInput = Omit<
+	MapSettings,
+	'boundsEnd' | 'boundsStart' | 'compHeight' | 'compWidth' | 'fps'
+> & {
+	boundsEnd: string;
+	boundsStart: string;
+	compHeight?: number;
+	compWidth?: number;
+	fps?: number;
+};
 export interface Hilite {
 	id: string;
 	label?: Label;
@@ -29,16 +42,6 @@ export interface Label {
 }
 export interface LabelWithVisibility extends Label {
 	visible: boolean;
-}
-export interface RenderSettings {
-	bannerText: string;
-	boundsEnd: string;
-	boundsStart: string;
-	hilites: Hilite[];
-	labels: Label[];
-	mode: 'render' | 'edit';
-	subheadText: string;
-	zoomDuration: number;
 }
 export interface LabelAnimationConfig {
 	getElement: () => HTMLElement;

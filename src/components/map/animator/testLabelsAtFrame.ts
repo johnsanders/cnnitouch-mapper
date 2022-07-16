@@ -1,5 +1,5 @@
 import { fadeDuration, hiliteLabelThreshold } from './config';
-import { LabelAnimationConfig } from '../../types';
+import { LabelAnimationConfig } from '../../../types';
 import { Map } from 'leaflet';
 import calcLabelOverlapClashes from './calcLabelOverlapClashes';
 import getMapSizeInPixels from '../../../misc/getMapSizeInPixels';

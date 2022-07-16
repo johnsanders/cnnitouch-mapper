@@ -3,7 +3,7 @@ import { faTrash, faUpDown } from '@fortawesome/pro-solid-svg-icons';
 import { CSS } from '@dnd-kit/utilities';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import InlineEdit from './InlineEdit';
-import { Label } from '../types';
+import { Label } from '../../types';
 import LabelIconChooser from './LabelIconChooser';
 import LabelPositionChooser from './LabelPositionChooser';
 import React from 'react';

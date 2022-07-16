@@ -11,7 +11,7 @@ import {
 import { SelectChangeEvent, Table, TableBody } from '@mui/material';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
-import { Label } from '../types';
+import { Label } from '../../types';
 import LabelSortable from './LableSortable';
 import React from 'react';
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers';

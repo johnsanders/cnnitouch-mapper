@@ -1,4 +1,4 @@
-import { Hilite, HiliteAnimationConfig, Label, LabelAnimationConfig } from '../../types';
+import { Hilite, HiliteAnimationConfig, Label, LabelAnimationConfig } from '../../../types';
 import { continueRender, delayRender, useCurrentFrame } from 'remotion';
 import { LatLngBounds } from 'leaflet';
 import React from 'react';
@@ -70,7 +70,7 @@ const MapAnimator: React.FC<Props> = (props: Props) => {
 		const delayInMs = Math.floor(currentZoom) === Math.floor(prevZoomRef.current) ? 250 : 2000;
 		prevZoomRef.current = currentZoom;
 		await waitFor(delayInMs);
-		await checkTiles(map, newBounds);
+		await checkTiles(map, newBounds).catch(() => console.log('All tile load strategies failed.'));
 		continueRender(delayId);
 	};
 	handleFrame();

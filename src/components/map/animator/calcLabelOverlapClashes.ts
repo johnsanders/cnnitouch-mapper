@@ -1,4 +1,4 @@
-import { LabelAnimationConfig } from '../../types';
+import { LabelAnimationConfig } from '../../../types';
 
 const hitTest = (rect1: DOMRect, rect2: DOMRect) =>
 	!(

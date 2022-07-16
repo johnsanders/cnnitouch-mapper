@@ -1,4 +1,4 @@
-import { Hilite, HiliteAnimationConfig } from '../../types';
+import { Hilite, HiliteAnimationConfig } from '../../../types';
 import getDomId from '../../../misc/getDomId';
 
 const createHiliteAnimConfigs = (

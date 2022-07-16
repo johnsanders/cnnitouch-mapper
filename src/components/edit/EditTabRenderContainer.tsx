@@ -1,4 +1,4 @@
-import { MapSettings, RenderSettings } from '../types';
+import { MapSettings, MapSettingsInput } from '../../types';
 import { RenderAction, RenderState } from './types';
 import { callRenderWebhook, createPrecut, enqueueRender } from './enqueueRender';
 import EditTabRender from './EditTabRender';
@@ -62,7 +62,7 @@ const EditTabRenderContainer: React.FC<Props> = (props: Props) => {
 			{ key: 'submitted', value: true },
 			{ key: 'loading', value: true },
 		]);
-		const renderData: RenderSettings = {
+		const renderData: MapSettingsInput = {
 			...props.mapSettings,
 			boundsEnd: props.mapSettings.boundsEnd.toBBoxString(),
 			boundsStart: props.mapSettings.boundsStart.toBBoxString(),

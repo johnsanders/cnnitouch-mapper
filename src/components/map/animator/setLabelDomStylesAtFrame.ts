@@ -1,4 +1,4 @@
-import { LabelAnimationConfig } from '../../types';
+import { LabelAnimationConfig } from '../../../types';
 import calcInterpolatedOpacity from './calcInterpolatedOpacity';
 
 const setLabelDomStylesAtFrame = (labelAnimConfig: LabelAnimationConfig, frame: number) => {

@@ -8,7 +8,7 @@ import {
 	SelectChangeEvent,
 } from '@mui/material';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
-import { Label } from '../types';
+import { Label } from '../../types';
 import LabelsSortable from './LabelsSortable';
 import React from 'react';
 import { faTimes } from '@fortawesome/pro-solid-svg-icons';
