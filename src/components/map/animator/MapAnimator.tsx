@@ -3,7 +3,7 @@ import { continueRender, delayRender, useCurrentFrame } from 'remotion';
 import { LatLngBounds } from 'leaflet';
 import React from 'react';
 import calculateMapBoundsAtFrame from './calculateMapBoundsAtFrame';
-import checkTiles from './checkTiles';
+import checkTiles from './checkTiles/checkTiles';
 import { easing } from './config';
 import hiliteBoundsAll from '../../../misc/hiliteBounds';
 import initLabelAndHiliteAnimations from './initLabelAndHiliteAnimations';
