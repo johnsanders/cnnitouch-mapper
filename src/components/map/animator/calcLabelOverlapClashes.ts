@@ -9,10 +9,12 @@ const hitTest = (rect1: DOMRect, rect2: DOMRect) =>
 	);
 
 const calcLabelOverlapClashes = (labelAnimConfigs: LabelAnimationConfig[]): boolean[] => {
-	const overlaps = labelAnimConfigs.map((thisAnimConfig) =>
-		labelAnimConfigs.map((thatAnimConfig) => {
+	const overlaps = labelAnimConfigs.map((thisAnimConfig, thisIndex) =>
+		labelAnimConfigs.map((thatAnimConfig, thatIndex) => {
 			// If we're comparing the label to itself, there's no overlap
 			if (thatAnimConfig.label.id === thisAnimConfig.label.id) return false;
+			// If we're at a lower index than the other label, we get priority
+			if (thisIndex < thatIndex) return false;
 			// If the other label is a hiliteLabel, we treat is as visible even if it's not
 			// Otherwise, if one of the labels is not visible, there's no overlap
 			if (

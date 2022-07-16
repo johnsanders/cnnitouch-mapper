@@ -70,6 +70,7 @@ const initLabelAndHiliteAnimations = (
 				// Reset DOM styles for frame zero so we're ready to start the render
 				setLabelDomStylesAtFrame(labelAnimConfig, 0);
 			});
+			console.log(labelAnimationConfigs);
 			await waitFor(100);
 			resolve({ hiliteAnimationConfigs, labelAnimationConfigs });
 		};
