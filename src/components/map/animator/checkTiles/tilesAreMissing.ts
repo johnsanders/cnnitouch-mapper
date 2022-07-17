@@ -20,7 +20,6 @@ const tilesAreMissing = () => {
 			if (!tile.dataPending) tileTestGrid.set(tile.rect);
 		}),
 	);
-	console.log(tileTestGrid.tilesAreMissing());
 	return tileTestGrid.tilesAreMissing();
 };
 

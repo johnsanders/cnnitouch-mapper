@@ -28,7 +28,6 @@ interface Props {
 const Map = React.forwardRef<LeafletMap, Props>((props, ref) => {
 	const [attribution, setAttribution] = React.useState('');
 	const scale = props.settings.compHeight / 2160;
-	console.log(props.settings.compHeight, scale);
 	const hiliteNames = props.settings.hilites.map((hilite) => hilite.name);
 	const { bannerText, boundsEnd, boundsStart, hilites, labels, mode, subheadText, zoomDuration } =
 		props.settings;
