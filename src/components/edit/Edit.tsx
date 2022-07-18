@@ -6,6 +6,7 @@ import EditTabBanner from './EditTabBanner';
 import EditTabBounds from './EditTabBounds';
 import EditTabHilites from './EditTabHilites';
 import EditTabLabels from './EditTabLabels';
+import EditTabPreviewContainer from './EditTabPreviewContainer';
 import EditTabRenderContainer from './EditTabRenderContainer';
 import React from 'react';
 import SpecialCasesInfo from './SpecialCasesInfo';
@@ -38,6 +39,7 @@ const Edit: React.FC<Props> = (props) => {
 							<Tab label="Map Start" value="boundsStart" />
 							<Tab label="Map End" value="boundsEnd" />
 							<Tab label="Labels" value="labels" />
+							<Tab label="Preview" value="preview" />
 							<Tab label="Render" value="render" />
 						</Tabs>
 					</Grid>
@@ -75,14 +77,20 @@ const Edit: React.FC<Props> = (props) => {
 					<EditTabLabels
 						active={activeTab === 'labels'}
 						labels={mapSettings.labels}
-						onNext={() => props.dispatch({ key: 'activeTab', value: 'render' })}
+						onNext={() => props.dispatch({ key: 'activeTab', value: 'preview' })}
 						onPrevious={() => props.dispatch({ key: 'activeTab', value: 'boundsEnd' })}
 						setLabels={(labels: Label[]) => props.dispatch({ key: 'labels', value: labels })}
+					/>
+					<EditTabPreviewContainer
+						active={activeTab === 'preview'}
+						mapSettings={mapSettings}
+						onNext={() => props.dispatch({ key: 'activeTab', value: 'render' })}
+						onPrevious={() => props.dispatch({ key: 'activeTab', value: 'labels' })}
 					/>
 					<EditTabRenderContainer
 						active={activeTab === 'render'}
 						mapSettings={mapSettings}
-						onPrevious={() => props.dispatch({ key: 'activeTab', value: 'labels' })}
+						onPrevious={() => props.dispatch({ key: 'activeTab', value: 'preview' })}
 					/>
 				</Grid>
 			</Container>

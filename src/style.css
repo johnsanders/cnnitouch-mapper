@@ -8,3 +8,16 @@ a {
 a:visited {
 	color: inherit;
 }
+.previewImage {
+	height: 100px;
+	margin: 0.25em 0.25em;
+	position: relative;
+	transform-origin: center;
+	transition: transform 0.25s, box-shadow 0.25s;
+	z-index: 1000;
+}
+.previewImage:hover {
+	box-shadow: 0 0 5px;
+	transform: scale(2);
+	z-index: 1001;
+}

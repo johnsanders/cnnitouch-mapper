@@ -9,11 +9,14 @@ const defaultBounds = new LatLngBounds([
 ]);
 
 const initialState: EditSettings = {
-	activeTab: 'banner',
+	activeTab: 'preview',
 	mapSettings: {
 		bannerText: '',
 		boundsEnd: defaultBounds,
 		boundsStart: defaultBounds,
+		compHeight: 405,
+		compWidth: 405 * 1.7777,
+		fps: 30,
 		hilites: [],
 		labels: [],
 		mode: 'edit',

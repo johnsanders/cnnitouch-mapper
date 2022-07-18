@@ -63,7 +63,6 @@ const EditMap = (props: Props) => {
 			<Grid item={true} justifyContent="center" xs={12}>
 				<Box height="405px" mt={3} mx="auto" position="relative" width="720px">
 					<Map
-						compHeight={405}
 						ref={mapRef}
 						setBounds={handleBoundsChange}
 						setHilitesAreHidden={setHilitesAreHidden}

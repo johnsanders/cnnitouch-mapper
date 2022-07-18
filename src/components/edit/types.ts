@@ -17,7 +17,14 @@ export type EditAction =
 	| { key: 'labels'; value: Label[] }
 	| { key: 'mapDims'; value: [number, number] };
 
-export type TabName = 'banner' | 'boundsStart' | 'boundsEnd' | 'hilites' | 'labels' | 'render';
+export type TabName =
+	| 'banner'
+	| 'boundsStart'
+	| 'boundsEnd'
+	| 'hilites'
+	| 'labels'
+	| 'preview'
+	| 'render';
 
 export interface RenderState {
 	confirmText: string;
