@@ -13,9 +13,10 @@ const prepMapperProps = (renderSettings: MapSettingsInput) => {
 			[boundsStart[1], boundsStart[0]],
 			[boundsStart[3], boundsStart[2]],
 		),
-		compHeight: renderSettings.compHeight || 2160,
-		compWidth: renderSettings.compWidth || 3840,
-		fps: renderSettings.fps || 30,
+		compHeight: renderSettings.compHeight || 360,
+		compWidth: renderSettings.compWidth || 640,
+		mode: 'render' as const,
+		zoomDuration: renderSettings.zoomDuration || 1,
 	};
 	return props;
 };

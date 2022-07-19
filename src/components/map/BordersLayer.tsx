@@ -34,7 +34,7 @@ const BordersLayer: React.FC<Props> = (props) => {
 			return {
 				className: 'borderLayer',
 				color: '#d4e2b0',
-				weight: props.mode === 'render' ? Math.max(zoom * props.scale, 2) : zoom / 2,
+				weight: props.mode === 'render' ? Math.max(zoom * props.scale, 1.25) : zoom / 2,
 			};
 		return {};
 	};

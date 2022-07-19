@@ -70,13 +70,21 @@ const initLabelAndHiliteAnimations = (
 				// Reset DOM styles for frame zero so we're ready to start the render
 				setLabelDomStylesAtFrame(labelAnimConfig, 0);
 			});
-			console.log(labelAnimationConfigs);
 			await waitFor(100);
 			resolve({ hiliteAnimationConfigs, labelAnimationConfigs });
 		};
 		const checkLabelsAreReady = () => {
+			// Make sure all our hilite and label elements are findable in the DOM
+			const hiliteLabels = hilites.reduce<Label[]>(
+				(acc, hilite) => (hilite.label ? [...acc, hilite.label] : acc),
+				[],
+			);
 			if (
 				labels.every((label) => document.getElementById(getDomId('label', label.id)) !== null) &&
+				labels.every((label) => document.getElementById(getDomId('label', label.id)) !== null) &&
+				hiliteLabels.every(
+					(label) => document.getElementById(getDomId('label', label.id)) !== null,
+				) &&
 				hilites.every(
 					(hilite) => document.querySelector(`.${getDomId('hilite', hilite.id)}`) !== null,
 				)
