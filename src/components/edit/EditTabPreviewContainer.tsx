@@ -3,8 +3,9 @@ import { MapSettings } from '../../types';
 import React from 'react';
 import { SSE } from 'sse.js';
 
-// const previewRenderUrl = 'http://loncnn-ziv1.turner.com:8081/renderPreviewFrames'
-const previewRenderUrl = 'http://localhost:8081/renderPreviewFrames';
+const previewRenderUrl = 'http://loncnn-ziv1.turner.com:8081/renderPreviewFrames';
+// const previewRenderUrl = 'http://localhost:8081/renderPreviewFrames';
+const everyNthFrame = 29;
 
 interface Props {
 	active: boolean;
@@ -24,8 +25,10 @@ const EditTabPreviewContainer: React.FC<Props> = (props: Props) => {
 		setFilenames([]);
 		const handleStateMessage = (message: MessageEvent) => {
 			const data = JSON.parse(message.data);
+			console.log(data);
 			if (data.status) setRenderStatus(data.status);
 			if (data.status === 'Render complete') {
+				console.log(data);
 				setId(data.id);
 				setFilenames(data.filenames || []);
 				setRenderStatus('');
@@ -42,7 +45,7 @@ const EditTabPreviewContainer: React.FC<Props> = (props: Props) => {
 			boundsStart: boundsStartString,
 			compHeight: 360,
 			compWidth: 640,
-			everyNthFrame: 29,
+			everyNthFrame,
 		};
 		const payload = JSON.stringify(settings);
 		const source = new SSE(previewRenderUrl, {
@@ -54,6 +57,7 @@ const EditTabPreviewContainer: React.FC<Props> = (props: Props) => {
 	};
 	return !props.active ? null : (
 		<EditTabPreview
+			everyNthFrame={everyNthFrame}
 			filenames={filenames}
 			getPreview={getPreview}
 			id={id}

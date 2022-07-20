@@ -2,6 +2,7 @@ import { EditAction, EditSettings } from './types';
 import Edit from './Edit';
 import { LatLngBounds } from 'leaflet';
 import React from 'react';
+import { fps } from '../map/animator/config';
 
 const defaultBounds = new LatLngBounds([
 	[-57.84, -132.74],
@@ -16,7 +17,7 @@ const initialState: EditSettings = {
 		boundsStart: defaultBounds,
 		compHeight: 405,
 		compWidth: 405 * 1.7777,
-		fps: 30,
+		fps,
 		hilites: [],
 		labels: [],
 		mode: 'edit',
