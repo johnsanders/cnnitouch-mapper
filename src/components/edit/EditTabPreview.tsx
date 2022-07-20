@@ -1,8 +1,8 @@
 import { Box, Button, Grid, Typography } from '@mui/material';
+import { faImage, faSpinner } from '@fortawesome/pro-solid-svg-icons';
 import EditTabNavButtons from './EditTabNavButtons';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import React from 'react';
-import { faImage } from '@fortawesome/pro-solid-svg-icons';
 import { fps } from '../map/animator/config';
 
 const previewImageUrl =
@@ -34,6 +34,16 @@ const EditTabPreview: React.FC<Props> = (props: Props) => (
 					>
 						Get Preview
 					</Button>
+					<Box
+						display={`${props.rendering ? 'inline' : 'none'}`}
+						left="0.5em"
+						position="relative"
+						top="2px"
+					>
+						<Box left={0} position="absolute" top={0} width={0}>
+							<Icon className="fa-pulse" color="#303030" icon={faSpinner} />
+						</Box>
+					</Box>
 				</Box>
 				<Box mt={2}>
 					{props.filenames.map((filename, i) => {

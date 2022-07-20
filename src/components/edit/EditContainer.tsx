@@ -10,7 +10,7 @@ const defaultBounds = new LatLngBounds([
 ]);
 
 const initialState: EditSettings = {
-	activeTab: 'preview',
+	activeTab: 'banner',
 	mapSettings: {
 		bannerText: '',
 		boundsEnd: defaultBounds,

@@ -25,10 +25,8 @@ const EditTabPreviewContainer: React.FC<Props> = (props: Props) => {
 		setFilenames([]);
 		const handleStateMessage = (message: MessageEvent) => {
 			const data = JSON.parse(message.data);
-			console.log(data);
 			if (data.status) setRenderStatus(data.status);
 			if (data.status === 'Render complete') {
-				console.log(data);
 				setId(data.id);
 				setFilenames(data.filenames || []);
 				setRenderStatus('');
