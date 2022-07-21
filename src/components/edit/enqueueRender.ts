@@ -2,7 +2,6 @@ import { MapSettingsInput } from '../../types';
 import qs from 'qs';
 
 export const createPrecut = async (slug: string): Promise<string> => {
-	return '12345678';
 	const params = {
 		location: 'atlanta',
 		slug,
