@@ -66,6 +66,8 @@ const EditTabRenderContainer: React.FC<Props> = (props: Props) => {
 			...props.mapSettings,
 			boundsEnd: props.mapSettings.boundsEnd.toBBoxString(),
 			boundsStart: props.mapSettings.boundsStart.toBBoxString(),
+			compHeight: 2160,
+			compWidth: 3840,
 			mode: 'render',
 		};
 		window.localStorage.setItem('email', email);

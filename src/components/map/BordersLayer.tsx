@@ -26,7 +26,11 @@ const BordersLayer: React.FC<Props> = (props) => {
 			clearTimeout(timeout);
 		};
 	}, []);
-	useCurrentFrame();
+	try {
+		useCurrentFrame();
+	} catch (e) {
+		console.log('Called useCurrentFrame outside a Composition');
+	}
 	const map = useMap();
 	const zoom = map.getZoom();
 	const borderStyle: StyleFunction = (feature) => {
