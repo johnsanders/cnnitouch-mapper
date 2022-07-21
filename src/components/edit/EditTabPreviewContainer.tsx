@@ -3,8 +3,9 @@ import { MapSettings } from '../../types';
 import React from 'react';
 import { SSE } from 'sse.js';
 
-const previewRenderUrl = 'http://loncnn-ziv1.turner.com:8081/renderPreviewFrames';
-// const previewRenderUrl = 'http://localhost:8081/renderPreviewFrames';
+const previewRenderUrl = window.location.href.includes('localhost')
+	? 'http://localhost:8081/renderPreviewFrames'
+	: 'http://loncnn-ziv1.turner.com:8081/renderPreviewFrames';
 const everyNthFrame = 29;
 
 interface Props {
@@ -30,6 +31,12 @@ const EditTabPreviewContainer: React.FC<Props> = (props: Props) => {
 				setId(data.id);
 				setFilenames(data.filenames || []);
 				setRenderStatus('');
+				setRendering(false);
+				source.removeEventListener('message', handleStateMessage);
+			}
+			if (data.status === 'Error') {
+				setFilenames([]);
+				setRenderStatus('Preview render failed');
 				setRendering(false);
 				source.removeEventListener('message', handleStateMessage);
 			}
