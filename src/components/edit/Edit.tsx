@@ -1,4 +1,4 @@
-import { Container, CssBaseline, Grid, Tab, Tabs } from '@mui/material';
+import { Container, CssBaseline, Grid, Tab, Tabs, Typography } from '@mui/material';
 import { EditAction, EditSettings } from './types';
 import { Hilite, Label } from '../../types';
 import EditMap from './EditMap';
@@ -8,6 +8,7 @@ import EditTabHilites from './EditTabHilites';
 import EditTabLabels from './EditTabLabels';
 import EditTabPreviewContainer from './EditTabPreviewContainer';
 import EditTabRenderContainer from './EditTabRenderContainer';
+import Nav from '@johnsand/nav';
 import React from 'react';
 import SpecialCasesInfo from './SpecialCasesInfo';
 
@@ -23,8 +24,10 @@ const Edit: React.FC<Props> = (props) => {
 	return (
 		<>
 			<CssBaseline />
-			<Container sx={{ marginBottom: '2em' }}>
+			<Nav />
+			<Container sx={{ marginBottom: '2em', marginTop: '1em' }}>
 				<Grid container={true} justifyContent="center">
+					<Typography variant="h4">Mapper</Typography>
 					<EditMap dispatch={props.dispatch} state={props.state} />
 					<SpecialCasesInfo names={[...hiliteNames, ...labelNames]} />
 					<Grid item={true} xs={12}>

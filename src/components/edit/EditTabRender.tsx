@@ -12,7 +12,7 @@ import {
 	useTheme,
 } from '@mui/material';
 import { RenderAction, RenderState } from './types';
-import { faArrowLeft, faFilm } from '@fortawesome/pro-solid-svg-icons';
+import { faArrowLeft, faFilm, faRedo } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 
@@ -110,6 +110,18 @@ const EditTabRender: React.FC<Props> = (props: Props) => {
 			<Box color={theme.palette.success.dark} mt={1} textAlign="center">
 				{props.state.confirmText}
 			</Box>
+			{!props.state.submitted ? null : (
+				<Box mt={3} textAlign="center">
+					<Button
+						color="secondary"
+						onClick={() => window.location.reload()}
+						startIcon={<Icon icon={faRedo} />}
+						variant="contained"
+					>
+						Start Over
+					</Button>
+				</Box>
+			)}
 		</Grid>
 	);
 };
