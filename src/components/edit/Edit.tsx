@@ -11,6 +11,7 @@ import EditTabRenderContainer from './EditTabRenderContainer';
 import Nav from '@johnsand/nav';
 import React from 'react';
 import SpecialCasesInfo from './SpecialCasesInfo';
+import Tour from './tour/Tour';
 
 interface Props {
 	dispatch: React.Dispatch<EditAction>;
@@ -33,6 +34,7 @@ const Edit: React.FC<Props> = (props) => {
 					<Grid item={true} xs={12}>
 						<Tabs
 							centered={true}
+							id="editTabs"
 							onChange={(_e, value) => props.dispatch({ key: 'activeTab', value })}
 							sx={{ marginBottom: '1em' }}
 							value={activeTab}
@@ -97,6 +99,7 @@ const Edit: React.FC<Props> = (props) => {
 					/>
 				</Grid>
 			</Container>
+			<Tour dispatch={props.dispatch} />
 		</>
 	);
 };

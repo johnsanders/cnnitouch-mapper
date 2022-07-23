@@ -16,7 +16,7 @@ interface Props {
 
 const EditTabLabels: React.FC<Props> = (props: Props) =>
 	!props.active ? null : (
-		<Grid item={true} md={8} xs={12}>
+		<Grid id="editTabLabels" item={true} md={8} xs={12}>
 			<Box mb={2} textAlign="center">
 				<Box margin="auto" maxWidth="40em">
 					<Box>Search for and select places you want to label.</Box>

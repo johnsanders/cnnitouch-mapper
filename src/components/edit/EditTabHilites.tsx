@@ -14,7 +14,7 @@ interface Props {
 
 const EditTabHilites: React.FC<Props> = (props: Props) =>
 	!props.active ? null : (
-		<Grid item={true} md={6} sm={8} xs={12}>
+		<Grid id="editTabHilites" item={true} md={6} sm={8} xs={12}>
 			<Box mb={2} textAlign="center">
 				Search for and select the countries you want to highlight.
 			</Box>
