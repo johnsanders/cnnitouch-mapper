@@ -10,6 +10,8 @@ import testHilitesAtFrame from './testHilitesAtFrame';
 import testLabelsAtFrame from './testLabelsAtFrame';
 import waitFor from '../../../misc/waitFor';
 
+const testFrameInterval = 10;
+
 interface Ret {
 	labelAnimationConfigs: LabelAnimationConfig[];
 	hiliteAnimationConfigs: HiliteAnimationConfig[];
@@ -32,7 +34,7 @@ const initLabelAndHiliteAnimations = (
 				labels,
 				hilites,
 			);
-			for (let testFrame = 0; testFrame <= finalFrameToStartFade; testFrame += 10) {
+			for (let testFrame = 0; testFrame <= finalFrameToStartFade; testFrame += testFrameInterval) {
 				// Calculate map bounds for this test frame and set them
 				const mapBoundsAtFrame = calculateMapBoundsAtFrame(
 					testFrame,
