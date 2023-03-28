@@ -86,7 +86,7 @@ const EditMap = (props: Props) => {
 										onChange={(e) => props.dispatch({ key: 'showBanner', value: e.target.checked })}
 									/>
 								}
-								label="Banner Guide"
+								label="Lower Third Guide"
 							/>
 						</FormGroup>
 						{props.state.showBanner ? null : (
