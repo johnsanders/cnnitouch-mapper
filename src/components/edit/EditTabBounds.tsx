@@ -19,9 +19,15 @@ const messages = {
 	),
 	boundsStart: (
 		<div>
-			<p>Drag and zoom the map to the view you want to start from.</p>
-			<p>This is where your animation with start, before we zoom into your final map.</p>
-			<p>You probably want either the whole world or a continent.</p>
+			<p>This is where your animation will start, before we zoom into your final map.</p>
+			<p>
+				You probably want to either leave it where it is, the whole world, or maybe slightly zoom in
+				to start on a continent.
+			</p>
+			<p>
+				If you want to change the start point, drag and zoom the map to the view you want your
+				animation to begin with.
+			</p>
 		</div>
 	),
 };

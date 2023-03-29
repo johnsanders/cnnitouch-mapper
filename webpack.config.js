@@ -8,7 +8,7 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const PurgecssPlugin = require('purgecss-webpack-plugin');
+const { PurgeCSSPlugin } = require('purgecss-webpack-plugin');
 
 const outputDir = path.resolve('./dist');
 const isDevServer = process.argv.includes('serve');
@@ -21,10 +21,10 @@ const htmlWebpackPluginConfig = new HtmlWebpackPlugin({
 	inject: 'body',
 	template: './src/index.html',
 });
-const purgecssPluginConfig = new PurgecssPlugin({
+const purgecssPluginConfig = new PurgeCSSPlugin({
 	keyframes: true,
 	paths: glob.sync(path.resolve('./src/**/*'), { nodir: true }),
-	safelist: [/leaflet/, /map/i],
+	safelist: [/leaflet/, /map/i, /^nav/, /^dropdown/],
 });
 const miniCssExtractPlugin = new MiniCssExtractPlugin({ filename: '[name].css' });
 const bundleAnalyzerPlugin = new BundleAnalyzerPlugin({

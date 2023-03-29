@@ -1,8 +1,8 @@
-import { Box, Button, Grid, Typography } from '@mui/material';
-import { faImage, faSpinner } from '@fortawesome/pro-solid-svg-icons';
+import { Box, Button, CircularProgress, Grid, Typography } from '@mui/material';
 import EditTabNavButtons from './EditTabNavButtons';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import React from 'react';
+import { faImage } from '@fortawesome/pro-solid-svg-icons';
 import { fps } from '../map/animator/config';
 
 const previewImageUrl =
@@ -41,7 +41,7 @@ const EditTabPreview: React.FC<Props> = (props: Props) => (
 						top="2px"
 					>
 						<Box left={0} position="absolute" top={0} width={0}>
-							<Icon className="fa-pulse" color="#303030" icon={faSpinner} />
+							<CircularProgress color="secondary" size="1.25em" />
 						</Box>
 					</Box>
 				</Box>
@@ -57,7 +57,7 @@ const EditTabPreview: React.FC<Props> = (props: Props) => (
 										style={{ marginBottom: 0 }}
 									/>
 								</a>
-								<Typography sx={{ marginTop: '-8px' }} variant="caption">
+								<Typography variant="caption">
 									{`0:${Math.round((i * props.everyNthFrame) / fps)
 										.toString()
 										.padStart(2, '0')}`}

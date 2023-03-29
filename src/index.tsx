@@ -1,4 +1,5 @@
 import './style.css';
+import 'bootstrap/dist/css/bootstrap.css';
 import EditContainer from './components/edit/EditContainer';
 import Loading from './misc/Loading';
 import React from 'react';

@@ -19,13 +19,14 @@ const EditTabBanner: React.FC<Props> = (props: Props) => {
 	const handleSubheadChange = (e: React.ChangeEvent<HTMLInputElement>) =>
 		props.setSubhead(e.currentTarget.value);
 	return !props.active ? null : (
-		<Grid item={true} md={6} sm={8} xs={12}>
+		<Grid id="editTabBanner" item={true} md={6} sm={8} xs={12}>
 			<Box mb={2}>
 				<Box textAlign="center">Add your banner and optional sub-banner.</Box>
 				<Box textAlign="center">Leave everything blank for no banner.</Box>
 			</Box>
 			<TextField
 				fullWidth={true}
+				id="BannerInput"
 				inputProps={{ maxLength: bannerMaxChars }}
 				label="Banner"
 				onChange={handleBannerChange}
@@ -34,6 +35,7 @@ const EditTabBanner: React.FC<Props> = (props: Props) => {
 			/>
 			<TextField
 				fullWidth={true}
+				id="SubBannerInput"
 				inputProps={{ maxLength: subheadMaxChars }}
 				label="Subbanner"
 				onChange={handleSubheadChange}

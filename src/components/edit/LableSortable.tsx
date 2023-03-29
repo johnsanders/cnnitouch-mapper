@@ -49,7 +49,7 @@ const LabelSortable: React.FC<Props> = (props) => {
 			<TableCell align="right">
 				<Tooltip arrow={true} placement="top" title="Delete">
 					<IconButton
-						aria-label="delete"
+						aria-label="Delete"
 						data-id={props.label.id}
 						onClick={props.handleDelete}
 						size="small"
@@ -61,7 +61,7 @@ const LabelSortable: React.FC<Props> = (props) => {
 				{!props.showDragHandle ? null : (
 					<IconButton
 						{...listeners}
-						aria-label="delete"
+						aria-label="Sort"
 						data-id={props.label.id}
 						ref={setActivatorNodeRef}
 						size="small"
