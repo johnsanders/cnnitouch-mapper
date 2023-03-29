@@ -25,7 +25,7 @@ const messages = {
 				to start on a continent.
 			</p>
 			<p>
-				If you want to change this start point, drag and zoom the map to the view you want your
+				If you want to change the start point, drag and zoom the map to the view you want your
 				animation to begin with.
 			</p>
 		</div>
