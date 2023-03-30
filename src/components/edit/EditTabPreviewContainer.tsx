@@ -3,7 +3,7 @@ import { MapSettings } from '../../types';
 import React from 'react';
 import { SSE } from 'sse.js';
 
-const previewRenderUrl = 'http://loncnn-ziv1.turner.com:8081/renderPreviewFrames';
+const previewRenderUrl = 'https://cnnitouch-prod2.tbsbest.com:8082/renderPreviewFrames';
 const everyNthFrame = 29;
 
 interface Props {

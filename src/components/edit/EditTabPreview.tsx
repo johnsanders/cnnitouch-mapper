@@ -47,16 +47,13 @@ const EditTabPreview: React.FC<Props> = (props) => (
 				</Box>
 				<Box mt={2}>
 					{props.filenames.map((filename, i) => {
-						const url = `${previewImageUrl}/${props.id}/${filename}`;
 						return (
 							<Box alignItems="center" display="inline-flex" flexDirection="column" key={filename}>
-								<a href={url} rel="noreferrer" target="_BLANK">
-									<img
-										className="previewImage"
-										src={`${previewImageUrl}/${props.id}/${filename}`}
-										style={{ marginBottom: 0 }}
-									/>
-								</a>
+								<img
+									className="previewImage"
+									src={`${previewImageUrl}/${props.id}/${filename}`}
+									style={{ marginBottom: 0 }}
+								/>
 								<Typography variant="caption">
 									{`0:${Math.round((i * props.everyNthFrame) / fps)
 										.toString()
