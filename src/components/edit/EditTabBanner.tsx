@@ -13,7 +13,7 @@ interface Props {
 	subheadText: string;
 }
 
-const EditTabBanner: React.FC<Props> = (props: Props) => {
+const EditTabBanner: React.FC<Props> = (props) => {
 	const handleBannerChange = (e: React.ChangeEvent<HTMLInputElement>) =>
 		props.setBanner(e.currentTarget.value);
 	const handleSubheadChange = (e: React.ChangeEvent<HTMLInputElement>) =>

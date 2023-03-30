@@ -1,20 +1,22 @@
-import ReactJoyride, { ACTIONS, CallBackProps, EVENTS, STATUS, Step } from 'react-joyride';
+import ReactJoyride, { ACTIONS, CallBackProps, EVENTS, STATUS } from 'react-joyride';
+import { Button } from '@mui/material';
 import { EditAction } from '../types';
+import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import React from 'react';
-import getSteps from './getSteps';
+import { faCircleInfo } from '@fortawesome/pro-solid-svg-icons';
 import stepCallbacks from './stepCallbacks';
+import steps from './steps';
 
 interface Props {
+	buttonStyle: React.CSSProperties;
 	dispatch: React.Dispatch<EditAction>;
 }
 
 const Tour: React.FC<Props> = (props: Props) => {
 	const [run, setRun] = React.useState(false);
-	const [steps, setSteps] = React.useState<Step[]>();
 	const [stepIndex, setStepIndex] = React.useState(0);
 	const handleJoyrideCallback = async (data: CallBackProps) => {
 		if (!steps) throw new Error('Steps are not defined');
-		console.log(data);
 		if (data.status === STATUS.FINISHED || data.action === ACTIONS.CLOSE) {
 			setRun(false);
 			setStepIndex(0);
@@ -26,21 +28,32 @@ const Tour: React.FC<Props> = (props: Props) => {
 			setStepIndex(nextStepIndex);
 		}
 	};
-	React.useEffect(() => setSteps(getSteps()), []);
-	return !steps ? null : (
-		<ReactJoyride
-			callback={handleJoyrideCallback}
-			continuous
-			run={run}
-			scrollToFirstStep
-			showProgress
-			showSkipButton
-			stepIndex={stepIndex}
-			steps={getSteps()}
-			styles={{
-				options: { primaryColor: '#007bff' },
-			}}
-		/>
+	return (
+		<>
+			<Button
+				color="secondary"
+				onClick={() => setRun(true)}
+				size="small"
+				startIcon={<Icon icon={faCircleInfo} />}
+				sx={props.buttonStyle}
+				variant="contained"
+			>
+				How to use
+			</Button>
+			<ReactJoyride
+				callback={handleJoyrideCallback}
+				continuous
+				run={run}
+				scrollToFirstStep
+				showProgress
+				showSkipButton
+				stepIndex={stepIndex}
+				steps={steps}
+				styles={{
+					options: { primaryColor: '#007bff' },
+				}}
+			/>
+		</>
 	);
 };
 

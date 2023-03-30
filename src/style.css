@@ -21,3 +21,6 @@ a:visited {
 	transform: scale(2.5);
 	z-index: 1001;
 }
+.react-joyride__tooltip button[aria-label="Next"]{
+	outline: solid rgba(0, 123, 255, .5) 2px;
+}

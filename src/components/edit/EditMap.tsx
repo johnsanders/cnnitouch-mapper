@@ -22,7 +22,7 @@ interface Props {
 	state: EditSettings;
 }
 
-const EditMap = (props: Props) => {
+const EditMap = (props) => {
 	const mapRef = React.useRef<LeafletMap>(null);
 	const prevActiveTabRef = React.useRef(props.state.activeTab);
 	const firstBoundsStartVisitRef = React.useRef(true);

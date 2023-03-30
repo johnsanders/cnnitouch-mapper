@@ -24,7 +24,7 @@ const htmlWebpackPluginConfig = new HtmlWebpackPlugin({
 const purgecssPluginConfig = new PurgeCSSPlugin({
 	keyframes: true,
 	paths: glob.sync(path.resolve('./src/**/*'), { nodir: true }),
-	safelist: [/leaflet/, /map/i, /^nav/, /^dropdown/],
+	safelist: [/leaflet/, /map/i, /^nav/, /^dropdown/, /^react-joyride__tooltip/],
 });
 const miniCssExtractPlugin = new MiniCssExtractPlugin({ filename: '[name].css' });
 const bundleAnalyzerPlugin = new BundleAnalyzerPlugin({

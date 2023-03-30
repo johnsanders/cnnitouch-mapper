@@ -12,7 +12,7 @@ interface Props {
 	setHilites: (hilites: Hilite[]) => void;
 }
 
-const EditTabHilites: React.FC<Props> = (props: Props) =>
+const EditTabHilites: React.FC<Props> = (props) =>
 	!props.active ? null : (
 		<Grid id="editTabHilites" item={true} md={6} sm={8} xs={12}>
 			<Box mb={2} textAlign="center">

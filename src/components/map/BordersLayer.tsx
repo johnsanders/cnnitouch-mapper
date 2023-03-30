@@ -29,7 +29,9 @@ const BordersLayer: React.FC<Props> = (props) => {
 	try {
 		useCurrentFrame();
 	} catch (e) {
-		console.log('Called useCurrentFrame outside a Composition');
+		console.log(
+			"Called useCurrentFrame outside a Composition. Not a problem if we're in edit mode.",
+		);
 	}
 	const map = useMap();
 	const zoom = map.getZoom();

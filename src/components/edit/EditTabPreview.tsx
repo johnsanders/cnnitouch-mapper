@@ -19,8 +19,8 @@ interface Props {
 	rendering: boolean;
 }
 
-const EditTabPreview: React.FC<Props> = (props: Props) => (
-	<Grid item={true} md={8} xs={12}>
+const EditTabPreview: React.FC<Props> = (props) => (
+	<Grid id="editTabPreview" item={true} md={8} xs={12}>
 		<Box mb={2} textAlign="center">
 			<Box margin="auto" maxWidth="40em">
 				<Box>
@@ -69,13 +69,14 @@ const EditTabPreview: React.FC<Props> = (props: Props) => (
 				<Box mt={2}>
 					If you&apos;d like, you can get some preview frames showing how your render will look.
 				</Box>
-				<Box>
-					If you&apos;re happy with it, click &quot;Next&quot; to queue up your render. If not, you
-					can go back and make changes.
-				</Box>
+				<Box>If you&apos;re happy with them, click &quot;Next&quot; to proceed.</Box>
+				<Box>If not, you can go back and make changes.</Box>
 				<Box fontWeight="bold" mt={2}>
 					{props.renderStatus}
 				</Box>
+				{props.renderStatus.startsWith('Complete: 0') ? (
+					<Typography variant="caption">This can take several seconds to start.</Typography>
+				) : null}
 			</Box>
 		</Box>
 		<EditTabNavButtons onNext={props.onNext} onPrevious={props.onPrevious} />

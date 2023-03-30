@@ -8,7 +8,7 @@ interface Props {
 	onPrevious?: () => void;
 }
 
-const EditTabNavButtons: React.FC<Props> = (props: Props) => (
+const EditTabNavButtons: React.FC<Props> = (props) => (
 	<Box mt={2} textAlign="center">
 		{!props.onPrevious ? null : (
 			<Button

@@ -34,7 +34,7 @@ const messages = {
 
 const EditTabBounds: React.FC<Props> = (props: Props) =>
 	!props.active ? null : (
-		<Grid item={true} xs={12}>
+		<Grid id={`editTab-${props.tabName}`} item={true} xs={12}>
 			<Box mb={2} textAlign="center">
 				{messages[props.tabName]}
 			</Box>

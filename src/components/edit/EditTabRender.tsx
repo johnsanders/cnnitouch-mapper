@@ -31,10 +31,10 @@ interface Props {
 	state: RenderState;
 }
 
-const EditTabRender: React.FC<Props> = (props: Props) => {
+const EditTabRender: React.FC<Props> = (props) => {
 	const theme = useTheme();
 	return !props.active ? null : (
-		<Grid item={true} md={6} sm={8} xs={12}>
+		<Grid id="editTabRender" item={true} md={6} sm={8} xs={12}>
 			<form onSubmit={props.handleSubmit}>
 				<Box mb={2} textAlign="center">
 					<TextField

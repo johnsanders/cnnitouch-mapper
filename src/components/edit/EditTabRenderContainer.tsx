@@ -4,9 +4,10 @@ import { callRenderWebhook, createPrecut, enqueueRender } from './enqueueRender'
 import EditTabRender from './EditTabRender';
 import React from 'react';
 
+const savedEmail = window.localStorage.getItem('email');
 const initialState = {
 	confirmText: '',
-	email: '',
+	email: savedEmail || '',
 	errorText: '',
 	loading: false,
 	playback: { ATL: false, DC: false, NYH: false },
@@ -25,6 +26,8 @@ const reducer: React.Reducer<RenderState, RenderAction | RenderAction[]> = (
 			const newPlayback = { ...prev.playback, [playbackCode]: action.value };
 			return { ...prev, playback: newPlayback };
 		}
+		if (action.key === 'email' && typeof action.value === 'string')
+			window.localStorage.setItem('email', action.value);
 		return { ...prev, [action.key]: action.value };
 	}, state);
 };

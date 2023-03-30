@@ -13,7 +13,7 @@ interface Props {
 	onPrevious?: () => void;
 }
 
-const EditTabPreviewContainer: React.FC<Props> = (props: Props) => {
+const EditTabPreviewContainer: React.FC<Props> = (props) => {
 	const [id, setId] = React.useState('');
 	const [filenames, setFilenames] = React.useState<string[]>([]);
 	const [rendering, setRendering] = React.useState(false);

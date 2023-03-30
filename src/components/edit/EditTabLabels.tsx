@@ -14,7 +14,7 @@ interface Props {
 	setLabels: (labels: Label[]) => void;
 }
 
-const EditTabLabels: React.FC<Props> = (props: Props) =>
+const EditTabLabels: React.FC<Props> = (props) =>
 	!props.active ? null : (
 		<Grid id="editTabLabels" item={true} md={8} xs={12}>
 			<Box mb={2} textAlign="center">
