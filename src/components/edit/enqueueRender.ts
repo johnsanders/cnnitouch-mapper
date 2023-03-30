@@ -10,7 +10,7 @@ export const createPrecut = async (slug: string): Promise<string> => {
 		videoSource: 'Google Earth',
 	};
 	const query = qs.stringify(params);
-	const res = await fetch(`http://cnnitouch-prod1.tbsbest.com:8081/bmam/createPrecut?${query}`);
+	const res = await fetch(`https://cnnitouch-prod1.tbsbest.com:8082/bmam/createPrecut?${query}`);
 	return res.text();
 };
 
@@ -45,7 +45,5 @@ export const enqueueRender = async (
 };
 
 export const callRenderWebhook = async (): Promise<void> => {
-	await fetch(
-		'https://cnnitouch-prod1.tbsbest.com:8088/proxy?url=http://loncnn-ziv1.turner.com:8081/checkRenders',
-	).catch((e) => console.log(e));
+	await fetch('https://cnnitouch-prod2.tbsbest.com:8082/checkRenders').catch((e) => console.log(e));
 };
