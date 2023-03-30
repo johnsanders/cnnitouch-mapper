@@ -10,7 +10,7 @@ export const createPrecut = async (slug: string): Promise<string> => {
 		videoSource: 'Google Earth',
 	};
 	const query = qs.stringify(params);
-	const res = await fetch(`https://cnnitouch-prod1.tbsbest.com:8082/bmam/createPrecut?${query}`);
+	const res = await fetch(`https://cnnitouch-prod1.tbsbest.com:8088/bmam/createPrecut?${query}`);
 	return res.text();
 };
 
