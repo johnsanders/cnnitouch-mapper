@@ -47,9 +47,34 @@ const steps: Step[] = [
 		...stepBase,
 		content: (
 			<>
+				<Box mb={1}>These tabs will guide you through the steps of creating your map.</Box>
 				<Box mb={1}>
-					You&apos;ll use this to choose the view where your map will start and where it will zoom
+					The &quot;NEXT&quot; button will move you along, but you can jump around by clicking the
+					tabs if you want.
+				</Box>
+				<Box mb={1}>
+					In the first two tabs you&apos;ll decide the view your map starts from and where it zooms
 					into.
+				</Box>
+				<Box mb={1}>Let&apos;s see how you&apos;ll do that.</Box>
+			</>
+		),
+		placement: 'top',
+		styles: {
+			options: {
+				zIndex: 10000,
+			},
+		},
+		target: '#editTabs',
+		title: 'The steps',
+	},
+	{
+		...stepBase,
+		content: (
+			<>
+				<Box mb={1}>
+					The first two tabs will guide you through moving and zooming the map to select the view
+					where your map will start and where it will zoom into.
 				</Box>
 				<Box mb={1}>It moves and zooms like a Google map.</Box>
 			</>
@@ -69,6 +94,7 @@ const steps: Step[] = [
 			<>
 				<Box mb={1}>You can zoom by scrolling the mouse wheel, but that might be sluggish.</Box>
 				<Box mb={1}>You can also zoom in and out by clicking these buttons.</Box>
+				<Box mb={1}>Now let&apos;s look the next steps after you have set your map views.</Box>
 			</>
 		),
 		placement: 'top',
@@ -84,31 +110,13 @@ const steps: Step[] = [
 		...stepBase,
 		content: (
 			<>
-				<Box mb={1}>These tabs will guide you through the steps of creating your map.</Box>
 				<Box mb={1}>
-					The &quot;NEXT&quot; button will move you along, but you can jump around by clicking the
-					tabs if you want.
+					The optional banner appears at the top of the screen in the CNNI graphic style at the top
+					of the screen.
 				</Box>
-				<Box mb={1}>Let&apos;s take a quick look at some of the steps.</Box>
-			</>
-		),
-		placement: 'top',
-		styles: {
-			options: {
-				zIndex: 10000,
-			},
-		},
-		target: '#editTabs',
-		title: 'The steps',
-	},
-	{
-		...stepBase,
-		content: (
-			<>
-				<Box mb={1}>We&apos;ll start by creating the banner.</Box>
 				<Box mb={1}>
 					Just type the text you want for the banner and sub-banner, or leave it blank if you
-					don&apos;t want it.
+					don&apos;t want a banner.
 				</Box>
 				<Box>You&apos;ll see the banner appear on the map above and update as you type.</Box>
 			</>
@@ -127,21 +135,9 @@ const steps: Step[] = [
 		content: (
 			<>
 				<Box mb={1}>
-					Search for a country and click its name in the dropdown to add a highlight.
+					To highlight and label a country, search for it and click its name in the dropdown.
 				</Box>
-				<Box mb={1}>
-					After you add a country, you&apos;ll see options below for adding the country name as a
-					label on the map.
-				</Box>
-				<Box mb={1}>
-					If your label appears faded out, it means it won&apos;t appear in this part of the
-					animation, but will fade in as the map zooms in.
-				</Box>
-				<Box mb={1}>
-					In the next two steps you will choose where you want your map to start and where you want
-					it to zoom to.
-				</Box>
-				<Box mb={1}>Let&apos;s skip ahead to chooing your place labels.</Box>
+				<Box mb={1}>After you add a country, options appear below for customizing its label.</Box>
 			</>
 		),
 		placement: 'top-end',
@@ -157,7 +153,10 @@ const steps: Step[] = [
 		...stepBase,
 		content: (
 			<>
-				<Box mb={1}>Here you use the Google search to look up places you want to label.</Box>
+				<Box mb={1}>
+					To label places like cities or points of interest, use the search box and click your
+					selected result.
+				</Box>
 				<Box mb={1}>
 					When you select a place, it will appear on the map, and also in the label list below.
 				</Box>

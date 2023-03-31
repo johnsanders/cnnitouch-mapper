@@ -1,7 +1,7 @@
 import { Box, Container, CssBaseline, Grid, Tab, Tabs, Typography } from '@mui/material';
 import { EditAction, EditSettings } from './types';
 import { Hilite, Label } from '../../types';
-import EditMap from './EditMap';
+import EditMapContainer from './EditMapContainer';
 import EditTabBanner from './EditTabBanner';
 import EditTabBounds from './EditTabBounds';
 import EditTabHilites from './EditTabHilites';
@@ -35,7 +35,7 @@ const Edit: React.FC<Props> = (props) => {
 							dispatch={props.dispatch}
 						/>
 					</Box>
-					<EditMap dispatch={props.dispatch} state={props.state} />
+					<EditMapContainer dispatch={props.dispatch} state={props.state} />
 					<SpecialCasesInfo names={[...hiliteNames, ...labelNames]} />
 					<Grid item={true} xs={12}>
 						<Tabs
@@ -45,10 +45,10 @@ const Edit: React.FC<Props> = (props) => {
 							sx={{ marginBottom: '1em' }}
 							value={activeTab}
 						>
-							<Tab label="Banner" value="banner" />
-							<Tab label="Highlights" value="hilites" />
 							<Tab label="Map Start" value="boundsStart" />
 							<Tab label="Map End" value="boundsEnd" />
+							<Tab label="Banner" value="banner" />
+							<Tab label="Highlights" value="hilites" />
 							<Tab label="Labels" value="labels" />
 							<Tab label="Preview" value="preview" />
 							<Tab label="Render" value="render" />
